@@ -11,25 +11,33 @@ namespace Programs
     {
         private static async Task Main()
         {
+            //commands
+            var commands = new SortedDictionary<string, string>()
+            {
+                {"app-setting","Rconなどの設定を変更できます" },
+                {"path-setting","データパックのパスを変更できます" },
+                {"connection-test","Rconの接続をテストします" },
+                {"reload","データパックをコピーした後、データパックを再読み込みします" },
+                {"terminal","コマンドを実行できるターミナルを起動します" },
+                {"show-setting","設定を表示します" },
+                {"help","この文章を表示します" }
+            };
+
             //message
             Console.WriteLine("====================\n" +
-                "Hello!\n" +
-                "This is Minecraft Datapack Reload Helper.\n" +
-                "This app is released by MIT License.\n" +
-                "Copyright (c) 2024 Kyuri\n" +
-                "Used Libraries:" +
-                "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
-                "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
-                "====================\n");
+                    "Hello!\n" +
+                    "This is Minecraft Datapack Reload Helper.\n" +
+                    "This app is released by MIT License.\n" +
+                    "Copyright (c) 2024 Kyuri\n" +
+                    "Used Libraries:" +
+                    "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
+                    "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
+                    "====================\n");
 
             Settings.Default.Save();
-
-            string? command = string.Empty;
-
             while (true)
             {
-                command = string.Empty;
-
+                string? command = string.Empty;
                 Console.Write("> ");
 
                 while (command == string.Empty)
@@ -65,6 +73,15 @@ namespace Programs
                             $"Password : {Settings.Rcon_Password}\n" +
                             $"Source : {Settings.Client_Source}\n" +
                             $"Copy : {Settings.Client_Copy}\n");
+                        break;
+
+                    case "help":
+                        foreach (var str in commands)
+                        {
+                            string key = str.Key;
+                            string value = str.Value;
+                            Console.WriteLine($"{key} : {value}");
+                        }
                         break;
 
                     default:

@@ -12,6 +12,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
 
             Console.BackgroundColor = ConsoleColor.DarkGray;
 
+            Console.WriteLine("Type exit to exit the terminal.");
+
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
