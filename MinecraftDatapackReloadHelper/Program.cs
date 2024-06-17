@@ -48,7 +48,7 @@ namespace Programs
                         break;
 
                     case "connection-test":
-                        ConnectingTester();
+                        await ConnectingTester();
                         break;
 
                     case "reload":
@@ -76,13 +76,23 @@ namespace Programs
             }
         }
 
-        private static async void ConnectingTester()
+        private static async Task ConnectingTester()
         {
             var connection = RconConnector.GetRconInst();
-            Console.WriteLine(await connection.SendCommandAsync("say Rcon was connected"));
+            try
+            {
+                Console.WriteLine(await connection.SendCommandAsync("say Rcon was connected"));
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
 
-        private static void ChangeRconSetting()
+        private static async void ChangeRconSetting()
         {
             string? rconIP = string.Empty;
 
@@ -151,7 +161,7 @@ namespace Programs
 
             Settings.Default.Save();
 
-            ConnectingTester();
+            await ConnectingTester();
         }
 
         private static void ChangePathSetting()
