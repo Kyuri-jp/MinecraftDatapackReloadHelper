@@ -1,5 +1,4 @@
-﻿using CoreRCON;
-using MinecraftDatapackReloadHelper.API.Rcon;
+﻿using MinecraftDatapackReloadHelper.API.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control
 {
@@ -16,7 +15,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
-                string command = string.Empty;
+                string? command = string.Empty;
                 Console.Write("> ");
                 while (command == string.Empty)
                 {

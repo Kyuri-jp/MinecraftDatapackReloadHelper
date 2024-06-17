@@ -1,5 +1,4 @@
-﻿using CoreRCON;
-using MinecraftDatapackReloadHelper;
+﻿using MinecraftDatapackReloadHelper;
 using MinecraftDatapackReloadHelper.API.Rcon;
 using MinecraftDatapackReloadHelper.Tools;
 using MinecraftDatapackReloadHelper.Tools.Control;
@@ -24,7 +23,7 @@ namespace Programs
 
             Settings.Default.Save();
 
-            string command = string.Empty;
+            string? command = string.Empty;
 
             while (true)
             {
@@ -84,7 +83,7 @@ namespace Programs
 
         private static void ChangeRconSetting()
         {
-            string rconIP = string.Empty;
+            string? rconIP = string.Empty;
 
             while (rconIP == string.Empty)
             {
@@ -114,7 +113,7 @@ namespace Programs
                 }
             }
 
-            string rconPort = string.Empty;
+            string? rconPort = string.Empty;
 
             while (rconPort == string.Empty)
             {
@@ -129,7 +128,7 @@ namespace Programs
                     continue;
                 }
             }
-            string rconPass = string.Empty;
+            string? rconPass = string.Empty;
 
             while (rconPass == string.Empty)
             {
@@ -156,7 +155,7 @@ namespace Programs
 
         private static void ChangePathSetting()
         {
-            string source = string.Empty;
+            string? source = string.Empty;
 
             while (source == string.Empty)
             {
@@ -179,7 +178,7 @@ namespace Programs
                 }
             }
 
-            string copy = string.Empty;
+            string? copy = string.Empty;
 
             while (copy == string.Empty)
             {

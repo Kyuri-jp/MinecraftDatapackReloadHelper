@@ -19,7 +19,6 @@ namespace MinecraftDatapackReloadHelper.Tools
             Console.WriteLine(await connection.SendCommandAsync("reload"));
         }
 
-
         // ref by https://learn.microsoft.com/ja-jp/dotnet/standard/io/how-to-copy-directories
         private static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {

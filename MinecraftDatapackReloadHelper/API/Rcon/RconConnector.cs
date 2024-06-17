@@ -22,7 +22,9 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
+#pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
             return default;
+#pragma warning restore CS8603 // Null 参照戻り値である可能性があります。
         }
 
         private static List<string> GetValues()
@@ -40,7 +42,9 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
+#pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
             return default;
+#pragma warning restore CS8603 // Null 参照戻り値である可能性があります。
         }
     }
 }
