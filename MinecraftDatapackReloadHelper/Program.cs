@@ -40,7 +40,7 @@ namespace Programs
                 switch (command)
                 {
                     case "app-setting":
-                        ChangeRconSetting();
+                        await ChangeRconSetting();
                         break;
 
                     case "path-setting":
@@ -52,7 +52,7 @@ namespace Programs
                         break;
 
                     case "reload":
-                        AdvReloader.Reload(Settings.Client_Source, Settings.Client_Copy);
+                        await AdvReloader.Reload(Settings.Client_Source, Settings.Client_Copy);
                         break;
 
                     case "terminal":
@@ -92,7 +92,7 @@ namespace Programs
             }
         }
 
-        private static async void ChangeRconSetting()
+        private static async Task ChangeRconSetting()
         {
             string? rconIP = string.Empty;
 

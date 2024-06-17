@@ -4,19 +4,39 @@ namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class AdvReloader
     {
-        internal static async void Reload(string source, string copy)
+        internal static async Task Reload(string source, string copy)
         {
+            // ex
+            bool exceptioned = false;
+
             //inst
             var connection = RconConnector.GetRconInst();
 
-            //copy
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Copying...");
-            CopyDirectory(source, copy, true);
-            Console.ForegroundColor = ConsoleColor.White;
+            //test
+            try
+            {
+                await connection.SendCommandAsync("say Copying Files...");
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.ForegroundColor = ConsoleColor.White;
+                exceptioned = true;
+            }
 
-            //reload
-            Console.WriteLine(await connection.SendCommandAsync("reload"));
+            if (!exceptioned)
+            {
+                //copy
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Copying...");
+                CopyDirectory(source, copy, true);
+                Console.ForegroundColor = ConsoleColor.White;
+
+                //reload
+                Console.WriteLine(await connection.SendCommandAsync("reload"));
+            }
         }
 
         // ref by https://learn.microsoft.com/ja-jp/dotnet/standard/io/how-to-copy-directories
