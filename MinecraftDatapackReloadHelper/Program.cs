@@ -18,7 +18,8 @@ namespace Programs
                 "This app is released by MIT License.\n" +
                 "Copyright (c) 2024 Kyuri\n" +
                 "Used Libraries:" +
-                "CoreRCON v5.4.1 MIT License Copyright (c) 2017 Scott Kaye\n" +
+                "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
+                "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
                 "====================\n");
 
             Settings.Default.Save();
