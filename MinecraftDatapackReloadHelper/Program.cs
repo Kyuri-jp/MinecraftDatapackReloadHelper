@@ -123,7 +123,6 @@ namespace Programs
             Console.WriteLine($"Client : {version}\n" +
                 $"Latest : {latest}");
             Console.WriteLine($"https://github.com/{owner}/{repo}/releases/latest");
-
         }
 
         private static async Task ConnectingTesterAsync()
