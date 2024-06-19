@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class AdvReloader
     {
-        internal static async Task Reload(string source, string copy)
+        internal static async Task Reload(string source, string copy, bool copyOnly)
         {
             // ex
             bool exceptioned = false;
@@ -15,7 +15,8 @@ namespace MinecraftDatapackReloadHelper.Tools
             //test
             try
             {
-                await connection.SendCommandAsync("say Copying Files...");
+                if (!copyOnly)
+                    await connection.SendCommandAsync("say Copying Files...");
             }
             catch (Exception ex)
             {
@@ -35,7 +36,8 @@ namespace MinecraftDatapackReloadHelper.Tools
                 Console.ForegroundColor = ConsoleColor.White;
 
                 //reload
-                Console.WriteLine(await connection.SendCommandAsync("reload"));
+                if (!copyOnly)
+                    Console.WriteLine(await connection.SendCommandAsync("reload"));
             }
         }
 
@@ -56,7 +58,7 @@ namespace MinecraftDatapackReloadHelper.Tools
             if (Directory.Exists(Path.Combine(destinationDir, dir.Name)))
                 Directory.Delete(Path.Combine(destinationDir, dir.Name), true);
 
-            // Create the destination directoryf
+            // Create the destination directory
             Directory.CreateDirectory(destinationDir);
 
             // Get the files in the source directory and copy to the destination directory

@@ -1,9 +1,11 @@
 ﻿using MinecraftDatapackReloadHelper;
 using MinecraftDatapackReloadHelper.API.Rcon;
+using MinecraftDatapackReloadHelper.API.Command;
 using MinecraftDatapackReloadHelper.Tools;
 using MinecraftDatapackReloadHelper.Tools.Control;
 using System.Net;
 using System.Net.Sockets;
+using System.Configuration;
 
 namespace Programs
 {
@@ -45,7 +47,9 @@ namespace Programs
                     command = Console.ReadLine();
                 }
 
-                switch (command)
+                List<string> args = ArgsParser.Parse(command);
+
+                switch (args[0])
                 {
                     case "app-setting":
                         await ChangeRconSetting();
@@ -60,7 +64,7 @@ namespace Programs
                         break;
 
                     case "reload":
-                        await AdvReloader.Reload(Settings.Client_Source, Settings.Client_Copy);
+                        await AdvReloader.Reload(Settings.Client_Source, Settings.Client_Copy, args.Contains("copyonly"));
                         break;
 
                     case "terminal":
