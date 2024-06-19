@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace MinecraftDatapackReloadHelper.API.Command
+﻿namespace MinecraftDatapackReloadHelper.API.Command
 {
     internal class ArgsParser
     {
@@ -14,7 +12,6 @@ namespace MinecraftDatapackReloadHelper.API.Command
                 result.Add(str);
                 return result;
             }
-
 
             for (int i = 0; i < str.Length; i++)
             {
@@ -42,7 +39,18 @@ namespace MinecraftDatapackReloadHelper.API.Command
                         begin--;
                     }
                     end++;
-                    result.Add(str[begin..end].Trim());
+                    try
+                    {
+                        result.Add(str[begin..end].Trim());
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Maybe, Command Args is wrong.");
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.StackTrace);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                     continue;
                 }
 
@@ -62,10 +70,20 @@ namespace MinecraftDatapackReloadHelper.API.Command
 
                         begin--;
                     }
-                    result.Add(str[begin..^0].Trim());
+                    try
+                    {
+                        result.Add(str[begin..^0].Trim());
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Maybe, Command Args is wrong.");
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.StackTrace);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                     continue;
                 }
-
             };
             return result;
         }
