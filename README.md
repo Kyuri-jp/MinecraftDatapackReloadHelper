@@ -11,13 +11,21 @@
 ## Commands
 |Command|Discription|
 |-----|----|
-|app-setting|Rconなどの設定を変更できます|
-|connection-test|Rconの接続をテストします|
+|appsetting|Rconなどの設定を変更できます|
+|connectiontest|Rconの接続をテストします|
 |help|コマンドの説明を表示します|
-|path-setting|データパックのパスを変更できます|
+|pathsetting|データパックのパスを変更できます|
 |reload|データパックをコピーした後、データパックを再読み込みします|
-|show-setting|設定を表示します|
+|showsetting|設定を表示します|
 |terminal|コマンドを実行できるターミナルを起動します|
+
+### CommandArgs
+引数は`コマンド -なんとか`という形で使用します。
+
+#### reload
+|Args|Discription|
+|----|----|
+|copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|
 
 ## .NET
 このツールは.NET8を使用しています。
