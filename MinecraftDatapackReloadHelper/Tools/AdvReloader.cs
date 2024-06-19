@@ -32,7 +32,8 @@ namespace MinecraftDatapackReloadHelper.Tools
                 //copy
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Copying...");
-                CopyDirectory(source, copy, true);
+                var dir = new DirectoryInfo(source);
+                CopyDirectory(source, Path.Combine(copy, dir.Name), true);
                 Console.ForegroundColor = ConsoleColor.White;
 
                 //reload
@@ -55,8 +56,8 @@ namespace MinecraftDatapackReloadHelper.Tools
             DirectoryInfo[] dirs = dir.GetDirectories();
 
             //If directory exists,delete it
-            if (Directory.Exists(Path.Combine(destinationDir, dir.Name)))
-                Directory.Delete(Path.Combine(destinationDir, dir.Name), true);
+            if (Directory.Exists(destinationDir))
+                Directory.Delete(destinationDir, true);
 
             // Create the destination directory
             Directory.CreateDirectory(destinationDir);
@@ -65,7 +66,17 @@ namespace MinecraftDatapackReloadHelper.Tools
             foreach (FileInfo file in dir.GetFiles())
             {
                 string targetFilePath = Path.Combine(destinationDir, file.Name);
-                file.CopyTo(targetFilePath);
+                try
+                {
+                    file.CopyTo(targetFilePath);
+                }
+                catch (IOException ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
                 Console.WriteLine($"Copyed {targetFilePath}");
             }
 

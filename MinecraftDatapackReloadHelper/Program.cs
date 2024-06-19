@@ -15,12 +15,12 @@ namespace Programs
             //commands
             var commands = new SortedDictionary<string, string>()
             {
-                {"app-setting","Rconなどの設定を変更できます" },
-                {"path-setting","データパックのパスを変更できます" },
-                {"connection-test","Rconの接続をテストします" },
+                {"appsetting","Rconなどの設定を変更できます" },
+                {"pathsetting","データパックのパスを変更できます" },
+                {"connectiontest","Rconの接続をテストします" },
                 {"reload","データパックをコピーした後、データパックを再読み込みします" },
                 {"terminal","コマンドを実行できるターミナルを起動します" },
-                {"show-setting","設定を表示します" },
+                {"showsetting","設定を表示します" },
                 {"help","この文章を表示します" }
             };
 
@@ -46,19 +46,21 @@ namespace Programs
                     command = Console.ReadLine();
                 }
 
+#pragma warning disable CS8604 // Null 参照引数の可能性があります。
                 List<string> args = ArgsParser.Parse(command);
+#pragma warning restore CS8604 // Null 参照引数の可能性があります。
 
                 switch (args[0])
                 {
-                    case "app-setting":
+                    case "appsetting":
                         await ChangeRconSetting();
                         break;
 
-                    case "path-setting":
+                    case "pathsetting":
                         ChangePathSetting();
                         break;
 
-                    case "connection-test":
+                    case "connectiontest":
                         await ConnectingTester();
                         break;
 
@@ -70,7 +72,7 @@ namespace Programs
                         await Terminal.Run();
                         break;
 
-                    case "show-setting":
+                    case "showsetting":
                         Console.WriteLine($"Ip: {Settings.Rcon_IP}\n" +
                             $"Port : {Settings.Rcon_Port}\n" +
                             $"Password : {Settings.Rcon_Password}\n" +
