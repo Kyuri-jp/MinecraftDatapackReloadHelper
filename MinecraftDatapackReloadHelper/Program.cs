@@ -1,5 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper;
 using MinecraftDatapackReloadHelper.API.Command;
+using MinecraftDatapackReloadHelper.API.Github;
 using MinecraftDatapackReloadHelper.API.Rcon;
 using MinecraftDatapackReloadHelper.Tools;
 using MinecraftDatapackReloadHelper.Tools.Control;
@@ -10,6 +11,20 @@ namespace Programs
 {
     internal class Programs
     {
+        private static readonly string version = "v0.0.1-Alpha";
+
+        private static readonly string welcome =
+                    "====================\n" +
+                    "Hello!\n" +
+                    "This is Minecraft Datapack Reload Helper.\n" +
+                    $"Version {version}" +
+                    "This app is released by MIT License.\n" +
+                    "Copyright (c) 2024 Kyuri\n" +
+                    "Used Libraries:" +
+                    "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
+                    "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
+                    "====================\n";
+
         private static async Task Main()
         {
             //commands
@@ -21,19 +36,12 @@ namespace Programs
                 {"reload","データパックをコピーした後、データパックを再読み込みします" },
                 {"terminal","コマンドを実行できるターミナルを起動します" },
                 {"showsetting","設定を表示します" },
-                {"help","この文章を表示します" }
+                {"help","この文章を表示します" },
+                {"version","このツールのバージョンを表示します" }
             };
 
             //message
-            Console.WriteLine("====================\n" +
-                    "Hello!\n" +
-                    "This is Minecraft Datapack Reload Helper.\n" +
-                    "This app is released by MIT License.\n" +
-                    "Copyright (c) 2024 Kyuri\n" +
-                    "Used Libraries:" +
-                    "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
-                    "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
-                    "====================\n");
+            Console.WriteLine(welcome);
 
             Settings.Default.Save();
             while (true)
@@ -89,6 +97,15 @@ namespace Programs
                         }
                         break;
 
+                    case "version":
+                        if (args.Contains("updatecheck"))
+                        {
+                            await UpdateCheckerAsync();
+                            break;
+                        }
+                        Console.WriteLine(welcome);
+                        break;
+
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"{command} is an invalid command.");
@@ -96,6 +113,17 @@ namespace Programs
                         break;
                 }
             }
+        }
+
+        private static async Task UpdateCheckerAsync()
+        {
+            string owner = "Kyuri-jp";
+            string repo = "MinecraftDatapackReloadHelper";
+            string? latest = await GetLatestReleasetag.GetLatestReleaseTagAsync(owner, repo);
+            Console.WriteLine($"Client : {version}\n" +
+                $"Latest : {latest}");
+            Console.WriteLine($"https://github.com/{owner}/{repo}/releases/latest");
+
         }
 
         private static async Task ConnectingTester()
