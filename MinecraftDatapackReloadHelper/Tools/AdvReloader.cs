@@ -45,8 +45,6 @@ namespace MinecraftDatapackReloadHelper.Tools
             // Get information about the source directory
             var dir = new DirectoryInfo(sourceDir);
 
-            destinationDir = Path.Combine(destinationDir, dir.Name);
-
             // Check if the source directory exists
             if (!dir.Exists)
                 throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
@@ -55,10 +53,10 @@ namespace MinecraftDatapackReloadHelper.Tools
             DirectoryInfo[] dirs = dir.GetDirectories();
 
             //If directory exists,delete it
-            if (Directory.Exists(destinationDir))
-                Directory.Delete(destinationDir, true);
+            if (Directory.Exists(Path.Combine(destinationDir, dir.Name)))
+                Directory.Delete(Path.Combine(destinationDir, dir.Name), true);
 
-            // Create the destination directory
+            // Create the destination directoryf
             Directory.CreateDirectory(destinationDir);
 
             // Get the files in the source directory and copy to the destination directory
