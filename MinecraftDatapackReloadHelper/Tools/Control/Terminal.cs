@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
 {
     internal class Terminal
     {
-        internal static async Task Run()
+        internal static async Task RunAsync()
         {
             var connection = RconConnector.GetRconInst();
 
