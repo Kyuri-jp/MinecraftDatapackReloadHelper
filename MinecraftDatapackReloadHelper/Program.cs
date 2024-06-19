@@ -17,7 +17,7 @@ namespace Programs
                     "====================\n" +
                     "Hello!\n" +
                     "This is Minecraft Datapack Reload Helper.\n" +
-                    $"Version {version}" +
+                    $"Version {version}\n" +
                     "This app is released by MIT License.\n" +
                     "Copyright (c) 2024 Kyuri\n" +
                     "Used Libraries:" +
