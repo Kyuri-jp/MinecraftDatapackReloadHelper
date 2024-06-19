@@ -5,7 +5,6 @@ using MinecraftDatapackReloadHelper.Tools;
 using MinecraftDatapackReloadHelper.Tools.Control;
 using System.Net;
 using System.Net.Sockets;
-using System.Configuration;
 
 namespace Programs
 {
@@ -176,9 +175,14 @@ namespace Programs
                 }
             }
 
-            Settings.Rcon_IP = rconIP;
-            Settings.Rcon_Port = ushort.Parse(rconPort);
-            Settings.Rcon_Password = rconPass;
+            if (rconIP != ":skip")
+                Settings.Rcon_IP = rconIP;
+
+            if (rconPort != ":skip")
+                Settings.Rcon_Port = ushort.Parse(rconPort);
+
+            if (rconPass != ":skip")
+                Settings.Rcon_Password = rconPass;
 
             Settings.Default.Save();
 
@@ -232,8 +236,11 @@ namespace Programs
                     continue;
                 }
 
-                Settings.Client_Source = source;
-                Settings.Client_Copy = copy;
+                if (source != ":skip")
+                    Settings.Client_Source = source;
+
+                if (copy != ":skip")
+                    Settings.Client_Copy = copy;
 
                 Settings.Default.Save();
             }
