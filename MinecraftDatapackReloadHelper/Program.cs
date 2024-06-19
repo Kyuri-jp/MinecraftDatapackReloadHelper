@@ -200,6 +200,8 @@ namespace Programs
                 Console.WriteLine("Please enter source directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
                 source = Console.ReadLine();
+                if (source == ":skip")
+                    break;
                 if (source == null)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -223,6 +225,8 @@ namespace Programs
                 Console.WriteLine("Please enter copy directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
                 copy = Console.ReadLine();
+                if (copy == ":skip")
+                    break;
                 if (copy == null)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
