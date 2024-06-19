@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class AdvReloader
     {
-        internal static async Task Reload(string source, string copy, bool copyOnly)
+        internal static async Task ReloadAsync(string source, string copy, bool copyOnly)
         {
             // ex
             bool exceptioned = false;

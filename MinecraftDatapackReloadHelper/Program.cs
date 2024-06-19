@@ -61,7 +61,7 @@ namespace Programs
                 switch (args[0])
                 {
                     case "appsetting":
-                        await ChangeRconSetting();
+                        await ChangeRconSettingAsync();
                         break;
 
                     case "pathsetting":
@@ -69,15 +69,15 @@ namespace Programs
                         break;
 
                     case "connectiontest":
-                        await ConnectingTester();
+                        await ConnectingTesterAsync();
                         break;
 
                     case "reload":
-                        await AdvReloader.Reload(Settings.Client_Source, Settings.Client_Copy, args.Contains("copyonly"));
+                        await AdvReloader.ReloadAsync(Settings.Client_Source, Settings.Client_Copy, args.Contains("copyonly"));
                         break;
 
                     case "terminal":
-                        await Terminal.Run();
+                        await Terminal.RunAsync();
                         break;
 
                     case "showsetting":
@@ -126,7 +126,7 @@ namespace Programs
 
         }
 
-        private static async Task ConnectingTester()
+        private static async Task ConnectingTesterAsync()
         {
             var connection = RconConnector.GetRconInst();
             try
@@ -142,7 +142,7 @@ namespace Programs
             }
         }
 
-        private static async Task ChangeRconSetting()
+        private static async Task ChangeRconSettingAsync()
         {
             string? rconIP = string.Empty;
 
@@ -216,7 +216,7 @@ namespace Programs
 
             Settings.Default.Save();
 
-            await ConnectingTester();
+            await ConnectingTesterAsync();
         }
 
         private static void ChangePathSetting()
