@@ -103,8 +103,11 @@ namespace Programs
                         if (args.Contains("updatecheck"))
                         {
                             await UpdateCheckerAsync();
-                            break;
                         }
+                        break;
+
+                    case "exit":
+                        Environment.Exit(0);
                         break;
 
                     default:
