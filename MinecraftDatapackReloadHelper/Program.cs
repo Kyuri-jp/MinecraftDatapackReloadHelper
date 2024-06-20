@@ -37,7 +37,8 @@ namespace Programs
                 {"terminal","コマンドを実行できるターミナルを起動します" },
                 {"showsetting","設定を表示します" },
                 {"help","この文章を表示します" },
-                {"version","このツールのバージョンを表示します" }
+                {"version","このツールのバージョンを表示します" },
+                {"exit","このツールを終了します" }
             };
 
             //message
@@ -98,12 +99,12 @@ namespace Programs
                         break;
 
                     case "version":
+                        Console.WriteLine(welcome);
                         if (args.Contains("updatecheck"))
                         {
                             await UpdateCheckerAsync();
                             break;
                         }
-                        Console.WriteLine(welcome);
                         break;
 
                     default:
