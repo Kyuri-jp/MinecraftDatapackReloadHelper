@@ -243,14 +243,21 @@ namespace Programs
                     source = string.Empty;
                     continue;
                 }
+                if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{source} is not contain pack.mcmeta.");
+                    source = string.Empty;
+                    continue;
+                }
             }
 
             string? copy = string.Empty;
 
             while (copy == string.Empty)
             {
-                Console.WriteLine("Please enter copy directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter copy directory path.");
                 copy = Console.ReadLine();
                 if (copy == ":skip")
                     break;
@@ -268,15 +275,31 @@ namespace Programs
                     copy = string.Empty;
                     continue;
                 }
+                RecursiveFileSearcher recursiveFileSearcher = new();
 
-                if (source != ":skip")
-                    Settings.Client_Source = source;
-
-                if (copy != ":skip")
-                    Settings.Client_Copy = copy;
-
-                Settings.Default.Save();
+                if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Not found level file in {copy}'s parents");
+                    copy = string.Empty;
+                    continue;
+                }
+                if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                    copy = string.Empty;
+                    continue;
+                }
             }
+
+            if (source != ":skip")
+                Settings.Client_Source = source;
+
+            if (copy != ":skip")
+                Settings.Client_Copy = copy;
+
+            Settings.Default.Save();
         }
     }
 }
