@@ -292,15 +292,42 @@ namespace Programs
                     copy = string.Empty;
                     continue;
                 }
+            }
 
-                if (source != ":skip")
-                    Settings.Client_Source = source;
+            string? upload = string.Empty;
+
+            while (upload == string.Empty)
+            {
+                Console.WriteLine("Please enter world upload directory path.");
+                Console.ForegroundColor = ConsoleColor.White;
+                upload = Console.ReadLine();
+                if (upload == ":skip")
+                    break;
+                if (upload == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Null.");
+                    upload = string.Empty;
+                    continue;
+                }
+                if (!Directory.Exists(upload))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{upload} is not exists.");
+                    upload = string.Empty;
+                    continue;
+                }
+            }
+            if (source != ":skip")
+                Settings.Client_Source = source;
 
             if (copy != ":skip")
                 Settings.Client_Copy = copy;
 
-                Settings.Default.Save();
-            }
+            if (upload != ":skip")
+                Settings.Client_UploadOutput = upload;
+
+            Settings.Default.Save();
         }
     }
 }
