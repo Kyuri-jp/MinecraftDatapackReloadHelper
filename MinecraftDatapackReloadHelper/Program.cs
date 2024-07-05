@@ -260,14 +260,21 @@ namespace Programs
                     source = string.Empty;
                     continue;
                 }
+                if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{source} is not contain pack.mcmeta.");
+                    source = string.Empty;
+                    continue;
+                }
             }
 
             string? copy = string.Empty;
 
             while (copy == string.Empty)
             {
-                Console.WriteLine("Please enter copy directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter copy directory path.");
                 copy = Console.ReadLine();
                 if (copy == ":skip")
                     break;
@@ -286,42 +293,14 @@ namespace Programs
                     continue;
                 }
 
-            }
-            string? upload = string.Empty;
-
-            while (upload == string.Empty)
-            {
-                Console.WriteLine("Please enter world upload directory path.");
-                Console.ForegroundColor = ConsoleColor.White;
-                upload = Console.ReadLine();
-                if (upload == ":skip")
-                    break;
-                if (upload == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
-                    upload = string.Empty;
-                    continue;
-                }
-                if (!Directory.Exists(upload))
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{upload} is not exists.");
-                    upload = string.Empty;
-                    continue;
-                }
-
-            }
-            if (source != ":skip")
-                Settings.Client_Source = source;
+                if (source != ":skip")
+                    Settings.Client_Source = source;
 
             if (copy != ":skip")
                 Settings.Client_Copy = copy;
 
-            if (upload != ":skip")
-                Settings.Client_UploadOutput = upload;
-
-            Settings.Default.Save();
+                Settings.Default.Save();
+            }
         }
     }
 }
