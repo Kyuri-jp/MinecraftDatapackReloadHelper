@@ -99,7 +99,9 @@ namespace Programs
                             Console.WriteLine("Please enter the additional archive file name.");
                             additional = Console.ReadLine() ?? string.Empty;
                         }
+#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
                         await WorldUpload.Upload(copy.FullName, Settings.Client_UploadOutput, args.Contains("nonclean"), args.Contains("notopen"), additional);
+#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
                         break;
 
                     case "help":
@@ -321,8 +323,8 @@ namespace Programs
             if (source != ":skip")
                 Settings.Client_Source = source;
 
-                if (copy != ":skip")
-                    Settings.Client_Copy = copy;
+            if (copy != ":skip")
+                Settings.Client_Copy = copy;
 
             if (upload != ":skip")
                 Settings.Client_UploadOutput = upload;
