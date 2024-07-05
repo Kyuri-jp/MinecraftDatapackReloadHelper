@@ -36,6 +36,7 @@ namespace Programs
                 {"reload","データパックをコピーした後、データパックを再読み込みします" },
                 {"terminal","コマンドを実行できるターミナルを起動します" },
                 {"showsetting","設定を表示します" },
+                {"upload","ワールドフォルダをZip形式に書き出します" },
                 {"help","この文章を表示します" },
                 {"version","このツールのバージョンを表示します" },
                 {"exit","このツールを終了します" }
@@ -86,7 +87,19 @@ namespace Programs
                             $"Port : {Settings.Rcon_Port}\n" +
                             $"Password : {Settings.Rcon_Password}\n" +
                             $"Source : {Settings.Client_Source}\n" +
-                            $"Copy : {Settings.Client_Copy}\n");
+                            $"Copy : {Settings.Client_Copy}\n" +
+                            $"Upload Output : {Settings.Client_UploadOutput}\n");
+                        break;
+
+                    case "upload":
+                        DirectoryInfo? copy = Directory.GetParent(Settings.Client_Copy);
+                        string additional = string.Empty;
+                        if (args.Contains("additional"))
+                        {
+                            Console.WriteLine("Please enter the additional archive file name.");
+                            additional = Console.ReadLine() ?? string.Empty;
+                        }
+                        await WorldUpload.Upload(copy.FullName, Settings.Client_UploadOutput, args.Contains("nonclean"), args.Contains("notopen"), additional);
                         break;
 
                     case "help":
@@ -273,14 +286,42 @@ namespace Programs
                     continue;
                 }
 
-                if (source != ":skip")
-                    Settings.Client_Source = source;
-
-                if (copy != ":skip")
-                    Settings.Client_Copy = copy;
-
-                Settings.Default.Save();
             }
+            string? upload = string.Empty;
+
+            while (upload == string.Empty)
+            {
+                Console.WriteLine("Please enter world upload directory path.");
+                Console.ForegroundColor = ConsoleColor.White;
+                upload = Console.ReadLine();
+                if (upload == ":skip")
+                    break;
+                if (upload == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Null.");
+                    upload = string.Empty;
+                    continue;
+                }
+                if (!Directory.Exists(upload))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{upload} is not exists.");
+                    upload = string.Empty;
+                    continue;
+                }
+
+            }
+            if (source != ":skip")
+                Settings.Client_Source = source;
+
+            if (copy != ":skip")
+                Settings.Client_Copy = copy;
+
+            if (upload != ":skip")
+                Settings.Client_UploadOutput = upload;
+
+            Settings.Default.Save();
         }
     }
 }

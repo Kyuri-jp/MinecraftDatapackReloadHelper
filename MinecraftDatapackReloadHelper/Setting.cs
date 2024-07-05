@@ -31,5 +31,11 @@
             set { Default.CopyPath = value; }
             get { return Default.CopyPath.ToString(); }
         }
+
+        public static string Client_UploadOutput
+        {
+            set { Default.UploadOutput = value; }
+            get { return Default.UploadOutput.ToString(); }
+        }
     }
 }
