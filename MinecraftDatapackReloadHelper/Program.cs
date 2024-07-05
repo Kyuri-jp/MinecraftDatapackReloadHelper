@@ -17,12 +17,12 @@ namespace Programs
                     "====================\n" +
                     "Hello!\n" +
                     "This is Minecraft Datapack Reload Helper.\n" +
-                    $"Version {version}" +
+                    $"Version {version}\n" +
                     "This app is released by MIT License.\n" +
                     "Copyright (c) 2024 Kyuri\n" +
-                    "Used Libraries:" +
+                    "\nUsed Libraries:\n" +
                     "CoreRCON v5.4.1 / MIT License Copyright (c) 2017 Scott Kaye\n" +
-                    "System.Configuration.ConfigurationManager v9.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
+                    "System.Configuration.ConfigurationManager v8.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
                     "====================\n";
 
         private static async Task Main()
@@ -37,7 +37,8 @@ namespace Programs
                 {"terminal","コマンドを実行できるターミナルを起動します" },
                 {"showsetting","設定を表示します" },
                 {"help","この文章を表示します" },
-                {"version","このツールのバージョンを表示します" }
+                {"version","このツールのバージョンを表示します" },
+                {"exit","このツールを終了します" }
             };
 
             //message
@@ -98,12 +99,15 @@ namespace Programs
                         break;
 
                     case "version":
+                        Console.WriteLine(welcome);
                         if (args.Contains("updatecheck"))
                         {
                             await UpdateCheckerAsync();
-                            break;
                         }
-                        Console.WriteLine(welcome);
+                        break;
+
+                    case "exit":
+                        Environment.Exit(0);
                         break;
 
                     default:
