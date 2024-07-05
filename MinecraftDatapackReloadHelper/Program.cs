@@ -11,7 +11,7 @@ namespace Programs
 {
     internal class Programs
     {
-        private static readonly string version = "v0.0.1-Alpha";
+        private static readonly string version = "v0.2.0-Alpha";
 
         private static readonly string welcome =
                     "====================\n" +
@@ -296,8 +296,8 @@ namespace Programs
                 if (source != ":skip")
                     Settings.Client_Source = source;
 
-            if (copy != ":skip")
-                Settings.Client_Copy = copy;
+                if (copy != ":skip")
+                    Settings.Client_Copy = copy;
 
                 Settings.Default.Save();
             }
