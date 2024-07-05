@@ -30,10 +30,13 @@
 
 ### version
 |Args|Discription|
+|----|----|
 |updatecheck|最新のリリースのタグを確認します|
 
 ### upload
 |Args|Discription|
+|----|----|
+|additional|フォルダ名に追加で文字列を追加します|
 |nonclean|dataやstatsの削除を無効化します|
 |notopen|書き出し後のフォルダ表示を無効化します|
 
