@@ -5,7 +5,7 @@ namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class WorldUpload
     {
-        internal static Task Upload(string? worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null)
+        internal static Task Upload(string? worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null, bool parent = true)
         {
             string outputFolder = output ?? string.Empty;
 
@@ -17,7 +17,9 @@ namespace MinecraftDatapackReloadHelper.Tools
 
             DirectoryInfo directoryInfo = new(worldFolder);
             string temp = Path.GetTempPath();
-            string folder = Path.Combine(temp, directoryInfo.Parent.Name);
+            string folder = Path.Combine(temp, directoryInfo.Name);
+            if (parent)
+                folder = Path.Combine(temp, directoryInfo.Parent.Name);
             if (Directory.Exists(folder))
                 Directory.Delete(folder, true);
 
@@ -58,7 +60,11 @@ namespace MinecraftDatapackReloadHelper.Tools
                 }
             }
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。
-            output = Path.Combine(output, directoryInfo.Parent.Name) + $"{additional}";
+            output = Path.Combine(output, directoryInfo.Name) + $"{additional}";
+            if (parent)
+#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
+                output = Path.Combine(output, directoryInfo.Parent.Name) + $"{additional}";
+#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
 #pragma warning restore CS8604 // Null 参照引数の可能性があります。
 
             if (File.Exists(output + ".zip"))

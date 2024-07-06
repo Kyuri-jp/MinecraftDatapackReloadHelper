@@ -69,15 +69,48 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
 
                     case "upload":
                         DirectoryInfo? copy = Directory.GetParent(Settings.Client_Copy);
+                        string source = copy.FullName;
                         string additional = string.Empty;
                         if (args.Contains("additional"))
                         {
                             Console.WriteLine("Please enter the additional archive file name.");
                             additional = Console.ReadLine() ?? string.Empty;
                         }
-#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
-                        await WorldUpload.Upload(copy.FullName, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional);
-#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
+                        bool parent = true;
+                        if (args.Contains("custompath"))
+                        {
+                            parent = false;
+                            while (true)
+                            {
+                                Console.WriteLine("Please enter world folder path.");
+                                source = Console.ReadLine() ?? string.Empty;
+                                if (source == string.Empty)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Please enter anything.");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    continue;
+                                }
+
+                                if (!Directory.Exists(source))
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"{source} is not found.");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    continue;
+                                }
+
+                                if (!Directory.Exists(Path.Combine(source, "level.dat")))
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    continue;
+                                }
+                                break;
+                            }
+                        }
+                        await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional, parent);
                         break;
 
                     case "help":

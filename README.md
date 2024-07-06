@@ -37,6 +37,7 @@
 |Args|Discription|
 |----|----|
 |additional|フォルダ名に追加で文字列を追加します|
+|custompath|書き出す対象のフォルダを指定します|
 |nonclean|dataやstatsの削除を無効化します|
 |notopen|書き出し後のフォルダ表示を無効化します|
 
