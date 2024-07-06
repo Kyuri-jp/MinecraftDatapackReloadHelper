@@ -2,8 +2,8 @@
 {
     internal class RecursiveFileSearcher
     {
-
         private bool found = false;
+
         internal bool RecursiveFileExists(string begin, string name)
         {
             found = false;

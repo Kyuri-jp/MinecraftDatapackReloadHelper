@@ -17,7 +17,7 @@ namespace MinecraftDatapackReloadHelper.Tools
 
             DirectoryInfo directoryInfo = new(worldFolder);
             string temp = Path.GetTempPath();
-            string folder = Path.Combine(temp, directoryInfo.Name);
+            string folder = Path.Combine(temp, directoryInfo.Parent.Name);
             if (Directory.Exists(folder))
                 Directory.Delete(folder, true);
 
@@ -58,7 +58,7 @@ namespace MinecraftDatapackReloadHelper.Tools
                 }
             }
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。
-            output = Path.Combine(output, directoryInfo.Name) + $"{additional}";
+            output = Path.Combine(output, directoryInfo.Parent.Name) + $"{additional}";
 #pragma warning restore CS8604 // Null 参照引数の可能性があります。
 
             if (File.Exists(output + ".zip"))
