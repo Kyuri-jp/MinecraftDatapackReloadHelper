@@ -7,6 +7,8 @@ namespace MinecraftDatapackReloadHelper.Tools
     {
         internal static Task Upload(string? worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null)
         {
+            string outputFolder = output ?? string.Empty;
+
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
@@ -30,14 +32,14 @@ namespace MinecraftDatapackReloadHelper.Tools
                     File.Delete(Path.Combine(folder, "level.dat_old"));
                     File.Delete(Path.Combine(folder, "session.lock"));
                     File.Delete(Path.Combine(folder, "spsSettings.json"));
-                    Directory.Delete(Path.Combine(folder, "advancements"));
-                    Directory.Delete(Path.Combine(folder, "data"));
-                    Directory.Delete(Path.Combine(folder, "DIM1"));
-                    Directory.Delete(Path.Combine(folder, "DIM-1"));
-                    Directory.Delete(Path.Combine(folder, "playerdata"));
-                    Directory.Delete(Path.Combine(folder, "poi"));
-                    Directory.Delete(Path.Combine(folder, "scripts"));
-                    Directory.Delete(Path.Combine(folder, "stats"));
+                    Directory.Delete(Path.Combine(folder, "advancements"), true);
+                    Directory.Delete(Path.Combine(folder, "data"), true);
+                    Directory.Delete(Path.Combine(folder, "DIM1"), true);
+                    Directory.Delete(Path.Combine(folder, "DIM-1"), true);
+                    Directory.Delete(Path.Combine(folder, "playerdata"), true);
+                    Directory.Delete(Path.Combine(folder, "poi"), true);
+                    Directory.Delete(Path.Combine(folder, "scripts"), true);
+                    Directory.Delete(Path.Combine(folder, "stats"), true);
                 }
                 catch (FileNotFoundException)
                 {
@@ -55,7 +57,9 @@ namespace MinecraftDatapackReloadHelper.Tools
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+#pragma warning disable CS8604 // Null 参照引数の可能性があります。
             output = Path.Combine(output, directoryInfo.Name) + $"{additional}";
+#pragma warning restore CS8604 // Null 参照引数の可能性があります。
 
             if (File.Exists(output + ".zip"))
             {
@@ -71,7 +75,12 @@ namespace MinecraftDatapackReloadHelper.Tools
             Directory.Delete(folder, true);
 
             if (openFolder)
-                Process.Start(output);
+            {
+                string appPath = Directory.GetCurrentDirectory();
+                Directory.SetCurrentDirectory(outputFolder);
+                Process.Start("explorer.exe", outputFolder);
+                Directory.SetCurrentDirectory(appPath);
+            }
             return Task.CompletedTask;
         }
     }
