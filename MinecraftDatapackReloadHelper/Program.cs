@@ -294,6 +294,22 @@ namespace Programs
                     copy = string.Empty;
                     continue;
                 }
+                RecursiveFileSearcher recursiveFileSearcher = new();
+
+                if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Not found level file in {copy}'s parents");
+                    copy = string.Empty;
+                    continue;
+                }
+                if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                    copy = string.Empty;
+                    continue;
+                }
             }
 
             string? upload = string.Empty;
