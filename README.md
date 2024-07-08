@@ -18,6 +18,7 @@
 |reload|データパックをコピーした後、データパックを再読み込みします|
 |showsetting|設定を表示します|
 |terminal|コマンドを実行できるターミナルを起動します|
+|upload|ワールドフォルダをZip形式で書き出します|
 
 ### CommandArgs
 引数は`コマンド -なんとか`という形で使用します。
@@ -26,6 +27,19 @@
 |Args|Discription|
 |----|----|
 |copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|
+
+### version
+|Args|Discription|
+|----|----|
+|updatecheck|最新のリリースのタグを確認します|
+
+### upload
+|Args|Discription|
+|----|----|
+|additional|フォルダ名に追加で文字列を追加します|
+|custompath|書き出す対象のフォルダを指定します|
+|nonclean|dataやstatsの削除を無効化します|
+|notopen|書き出し後のフォルダ表示を無効化します|
 
 ## .NET
 このツールは.NET8を使用しています。
