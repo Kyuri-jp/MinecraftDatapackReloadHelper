@@ -28,7 +28,7 @@
 #### appsetting
 |Args|Discription|
 |----|----|
-|auto|IPアドレスやポートを自動で設定します|
+|Auto|IPアドレスやポートを自動で設定します|
 
 #### reload
 |Args|Discription|
