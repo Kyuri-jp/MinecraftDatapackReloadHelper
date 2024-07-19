@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools.Dislpay;
+﻿namespace MinecraftDatapackReloadHelper.Tools.Display;
 
 internal class Console
 {
