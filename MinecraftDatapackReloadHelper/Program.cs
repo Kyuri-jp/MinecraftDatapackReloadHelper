@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper
 {
     internal class Programs
     {
-        private static readonly string version = "v0.2.0-Alpha";
+        private static readonly string version = "v1.3.0-Beta";
 
         private static readonly string welcome =
                     "====================\n" +
