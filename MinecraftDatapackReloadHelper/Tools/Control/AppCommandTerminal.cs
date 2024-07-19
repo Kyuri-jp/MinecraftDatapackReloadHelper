@@ -93,25 +93,19 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                                 source = Console.ReadLine() ?? string.Empty;
                                 if (source == string.Empty)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Please enter anything.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error("Please enter anything.");
                                     continue;
                                 }
 
                                 if (!Directory.Exists(source))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"{source} is not found.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error($"{source} is not found.");
                                     continue;
                                 }
 
                                 if (!Directory.Exists(Path.Combine(source, "level.dat")))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
                                     continue;
                                 }
                                 break;
@@ -137,9 +131,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                     case "version":
                         Console.WriteLine(Programs.GetWelcomeMessage());
                         if (args.Contains("updatecheck"))
-                        {
                             await UpdateCheck.UpdateCheckerAsync();
-                        }
+
                         break;
 
                     case "exit":
@@ -147,9 +140,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                         break;
 
                     default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{command} is an invalid command.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Display.Console.Error($"{command} is an invalid command.");
                         break;
                 }
             }

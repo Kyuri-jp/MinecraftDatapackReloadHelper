@@ -53,10 +53,8 @@ namespace MinecraftDatapackReloadHelper.Tools
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Display.Console.Error(ex.Message);
+                    Display.Console.Error(ex.StackTrace);
                 }
             }
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。

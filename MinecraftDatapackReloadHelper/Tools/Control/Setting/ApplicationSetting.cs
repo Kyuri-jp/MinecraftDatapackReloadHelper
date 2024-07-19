@@ -13,9 +13,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
             string? rconIP = Asker("Please enter rcon ipadress.");
             if (rconIP == "localhost")
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Inputed localhost.\nset this computer's private ip adress.");
-                Console.ForegroundColor = ConsoleColor.White;
+                Display.Console.Warning("Inputed localhost.\nset this computer's private ip adress.");
 
                 rconIP = Getv4Adress();
             }
@@ -55,8 +53,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 
                 if (reader == null)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Please enter any strings.");
+                    Display.Console.Warning("Please enter any strings.");
                     reader = string.Empty;
                     continue;
                 }
@@ -90,31 +87,26 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 
             if (!File.Exists(filePath))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Copy path is null or empty.");
-                Console.ForegroundColor = ConsoleColor.White;
+                Display.Console.Warning("Copy path is null or empty.");
 
                 while (true)
                 {
                     string copy = Asker("Please enter copy path.");
                     if (!Directory.Exists(copy))
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"{copy} is not exists.");
+                        Display.Console.Warning($"{copy} is not exists.");
                         continue;
                     }
                     RecursiveFileSearcher recursiveFileSearcher = new();
 
                     if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"Not found level file in {copy}'s parents");
+                        Display.Console.Warning($"Not found level file in {copy}'s parents");
                         continue;
                     }
                     if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                        Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                         continue;
                     }
 
