@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using MinecraftDatapackReloadHelper.Tools.Minecraft;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 {
@@ -7,21 +8,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
     {
         internal static async Task ChangeRconSettingAsync()
         {
-            string? rconIP = string.Empty;
-
-            while (rconIP == string.Empty)
-            {
-                Console.WriteLine("Please enter rcon ip adress.");
-                Console.ForegroundColor = ConsoleColor.White;
-                rconIP = Console.ReadLine();
-                if (rconIP == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
-                    rconIP = string.Empty;
-                    continue;
-                }
-            }
+            string? rconIP = Asker("Please enter rcon ipadress.");
             if (rconIP == "localhost")
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -37,36 +24,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                 }
             }
 
-            string? rconPort = string.Empty;
-
-            while (rconPort == string.Empty)
-            {
-                Console.WriteLine("Please enter rcon port.");
-                Console.ForegroundColor = ConsoleColor.White;
-                rconPort = Console.ReadLine();
-                if (rconPort == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
-                    rconPort = string.Empty;
-                    continue;
-                }
-            }
-            string? rconPass = string.Empty;
-
-            while (rconPass == string.Empty)
-            {
-                Console.WriteLine("Please enter rcon password.");
-                Console.ForegroundColor = ConsoleColor.White;
-                rconPass = Console.ReadLine();
-                if (rconPass == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
-                    rconPass = string.Empty;
-                    continue;
-                }
-            }
+            string? rconPort = Asker("Please enter rcon port.");
+            string? rconPass = Asker("Please enter rcon password", true);
 
             if (rconIP != ":skip")
                 Settings.Rcon_IP = rconIP;
@@ -78,6 +37,38 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                 Settings.Rcon_Password = rconPass;
 
             Settings.Default.Save();
+
+            await ConnectionTest.ConnectingTesterAsync();
+        }
+
+        private static string Asker(string message, bool mayNull = false)
+        {
+            string? reader = string.Empty;
+
+            while (reader == string.Empty)
+            {
+                Console.WriteLine(message);
+                Console.ForegroundColor = ConsoleColor.White;
+                reader = Console.ReadLine();
+
+                if (mayNull)
+                    break;
+
+                if (reader == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Please enter any strings.");
+                    reader = string.Empty;
+                    continue;
+                }
+            }
+
+            return reader;
+        }
+
+        internal static async Task AutoChangeRconSettingAsync()
+        {
+            ServerProperties.Parse(Settings.Client_Copy);
 
             await ConnectionTest.ConnectingTesterAsync();
         }
