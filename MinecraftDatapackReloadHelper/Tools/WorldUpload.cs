@@ -5,45 +5,49 @@ namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class WorldUpload
     {
-        internal static Task Upload(string? worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null, bool parent = true)
+        internal static Task Upload(string worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null)
         {
             string outputFolder = output ?? string.Empty;
 
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
+            worldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "level.dat");
+
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
 
-            DirectoryInfo directoryInfo = new(worldFolder);
-            string temp = Path.GetTempPath();
-            string folder = Path.Combine(temp, directoryInfo.Name);
-            if (parent)
+            DirectoryInfo worldFolderInfo = new(worldFolder);
+            string worldFolderName = worldFolderInfo.Name;
+            if (RecursiveFileSearcher.RecursiveFileExists(worldFolder, "server.properties"))
 #pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
-                folder = Path.Combine(temp, directoryInfo.Parent.Name);
+                worldFolderName = Directory.GetParent(RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "server.properties")).Name;
 #pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
-            if (Directory.Exists(folder))
-                Directory.Delete(folder, true);
+
+            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName);
+
+            if (Directory.Exists(tempFolder))
+                Directory.Delete(tempFolder, true);
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            DirectoryCopy.Copy(worldFolder, folder, true);
+            DirectoryCopy.Copy(worldFolder, tempFolder, true);
             Console.ForegroundColor = ConsoleColor.White;
 
             if (clean)
             {
                 try
                 {
-                    File.Delete(Path.Combine(folder, "level.dat_old"));
-                    File.Delete(Path.Combine(folder, "session.lock"));
-                    File.Delete(Path.Combine(folder, "spsSettings.json"));
-                    Directory.Delete(Path.Combine(folder, "advancements"), true);
-                    Directory.Delete(Path.Combine(folder, "data"), true);
-                    Directory.Delete(Path.Combine(folder, "DIM1"), true);
-                    Directory.Delete(Path.Combine(folder, "DIM-1"), true);
-                    Directory.Delete(Path.Combine(folder, "playerdata"), true);
-                    Directory.Delete(Path.Combine(folder, "poi"), true);
-                    Directory.Delete(Path.Combine(folder, "scripts"), true);
-                    Directory.Delete(Path.Combine(folder, "stats"), true);
+                    File.Delete(Path.Combine(tempFolder, "level.dat_old"));
+                    File.Delete(Path.Combine(tempFolder, "session.lock"));
+                    File.Delete(Path.Combine(tempFolder, "spsSettings.json"));
+                    Directory.Delete(Path.Combine(tempFolder, "advancements"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "data"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "DIM1"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "DIM-1"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "playerdata"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "poi"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "scripts"), true);
+                    Directory.Delete(Path.Combine(tempFolder, "stats"), true);
                 }
                 catch (FileNotFoundException)
                 {
@@ -60,11 +64,7 @@ namespace MinecraftDatapackReloadHelper.Tools
                 }
             }
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。
-            output = Path.Combine(output, directoryInfo.Name) + $"{additional}";
-            if (parent)
-#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
-                output = Path.Combine(output, directoryInfo.Parent.Name) + $"{additional}";
-#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
+            output = Path.Combine(output, worldFolderName) + $"{additional}";
 #pragma warning restore CS8604 // Null 参照引数の可能性があります。
 
             if (File.Exists(output + ".zip"))
@@ -77,8 +77,8 @@ namespace MinecraftDatapackReloadHelper.Tools
                 output += $"({i})";
             }
 
-            ZipFile.CreateFromDirectory(folder, output + ".zip");
-            Directory.Delete(folder, true);
+            ZipFile.CreateFromDirectory(tempFolder, output + ".zip");
+            Directory.Delete(tempFolder, true);
 
             if (openFolder)
             {

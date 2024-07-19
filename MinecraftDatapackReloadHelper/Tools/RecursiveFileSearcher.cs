@@ -2,41 +2,38 @@
 {
     internal class RecursiveFileSearcher
     {
-        private bool found = false;
+        internal static bool RecursiveFileExists(string begin, string markerFile) => (bool)Search(begin, markerFile)[0];
 
-        internal bool RecursiveFileExists(string begin, string name)
-        {
-            found = false;
-            Search(begin, name);
-            return found;
-        }
+        internal static string RecursiveGetDirectoryPath(string begin, string markerFile) => (string)Search(begin, markerFile)[1];
 
-        private void Search(string begin, string name)
+        private static List<object> Search(string begin, string marker)
         {
             ArgumentException.ThrowIfNullOrEmpty(begin);
-            ArgumentException.ThrowIfNullOrEmpty(name);
+            ArgumentException.ThrowIfNullOrEmpty(marker);
 
-            if (File.Exists(Path.Combine(begin, name)))
+            List<object> result = [false, null];
+
+            if (File.Exists(Path.Combine(begin, marker)))
             {
-                found = true;
-                return;
+                result = [true, begin];
+                return result;
             }
 
-#pragma warning disable CS8600 // Null リテラルまたは Null の可能性がある値を Null 非許容型に変換しています。
-            DirectoryInfo directoryInfo = Directory.GetParent(begin);
-#pragma warning restore CS8600 // Null リテラルまたは Null の可能性がある値を Null 非許容型に変換しています。
-            try
-            {
+            DirectoryInfo directoryInfo = new(begin);
+
+            string root = directoryInfo.Root.FullName;
+
 #pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
-                begin = directoryInfo.FullName;
-#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
-            }
-            catch (NullReferenceException)
+            begin = directoryInfo.Parent.FullName;
+#pragma warning restore CS8602 // null 参照の可能n性があるものの逆参照です。
+
+            if (root == begin)
             {
-                found = false;
-                return;
+                result = [false, begin];
+                return result;
             }
-            Search(begin, name);
+
+            return Search(begin, marker);
         }
     }
 }

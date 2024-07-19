@@ -83,10 +83,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                             Console.WriteLine("Please enter the additional archive file name.");
                             additional = Console.ReadLine() ?? string.Empty;
                         }
-                        bool parent = true;
                         if (args.Contains("custompath"))
                         {
-                            parent = false;
                             while (true)
                             {
                                 Console.WriteLine("Please enter world folder path.");
@@ -111,7 +109,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                                 break;
                             }
                         }
-                        await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional, parent);
+                        await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional);
                         break;
 
                     case "help":
