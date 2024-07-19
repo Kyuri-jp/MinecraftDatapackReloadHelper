@@ -23,6 +23,11 @@
 ### CommandArgs
 引数は`コマンド -なんとか`という形で使用します。
 
+#### appsetting
+|Args|Discription|
+|----|----|
+|auto|IPアドレスやポートを自動で設定します|
+
 #### reload
 |Args|Discription|
 |----|----|
