@@ -39,6 +39,11 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                 switch (args[0])
                 {
                     case "appsetting":
+                        if (args.Contains("auto"))
+                        {
+                            await ApplicationSetting.AutoChangeRconSettingAsync();
+                            break;
+                        }
                         await ApplicationSetting.ChangeRconSettingAsync();
                         break;
 
@@ -69,7 +74,9 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
 
                     case "upload":
                         DirectoryInfo? copy = Directory.GetParent(Settings.Client_Copy);
+#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
                         string source = copy.FullName;
+#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
                         string additional = string.Empty;
                         if (args.Contains("additional"))
                         {

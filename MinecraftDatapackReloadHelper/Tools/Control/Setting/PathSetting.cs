@@ -8,8 +8,8 @@
 
             while (source == string.Empty)
             {
-                Console.WriteLine("Please enter source directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter source directory path.");
                 source = Console.ReadLine();
                 if (source == ":skip")
                     break;
@@ -81,8 +81,8 @@
 
             while (upload == string.Empty)
             {
-                Console.WriteLine("Please enter world upload directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter world upload directory path.");
                 upload = Console.ReadLine();
                 if (upload == ":skip")
                     break;
