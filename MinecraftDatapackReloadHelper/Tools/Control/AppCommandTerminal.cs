@@ -8,16 +8,16 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
         //commands
         private static readonly SortedDictionary<string, string> commands = new()
         {
-            {"appsetting","Rconなどの設定を変更できます" },
-            {"pathsetting","データパックのパスを変更できます" },
-            {"connectiontest","Rconの接続をテストします" },
-            {"reload","データパックをコピーした後、データパックを再読み込みします" },
-            {"terminal","コマンドを実行できるターミナルを起動します" },
-            {"showsetting","設定を表示します" },
-            {"upload","ワールドフォルダをZip形式に書き出します" },
-            {"help","この文章を表示します" },
-            {"version","このツールのバージョンを表示します" },
-            {"exit","このツールを終了します" }
+            {"AppSetting","Rconなどの設定を変更できます" },
+            {"PathSetting","データパックのパスを変更できます" },
+            {"ConnectionTest","Rconの接続をテストします" },
+            {"Reload","データパックをコピーした後、データパックを再読み込みします" },
+            {"Terminal","コマンドを実行できるターミナルを起動します" },
+            {"ShowSetting","設定を表示します" },
+            {"Upload","ワールドフォルダをZip形式に書き出します" },
+            {"Help","この文章を表示します" },
+            {"Version","このツールのバージョンを表示します" },
+            {"Exit","このツールを終了します" }
         };
 
         internal static async Task Run()
@@ -114,6 +114,11 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                         break;
 
                     case "help":
+                        Console.WriteLine("コマンドや引数は大文字小文字の区別はありません\n" +
+                            "また、引数は -- で区切ります\n" +
+                            "- は区切りとして認識されません\n" +
+                            "引数についてはReadmeを参照ください -> https://github.com/Kyuri-jp/MinecraftDatapackReloadHelper");
+
                         foreach (var str in commands)
                         {
                             string key = str.Key;
