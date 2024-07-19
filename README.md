@@ -9,19 +9,21 @@
 
 データパックの再読み込みをちょっと楽にします
 ## Commands
+コマンド、因数の大文字小文字は区別されません。
+
 |Command|Discription|
 |-----|----|
-|appsetting|Rconなどの設定を変更できます|
-|connectiontest|Rconの接続をテストします|
-|help|コマンドの説明を表示します|
-|pathsetting|データパックのパスを変更できます|
-|reload|データパックをコピーした後、データパックを再読み込みします|
-|showsetting|設定を表示します|
-|terminal|コマンドを実行できるターミナルを起動します|
-|upload|ワールドフォルダをZip形式で書き出します|
+|AppSetting|Rconなどの設定を変更できます|
+|ConnectionTest|Rconの接続をテストします|
+|Help|コマンドの説明を表示します|
+|PathSetting|データパックのパスを変更できます|
+|Reload|データパックをコピーした後、データパックを再読み込みします|
+|ShowSetting|設定を表示します|
+|Terminal|コマンドを実行できるターミナルを起動します|
+|Upload|ワールドフォルダをZip形式で書き出します|
 
 ### CommandArgs
-引数は`コマンド -なんとか`という形で使用します。
+引数は`コマンド --なんとか`という形で使用します。
 
 #### appsetting
 |Args|Discription|
@@ -31,20 +33,20 @@
 #### reload
 |Args|Discription|
 |----|----|
-|copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|
+|Copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|
 
 ### version
 |Args|Discription|
 |----|----|
-|updatecheck|最新のリリースのタグを確認します|
+|UpdateCheck|最新のリリースのタグを確認します|
 
 ### upload
 |Args|Discription|
 |----|----|
-|additional|フォルダ名に追加で文字列を追加します|
-|custompath|書き出す対象のフォルダを指定します|
-|nonclean|dataやstatsの削除を無効化します|
-|notopen|書き出し後のフォルダ表示を無効化します|
+|Additional|フォルダ名に追加で文字列を追加します|
+|CustomPath|書き出す対象のフォルダを指定します|
+|NonClean|dataやstatsの削除を無効化します|
+|NotOpen|書き出し後のフォルダ表示を無効化します|
 
 ## .NET
 このツールは.NET8を使用しています。
