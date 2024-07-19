@@ -19,7 +19,9 @@ namespace MinecraftDatapackReloadHelper.Tools
             string temp = Path.GetTempPath();
             string folder = Path.Combine(temp, directoryInfo.Name);
             if (parent)
+#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
                 folder = Path.Combine(temp, directoryInfo.Parent.Name);
+#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
             if (Directory.Exists(folder))
                 Directory.Delete(folder, true);
 
