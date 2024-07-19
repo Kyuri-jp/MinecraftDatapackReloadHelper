@@ -28,7 +28,6 @@
                 str = str.Remove(0, str.IndexOf(argsPause) + argsPause.Length);
             }
             return result;
-
         }
 
         private static void ShowAnalyzeData(List<string> data)

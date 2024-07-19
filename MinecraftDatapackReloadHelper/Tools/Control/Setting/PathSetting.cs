@@ -54,15 +54,14 @@
                     copy = string.Empty;
                     continue;
                 }
-                RecursiveFileSearcher recursiveFileSearcher = new();
 
-                if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                 {
                     Display.Console.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
-                if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                 {
                     Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                     copy = string.Empty;

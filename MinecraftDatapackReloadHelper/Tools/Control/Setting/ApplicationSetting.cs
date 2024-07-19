@@ -1,8 +1,6 @@
-﻿using System.Net;
-using System.Net.NetworkInformation;
+﻿using MinecraftDatapackReloadHelper.Tools.Minecraft;
+using System.Net;
 using System.Net.Sockets;
-using CoreRCON;
-using MinecraftDatapackReloadHelper.Tools.Minecraft;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 {
@@ -59,7 +57,9 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                 }
             }
 
+#pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
             return reader;
+#pragma warning restore CS8603 // Null 参照戻り値である可能性があります。
         }
 
         private static string Getv4Adress()
@@ -99,12 +99,12 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                     }
                     RecursiveFileSearcher recursiveFileSearcher = new();
 
-                    if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                    if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                     {
                         Display.Console.Warning($"Not found level file in {copy}'s parents");
                         continue;
                     }
-                    if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                    if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                     {
                         Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                         continue;

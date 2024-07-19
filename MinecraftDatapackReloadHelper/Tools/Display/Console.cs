@@ -3,6 +3,7 @@
 internal class Console
 {
     internal static void Error(string? message) => Write(message, ConsoleColor.Red);
+
     internal static void Warning(string? message) => Write(message, ConsoleColor.Yellow);
 
     private static void Write(string? message, ConsoleColor color)
