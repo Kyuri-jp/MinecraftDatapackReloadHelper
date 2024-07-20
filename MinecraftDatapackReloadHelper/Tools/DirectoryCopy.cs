@@ -32,10 +32,8 @@
                 }
                 catch (IOException ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Display.Console.Error(ex.Message);
+                    Display.Console.Error(ex.StackTrace);
                 }
                 Console.WriteLine($"Copyed {targetFilePath}");
             }
@@ -50,6 +48,5 @@
                 }
             }
         }
-
     }
 }

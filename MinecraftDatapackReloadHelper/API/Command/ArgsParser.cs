@@ -2,90 +2,38 @@
 {
     internal class ArgsParser
     {
-        internal static List<string> Parse(string str, char argsChar = '-')
+        internal static List<string> Parse(string str, string argsPause = "--")
         {
             ArgumentNullException.ThrowIfNull(str);
 
+            //adv trim
+            str = str.Trim();
+            str = str.Replace(" ", "");
+            str = str.ToLower();
+
             List<string> result = [];
-            if (!str.Contains(argsChar))
+
+            while (true)
             {
-                result.Add(str);
-                return result;
+                if (str.Length <= 0)
+                    break;
+
+                if (!str.Contains(argsPause))
+                {
+                    result.Add(str);
+                    return result;
+                }
+                ;
+                result.Add(str[0..(str.IndexOf(argsPause))]);
+                str = str.Remove(0, str.IndexOf(argsPause) + argsPause.Length);
             }
-
-            for (int i = 0; i < str.Length; i++)
-            {
-                if (str[i] == argsChar)
-                {
-                    int end = i;
-                    while (true)
-                    {
-                        if (str[end] != argsChar && str[end] != ' ')
-                            break;
-
-                        end--;
-                    }
-                    int begin = end;
-                    if (str[begin] == argsChar)
-                        begin--;
-                    while (begin != 0)
-                    {
-                        if ((str[begin] == argsChar))
-                        {
-                            begin++;
-                            break;
-                        }
-
-                        begin--;
-                    }
-                    end++;
-                    try
-                    {
-                        result.Add(str[begin..end].Trim());
-                    }
-                    catch (IndexOutOfRangeException ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Maybe, Command Args is wrong.");
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine(ex.StackTrace);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    continue;
-                }
-
-                if (i == str.Length - 1)
-                {
-                    string seatch = str;
-                    int begin = str.Length - 1;
-                    if (str[begin] == argsChar)
-                        begin--;
-                    while (begin != 0)
-                    {
-                        if ((seatch[begin] == argsChar))
-                        {
-                            begin++;
-                            break;
-                        }
-
-                        begin--;
-                    }
-                    try
-                    {
-                        result.Add(str[begin..^0].Trim());
-                    }
-                    catch (IndexOutOfRangeException ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Maybe, Command Args is wrong.");
-                        Console.WriteLine(ex.Message);
-                        Console.WriteLine(ex.StackTrace);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    continue;
-                }
-            };
             return result;
+        }
+
+        private static void ShowAnalyzeData(List<string> data)
+        {
+            foreach (var item in data)
+                Console.WriteLine(item);
         }
     }
 }

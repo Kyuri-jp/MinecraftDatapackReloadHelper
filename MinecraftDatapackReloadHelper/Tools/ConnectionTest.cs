@@ -9,14 +9,12 @@ namespace MinecraftDatapackReloadHelper.Tools
             var connection = RconConnector.GetRconInst();
             try
             {
-                Console.WriteLine(await connection.SendCommandAsync("say Rcon was connected"));
+                Console.WriteLine(await connection.SendCommandAsync("say [MDRH] Rcon was connected"));
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.ForegroundColor = ConsoleColor.White;
+                Display.Console.Error(ex.Message);
+                Display.Console.Error(ex.StackTrace);
             }
         }
     }

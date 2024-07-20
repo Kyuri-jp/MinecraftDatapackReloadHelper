@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 
-
 //このプログラムはChatGPTによって生成されたものを参考に書かれています
 
 namespace MinecraftDatapackReloadHelper.API.Github

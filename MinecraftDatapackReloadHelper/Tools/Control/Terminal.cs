@@ -24,8 +24,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                     command = Console.ReadLine();
                     if (command == null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Please enter any command.\n");
+                        Display.Console.Warning("Please enter any command.\n");
                         command = string.Empty;
                         continue;
                     }
@@ -40,9 +39,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
+                    Display.Console.Error(ex.Message);
+                    Display.Console.Error(ex.StackTrace);
                     continue;
                 }
             }

@@ -20,19 +20,17 @@ namespace MinecraftDatapackReloadHelper.Tools
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.ForegroundColor = ConsoleColor.White;
+                Display.Console.Error(ex.Message);
+                Display.Console.Error(ex.StackTrace);
                 exceptioned = true;
             }
 
             if (!exceptioned)
             {
                 //copy
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Copying...");
+                Display.Console.Warning("Copying datapack folder...");
                 var dir = new DirectoryInfo(source);
+                Console.ForegroundColor = ConsoleColor.Green;
                 DirectoryCopy.Copy(source, Path.Combine(copy, dir.Name), true);
                 Console.ForegroundColor = ConsoleColor.White;
 

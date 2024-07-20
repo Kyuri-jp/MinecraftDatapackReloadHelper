@@ -8,29 +8,26 @@
 
             while (source == string.Empty)
             {
-                Console.WriteLine("Please enter source directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter source directory path.");
                 source = Console.ReadLine();
                 if (source == ":skip")
                     break;
                 if (source == null)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
+                    Display.Console.Warning("Null.");
                     source = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(source))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{source} is not exists.");
+                    Display.Console.Warning($"{source} is not exists.");
                     source = string.Empty;
                     continue;
                 }
                 if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{source} is not contain pack.mcmeta.");
+                    Display.Console.Warning($"{source} is not contain pack.mcmeta.");
                     source = string.Empty;
                     continue;
                 }
@@ -47,31 +44,26 @@
                     break;
                 if (copy == null)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
+                    Display.Console.Warning("Null.");
                     copy = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(copy))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{copy} is not exists.");
+                    Display.Console.Warning($"{copy} is not exists.");
                     copy = string.Empty;
                     continue;
                 }
-                RecursiveFileSearcher recursiveFileSearcher = new();
 
-                if (!recursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Not found level file in {copy}'s parents");
+                    Display.Console.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
-                if (!recursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                    Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                     copy = string.Empty;
                     continue;
                 }
@@ -81,22 +73,20 @@
 
             while (upload == string.Empty)
             {
-                Console.WriteLine("Please enter world upload directory path.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please enter world upload directory path.");
                 upload = Console.ReadLine();
                 if (upload == ":skip")
                     break;
                 if (upload == null)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Null.");
+                    Console.WriteLine("Please enter anything.");
                     upload = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(upload))
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"{upload} is not exists.");
+                    Display.Console.Warning($"{upload} is not exists.");
                     upload = string.Empty;
                     continue;
                 }

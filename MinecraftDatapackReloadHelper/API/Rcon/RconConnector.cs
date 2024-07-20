@@ -16,10 +16,8 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.ForegroundColor = ConsoleColor.White;
+                Tools.Display.Console.Error(ex.Message);
+                Tools.Display.Console.Error(ex.StackTrace);
             }
 
 #pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
@@ -36,10 +34,8 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.ForegroundColor = ConsoleColor.White;
+                Tools.Display.Console.Error(ex.Message);
+                Tools.Display.Console.Error(ex.StackTrace);
             }
 
 #pragma warning disable CS8603 // Null 参照戻り値である可能性があります。

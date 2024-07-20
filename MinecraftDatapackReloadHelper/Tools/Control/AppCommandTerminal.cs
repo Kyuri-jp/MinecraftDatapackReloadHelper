@@ -8,16 +8,16 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
         //commands
         private static readonly SortedDictionary<string, string> commands = new()
         {
-            {"appsetting","Rconなどの設定を変更できます" },
-            {"pathsetting","データパックのパスを変更できます" },
-            {"connectiontest","Rconの接続をテストします" },
-            {"reload","データパックをコピーした後、データパックを再読み込みします" },
-            {"terminal","コマンドを実行できるターミナルを起動します" },
-            {"showsetting","設定を表示します" },
-            {"upload","ワールドフォルダをZip形式に書き出します" },
-            {"help","この文章を表示します" },
-            {"version","このツールのバージョンを表示します" },
-            {"exit","このツールを終了します" }
+            {"AppSetting","Rconなどの設定を変更できます" },
+            {"PathSetting","データパックのパスを変更できます" },
+            {"ConnectionTest","Rconの接続をテストします" },
+            {"Reload","データパックをコピーした後、データパックを再読み込みします" },
+            {"Terminal","コマンドを実行できるターミナルを起動します" },
+            {"ShowSetting","設定を表示します" },
+            {"Upload","ワールドフォルダをZip形式に書き出します" },
+            {"Help","この文章を表示します" },
+            {"Version","このツールのバージョンを表示します" },
+            {"Exit","このツールを終了します" }
         };
 
         internal static async Task Run()
@@ -39,6 +39,11 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                 switch (args[0])
                 {
                     case "appsetting":
+                        if (args.Contains("auto"))
+                        {
+                            await ApplicationSetting.AutoChangeRconSettingAsync();
+                            break;
+                        }
                         await ApplicationSetting.ChangeRconSettingAsync();
                         break;
 
@@ -69,51 +74,50 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
 
                     case "upload":
                         DirectoryInfo? copy = Directory.GetParent(Settings.Client_Copy);
+#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
                         string source = copy.FullName;
+#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
                         string additional = string.Empty;
                         if (args.Contains("additional"))
                         {
                             Console.WriteLine("Please enter the additional archive file name.");
                             additional = Console.ReadLine() ?? string.Empty;
                         }
-                        bool parent = true;
                         if (args.Contains("custompath"))
                         {
-                            parent = false;
                             while (true)
                             {
                                 Console.WriteLine("Please enter world folder path.");
                                 source = Console.ReadLine() ?? string.Empty;
                                 if (source == string.Empty)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Please enter anything.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error("Please enter anything.");
                                     continue;
                                 }
 
                                 if (!Directory.Exists(source))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"{source} is not found.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error($"{source} is not found.");
                                     continue;
                                 }
 
                                 if (!Directory.Exists(Path.Combine(source, "level.dat")))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Display.Console.Error($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
                                     continue;
                                 }
                                 break;
                             }
                         }
-                        await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional, parent);
+                        await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional);
                         break;
 
                     case "help":
+                        Console.WriteLine("コマンドや引数は大文字小文字の区別はありません\n" +
+                            "また、引数は -- で区切ります\n" +
+                            "- は区切りとして認識されません\n" +
+                            "引数についてはReadmeを参照ください -> https://github.com/Kyuri-jp/MinecraftDatapackReloadHelper");
+
                         foreach (var str in commands)
                         {
                             string key = str.Key;
@@ -125,9 +129,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                     case "version":
                         Console.WriteLine(Programs.GetWelcomeMessage());
                         if (args.Contains("updatecheck"))
-                        {
                             await UpdateCheck.UpdateCheckerAsync();
-                        }
+
                         break;
 
                     case "exit":
@@ -135,9 +138,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                         break;
 
                     default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{command} is an invalid command.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Display.Console.Error($"{command} is an invalid command.");
                         break;
                 }
             }
