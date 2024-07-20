@@ -26,8 +26,16 @@ namespace MinecraftDatapackReloadHelper.Tools
 
             string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName);
 
-            if (Directory.Exists(tempFolder))
-                Directory.Delete(tempFolder, true);
+            try
+            {
+                if (Directory.Exists(tempFolder))
+                    Directory.Delete(tempFolder, true);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Display.Console.Error(ex.Message);
+                Display.Console.Error(ex.StackTrace);
+            }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             DirectoryCopy.Copy(worldFolder, tempFolder, true);
