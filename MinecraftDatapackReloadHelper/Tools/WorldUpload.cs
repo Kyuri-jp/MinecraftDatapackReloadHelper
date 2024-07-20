@@ -13,16 +13,16 @@ namespace MinecraftDatapackReloadHelper.Tools
                 throw new DirectoryNotFoundException(worldFolder);
 
             worldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "level.dat");
+            string nameWorldFolder = worldFolder;
 
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
 
-            DirectoryInfo worldFolderInfo = new(worldFolder);
-            string worldFolderName = worldFolderInfo.Name;
             if (RecursiveFileSearcher.RecursiveFileExists(worldFolder, "server.properties"))
-#pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
-                worldFolderName = Directory.GetParent(RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "server.properties")).Name;
-#pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
+                nameWorldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "server.properties");
+
+            DirectoryInfo nameWorldFolderInfo = new(nameWorldFolder);
+            string worldFolderName = nameWorldFolderInfo.Name;
 
             string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName);
 
