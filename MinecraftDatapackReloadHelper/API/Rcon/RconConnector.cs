@@ -7,12 +7,10 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
     {
         internal static RCON GetRconInst()
         {
-            List<string> rconInfo = GetValues();
+            var connection = new RCON(IPAddress.Parse(GetValues()[0]), ushort.Parse(GetValues()[1]), GetValues()[2]);
             try
             {
-                var connection = new RCON(IPAddress.Parse(rconInfo[0]), ushort.Parse(rconInfo[1]), rconInfo[2]);
                 connection.ConnectAsync();
-                return connection;
             }
             catch (Exception ex)
             {
@@ -20,27 +18,9 @@ namespace MinecraftDatapackReloadHelper.API.Rcon
                 Tools.Display.Console.Error(ex.StackTrace);
             }
 
-#pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
-            return default;
-#pragma warning restore CS8603 // Null 参照戻り値である可能性があります。
+            return connection;
         }
 
-        private static List<string> GetValues()
-        {
-            try
-            {
-                List<string> values = [Settings.Rcon_IP, Settings.Rcon_Port.ToString(), Settings.Rcon_Password];
-                return values;
-            }
-            catch (Exception ex)
-            {
-                Tools.Display.Console.Error(ex.Message);
-                Tools.Display.Console.Error(ex.StackTrace);
-            }
-
-#pragma warning disable CS8603 // Null 参照戻り値である可能性があります。
-            return default;
-#pragma warning restore CS8603 // Null 参照戻り値である可能性があります。
-        }
+        private static List<string> GetValues() => [Settings.Rcon_IP, Settings.Rcon_Port.ToString(), Settings.Rcon_Password];
     }
 }
