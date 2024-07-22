@@ -1,7 +1,7 @@
 ﻿using CoreRCON;
 using System.Net;
 
-namespace MinecraftDatapackReloadHelper.API.Rcon
+namespace MinecraftDatapackReloadHelper.Libs.Rcon
 {
     internal class RconConnector
     {

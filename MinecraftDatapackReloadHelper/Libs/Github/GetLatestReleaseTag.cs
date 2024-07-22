@@ -2,7 +2,7 @@
 
 //このプログラムはChatGPTによって生成されたものを参考に書かれています
 
-namespace MinecraftDatapackReloadHelper.API.Github
+namespace MinecraftDatapackReloadHelper.Libs.Github
 {
     internal class GetLatestReleasetag
     {
@@ -12,10 +12,10 @@ namespace MinecraftDatapackReloadHelper.API.Github
         {
             try
             {
-                // GitHub APIのエンドポイント
-                string url = $"https://api.github.com/repos/{owner}/{repo}/releases/latest";
+                // GitHub Libsのエンドポイント
+                string url = $"https://Libs.github.com/repos/{owner}/{repo}/releases/latest";
 
-                // GitHub APIはUser-Agentを要求するので設定
+                // GitHub LibsはUser-Agentを要求するので設定
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Minecraft-Datapack-Reload-Helper");
 
                 // GETリクエストの送信

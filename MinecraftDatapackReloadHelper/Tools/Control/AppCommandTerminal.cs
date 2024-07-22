@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.API.Command;
+﻿using MinecraftDatapackReloadHelper.Libs.Command;
 using MinecraftDatapackReloadHelper.Tools.Control.Setting;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control

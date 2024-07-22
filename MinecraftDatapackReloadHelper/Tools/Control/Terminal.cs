@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.API.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control
 {
