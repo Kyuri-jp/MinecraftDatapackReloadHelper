@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using MinecraftDatapackReloadHelper.Libs.Files;
+using MinecraftDatapackReloadHelper.Libs.Files.Directories;
+using System.Diagnostics;
 using System.IO.Compression;
 
 namespace MinecraftDatapackReloadHelper.Tools
@@ -33,8 +35,8 @@ namespace MinecraftDatapackReloadHelper.Tools
             }
             catch (UnauthorizedAccessException ex)
             {
-                Display.Console.Error(ex.Message);
-                Display.Console.Error(ex.StackTrace);
+                Display.Message.Error(ex.Message);
+                Display.Message.Error(ex.StackTrace);
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -67,8 +69,8 @@ namespace MinecraftDatapackReloadHelper.Tools
                 }
                 catch (Exception ex)
                 {
-                    Display.Console.Error(ex.Message);
-                    Display.Console.Error(ex.StackTrace);
+                    Display.Message.Error(ex.Message);
+                    Display.Message.Error(ex.StackTrace);
                 }
             }
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。

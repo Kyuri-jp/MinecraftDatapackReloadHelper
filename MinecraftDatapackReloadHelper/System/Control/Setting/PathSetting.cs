@@ -1,4 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
+﻿using MinecraftDatapackReloadHelper.Libs.Files;
+
+namespace MinecraftDatapackReloadHelper.System.Control.Setting
 {
     internal class PathSetting
     {
@@ -15,19 +17,19 @@
                     break;
                 if (source == null)
                 {
-                    Display.Console.Warning("Null.");
+                    Tools.Display.Message.Warning("Null.");
                     source = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(source))
                 {
-                    Display.Console.Warning($"{source} is not exists.");
+                    Tools.Display.Message.Warning($"{source} is not exists.");
                     source = string.Empty;
                     continue;
                 }
                 if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
                 {
-                    Display.Console.Warning($"{source} is not contain pack.mcmeta.");
+                    Tools.Display.Message.Warning($"{source} is not contain pack.mcmeta.");
                     source = string.Empty;
                     continue;
                 }
@@ -44,26 +46,26 @@
                     break;
                 if (copy == null)
                 {
-                    Display.Console.Warning("Null.");
+                    Tools.Display.Message.Warning("Null.");
                     copy = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(copy))
                 {
-                    Display.Console.Warning($"{copy} is not exists.");
+                    Tools.Display.Message.Warning($"{copy} is not exists.");
                     copy = string.Empty;
                     continue;
                 }
 
                 if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                 {
-                    Display.Console.Warning($"Not found level file in {copy}'s parents");
+                    Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
                 if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                 {
-                    Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                    Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                     copy = string.Empty;
                     continue;
                 }
@@ -86,7 +88,7 @@
                 }
                 if (!Directory.Exists(upload))
                 {
-                    Display.Console.Warning($"{upload} is not exists.");
+                    Tools.Display.Message.Warning($"{upload} is not exists.");
                     upload = string.Empty;
                     continue;
                 }

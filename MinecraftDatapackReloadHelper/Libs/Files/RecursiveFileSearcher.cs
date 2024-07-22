@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools
+﻿namespace MinecraftDatapackReloadHelper.Libs.Files
 {
     internal class RecursiveFileSearcher
     {

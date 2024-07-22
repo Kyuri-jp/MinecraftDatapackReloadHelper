@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.Tools.Control;
+﻿using MinecraftDatapackReloadHelper.System.Control;
 
 namespace MinecraftDatapackReloadHelper
 {
@@ -18,7 +18,7 @@ namespace MinecraftDatapackReloadHelper
                     "System.Configuration.ConfigurationManager v8.0.0 / MIT License Copyright (c) .NET Foundation and Contributors\n" +
                     "====================\n";
 
-        private static async Task Main()
+        private static void Main()
         {
             //message
             Console.WriteLine(welcome);
@@ -26,7 +26,7 @@ namespace MinecraftDatapackReloadHelper
             Settings.Default.Save();
 
             //run terminal
-            await AppCommandTerminal.Run();
+            AppCommandTerminal.Run();
         }
 
         internal static string GetAppVersion() => version;

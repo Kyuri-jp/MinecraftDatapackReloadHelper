@@ -14,8 +14,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Rcon
             }
             catch (Exception ex)
             {
-                Tools.Display.Console.Error(ex.Message);
-                Tools.Display.Console.Error(ex.StackTrace);
+                Tools.Display.Message.Error(ex.Message);
+                Tools.Display.Message.Error(ex.StackTrace);
             }
 
             return connection;
