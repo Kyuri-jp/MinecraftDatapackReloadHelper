@@ -97,7 +97,6 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                         Display.Console.Warning($"{copy} is not exists.");
                         continue;
                     }
-                    RecursiveFileSearcher recursiveFileSearcher = new();
 
                     if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                     {
