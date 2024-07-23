@@ -13,7 +13,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Github
             try
             {
                 // GitHub Libsのエンドポイント
-                string url = $"https://Libs.github.com/repos/{owner}/{repo}/releases/latest";
+                string url = $"https://api.github.com/repos/{owner}/{repo}/releases/latest";
 
                 // GitHub LibsはUser-Agentを要求するので設定
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Minecraft-Datapack-Reload-Helper");

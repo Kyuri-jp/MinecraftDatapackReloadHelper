@@ -1,6 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
 
-namespace MinecraftDatapackReloadHelper.System.Control
+namespace MinecraftDatapackReloadHelper.Systems.Control
 {
     internal class Terminal
     {

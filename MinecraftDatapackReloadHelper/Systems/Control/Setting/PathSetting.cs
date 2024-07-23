@@ -1,6 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Files;
 
-namespace MinecraftDatapackReloadHelper.System.Control.Setting
+namespace MinecraftDatapackReloadHelper.Systems.Control.Setting
 {
     internal class PathSetting
     {

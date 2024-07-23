@@ -1,12 +1,11 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
-using MinecraftDatapackReloadHelper.Tools;
 using MinecraftDatapackReloadHelper.Libs.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
     internal class AdvReloader
     {
-        internal static async Task ReloadAsync(string source, string copy, bool copyOnly)
+        internal static async Task ReloadAsync(string source, string copy, bool copyOnly = false)
         {
             // ex
             bool exceptioned = false;
