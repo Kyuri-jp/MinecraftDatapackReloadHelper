@@ -1,4 +1,5 @@
-﻿using UtilForMinecraftLibrary;
+﻿using MinecraftDatapackReloadHelper.Libs.Files;
+using UtilForMinecraftLibrary;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 {
@@ -17,19 +18,19 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                     break;
                 if (source == null)
                 {
-                    Display.Console.Warning("Null.");
+                    Tools.Display.Message.Warning("Null.");
                     source = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(source))
                 {
-                    Display.Console.Warning($"{source} is not exists.");
+                    Tools.Display.Message.Warning($"{source} is not exists.");
                     source = string.Empty;
                     continue;
                 }
                 if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
                 {
-                    Display.Console.Warning($"{source} is not contain pack.mcmeta.");
+                    Tools.Display.Message.Warning($"{source} is not contain pack.mcmeta.");
                     source = string.Empty;
                     continue;
                 }
@@ -46,26 +47,26 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                     break;
                 if (copy == null)
                 {
-                    Display.Console.Warning("Null.");
+                    Tools.Display.Message.Warning("Null.");
                     copy = string.Empty;
                     continue;
                 }
                 if (!Directory.Exists(copy))
                 {
-                    Display.Console.Warning($"{copy} is not exists.");
+                    Tools.Display.Message.Warning($"{copy} is not exists.");
                     copy = string.Empty;
                     continue;
                 }
 
                 if (!Detections.IsWorld(copy))
                 {
-                    Display.Console.Warning($"Not found level file in {copy}'s parents");
+                    Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
                 if (!Detections.IsServer(copy))
                 {
-                    Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                    Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                     copy = string.Empty;
                     continue;
                 }
@@ -88,7 +89,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                 }
                 if (!Directory.Exists(upload))
                 {
-                    Display.Console.Warning($"{upload} is not exists.");
+                    Tools.Display.Message.Warning($"{upload} is not exists.");
                     upload = string.Empty;
                     continue;
                 }

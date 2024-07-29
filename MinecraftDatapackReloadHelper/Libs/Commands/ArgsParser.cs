@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.API.Command
+﻿namespace MinecraftDatapackReloadHelper.Libs.Command
 {
     internal class ArgsParser
     {

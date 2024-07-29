@@ -1,6 +1,6 @@
-﻿using MinecraftDatapackReloadHelper.API.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
 
-namespace MinecraftDatapackReloadHelper.Tools.Control
+namespace MinecraftDatapackReloadHelper.Systems.Control
 {
     internal class Terminal
     {
@@ -24,7 +24,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                     command = Console.ReadLine();
                     if (command == null)
                     {
-                        Display.Console.Warning("Please enter any command.\n");
+                        Tools.Display.Message.Warning("Please enter any command.\n");
                         command = string.Empty;
                         continue;
                     }
@@ -39,8 +39,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Control
                 }
                 catch (Exception ex)
                 {
-                    Display.Console.Error(ex.Message);
-                    Display.Console.Error(ex.StackTrace);
+                    Tools.Display.Message.Error(ex.Message);
+                    Tools.Display.Message.Error(ex.StackTrace);
                     continue;
                 }
             }
