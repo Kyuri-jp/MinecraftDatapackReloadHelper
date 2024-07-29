@@ -1,8 +1,10 @@
-﻿using MinecraftDatapackReloadHelper.Tools.Minecraft;
+﻿using MinecraftDatapackReloadHelper.Libs.Files;
+using MinecraftDatapackReloadHelper.Libs.Minecraft;
+using MinecraftDatapackReloadHelper.Tools;
 using System.Net;
 using System.Net.Sockets;
 
-namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
+namespace MinecraftDatapackReloadHelper.Systems.Control.Setting
 {
     internal class ApplicationSetting
     {
@@ -11,7 +13,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
             string? rconIP = Asker("Please enter rcon ipadress.");
             if (rconIP == "localhost")
             {
-                Display.Console.Warning("Inputed localhost.\nset this computer's private ip adress.");
+                Tools.Display.Message.Warning("Inputed localhost.\nset this computer's private ip adress.");
 
                 rconIP = Getv4Adress();
             }
@@ -51,7 +53,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 
                 if (reader == null)
                 {
-                    Display.Console.Warning("Please enter any strings.");
+                    Tools.Display.Message.Warning("Please enter any strings.");
                     reader = string.Empty;
                     continue;
                 }
@@ -87,26 +89,25 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 
             if (!File.Exists(filePath))
             {
-                Display.Console.Warning("Copy path is null or empty.");
+                Tools.Display.Message.Warning("Copy path is null or empty.");
 
                 while (true)
                 {
                     string copy = Asker("Please enter copy path.");
                     if (!Directory.Exists(copy))
                     {
-                        Display.Console.Warning($"{copy} is not exists.");
+                        Tools.Display.Message.Warning($"{copy} is not exists.");
                         continue;
                     }
-                    RecursiveFileSearcher recursiveFileSearcher = new();
 
                     if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
                     {
-                        Display.Console.Warning($"Not found level file in {copy}'s parents");
+                        Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
                         continue;
                     }
                     if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
                     {
-                        Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                        Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                         continue;
                     }
 

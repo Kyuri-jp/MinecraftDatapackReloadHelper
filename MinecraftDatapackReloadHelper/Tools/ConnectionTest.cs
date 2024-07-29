@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.API.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
@@ -13,8 +13,8 @@ namespace MinecraftDatapackReloadHelper.Tools
             }
             catch (Exception ex)
             {
-                Display.Console.Error(ex.Message);
-                Display.Console.Error(ex.StackTrace);
+                Display.Message.Error(ex.Message);
+                Display.Message.Error(ex.StackTrace);
             }
         }
     }

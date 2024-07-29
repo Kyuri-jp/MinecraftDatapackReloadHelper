@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools
+﻿namespace MinecraftDatapackReloadHelper.Libs.Files
 {
     internal class RecursiveFileSearcher
     {
@@ -11,12 +11,9 @@
             ArgumentException.ThrowIfNullOrEmpty(begin);
             ArgumentException.ThrowIfNullOrEmpty(marker);
 
-            List<object> result = [false, null];
-
             if (File.Exists(Path.Combine(begin, marker)))
             {
-                result = [true, begin];
-                return result;
+                return [true, begin];
             }
 
             DirectoryInfo directoryInfo = new(begin);
@@ -29,8 +26,7 @@
 
             if (root == begin)
             {
-                result = [false, begin];
-                return result;
+                return [false, begin];
             }
 
             return Search(begin, marker);

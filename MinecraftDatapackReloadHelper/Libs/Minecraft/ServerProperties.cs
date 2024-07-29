@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools.Minecraft
+﻿namespace MinecraftDatapackReloadHelper.Libs.Minecraft
 {
     internal class ServerProperties
     {

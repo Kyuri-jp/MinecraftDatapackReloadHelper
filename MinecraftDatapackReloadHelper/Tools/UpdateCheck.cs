@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.API.Github;
+﻿using MinecraftDatapackReloadHelper.Libs.Github;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
