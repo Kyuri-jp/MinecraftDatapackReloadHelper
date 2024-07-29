@@ -30,7 +30,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         public Task Run()
         {
-            PathSetting.ChangePathSetting();
+            Tools.Control.Setting.PathSetting.ChangePathSetting();
             return Task.CompletedTask;
         }
     }

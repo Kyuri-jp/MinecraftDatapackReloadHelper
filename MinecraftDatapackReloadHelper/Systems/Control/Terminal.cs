@@ -6,7 +6,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
     {
         internal static async Task RunAsync()
         {
-            var connection = RconConnector.GetRconInst();
+            var connection = RconConnector.AutoGetRconInstans();
 
             ConsoleColor consoleColor = Console.BackgroundColor;
 

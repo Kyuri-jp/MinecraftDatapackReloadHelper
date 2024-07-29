@@ -1,4 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
+using UtilForMinecraftLibrary.Server.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
@@ -6,7 +7,7 @@ namespace MinecraftDatapackReloadHelper.Tools
     {
         internal static async Task ConnectingTesterAsync()
         {
-            var connection = RconConnector.GetRconInst();
+            var connection = RconConnector.AutoGetRconInstans();
             try
             {
                 Console.WriteLine(await connection.SendCommandAsync("say [MDRH] Rcon was connected"));

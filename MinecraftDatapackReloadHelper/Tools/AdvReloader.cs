@@ -1,5 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
 using MinecraftDatapackReloadHelper.Libs.Rcon;
+using UtilForMinecraftLibrary.Server.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
@@ -11,7 +12,7 @@ namespace MinecraftDatapackReloadHelper.Tools
             bool exceptioned = false;
 
             //inst
-            var connection = RconConnector.GetRconInst();
+            var connection = RconConnector.AutoGetRconInstans();
 
             //test
             try

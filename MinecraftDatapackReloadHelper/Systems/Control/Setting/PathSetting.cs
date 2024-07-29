@@ -1,5 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Files;
-using UtilForMinecraftLibrary;
+﻿using UtilForMinecraftLibrary;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 {
@@ -18,7 +17,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                     break;
                 if (source == null)
                 {
-                    Tools.Display.Message.Warning("Null.");
+                    Display.Message.Warning("Null.");
                     source = string.Empty;
                     continue;
                 }
