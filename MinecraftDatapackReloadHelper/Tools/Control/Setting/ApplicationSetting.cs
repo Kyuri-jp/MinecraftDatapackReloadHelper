@@ -1,6 +1,7 @@
-﻿using MinecraftDatapackReloadHelper.Tools.Minecraft;
+﻿using MinecraftDatapackReloadHelper.Tools;
 using System.Net;
 using System.Net.Sockets;
+using UtilForMinecraftLibrary;
 using UtilForMinecraftLibrary.Server;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
@@ -99,12 +100,12 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                         continue;
                     }
 
-                    if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                    if (!Detections.IsWorld(copy))
                     {
                         Display.Console.Warning($"Not found level file in {copy}'s parents");
                         continue;
                     }
-                    if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                    if (!Detections.IsServer(copy))
                     {
                         Display.Console.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                         continue;

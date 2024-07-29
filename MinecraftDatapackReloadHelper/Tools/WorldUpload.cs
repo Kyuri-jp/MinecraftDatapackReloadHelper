@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO.Compression;
+using UtilForMinecraftLibrary;
 
 namespace MinecraftDatapackReloadHelper.Tools
 {
@@ -12,14 +13,14 @@ namespace MinecraftDatapackReloadHelper.Tools
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
-            worldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "level.dat");
+            worldFolder = GetDirectory.GetWorldDirectory(worldFolder);
             string nameWorldFolder = worldFolder;
 
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
 
-            if (RecursiveFileSearcher.RecursiveFileExists(worldFolder, "server.properties"))
-                nameWorldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "server.properties");
+            if (Detections.IsServer(worldFolder, true))
+                nameWorldFolder = GetDirectory.GetServerDirectory(worldFolder);
 
             DirectoryInfo nameWorldFolderInfo = new(nameWorldFolder);
             string worldFolderName = nameWorldFolderInfo.Name;
