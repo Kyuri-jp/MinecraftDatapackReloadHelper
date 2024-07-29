@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Tools.Minecraft;
 using System.Net;
 using System.Net.Sockets;
+using UtilForMinecraftLibrary.Server;
 
 namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
 {
@@ -114,7 +115,7 @@ namespace MinecraftDatapackReloadHelper.Tools.Control.Setting
                 }
             }
 
-            Dictionary<string, string> PropertyData = ServerProperties.Parse(filePath);
+            Dictionary<string, string> PropertyData = Reader.ReadServerProperties(filePath);
 
             Settings.Rcon_IP = Getv4Adress();
             Settings.Rcon_Port = ushort.Parse(PropertyData["rcon.port"]);
