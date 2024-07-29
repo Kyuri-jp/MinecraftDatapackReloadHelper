@@ -36,6 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\UtilForMinecraftLibrary\UtilForMinecraftLibrary\UtilForMinecraftLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
