@@ -1,4 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Libs.Command
+﻿using MinecraftDatapackReloadHelper.Tools;
+
+namespace MinecraftDatapackReloadHelper.Libs.Command
 {
     internal class ArgsParser
     {
@@ -25,11 +27,11 @@
                 {
                     if (!targetedArg.Contains(valueBegin) || !(targetedArg.Contains(valueClose)))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
-                    result.Add(targetedArg[0..targetedArg.IndexOf(valueMark)].ToLower(), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
+                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg[0..targetedArg.IndexOf(valueMark)]), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
                 else
                 {
-                    result.Add(targetedArg.ToLower(), null);
+                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg), null);
                 }
                 if (!str.Contains(argsPause))
                     break;

@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Systems.Commands;
 using System.ComponentModel.DataAnnotations;
+using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -39,25 +40,18 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             Dictionary<string, IToolCommand> obj = [];
             foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
                 foreach (var item in key)
-                    obj.Add(ToUpperOnlyFirstLetter(item.Key), item.Value);
+                    obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
 
             ArgumentException.ThrowIfNullOrEmpty(args.ElementAt(0).Key);
 
-            if (!obj.ContainsKey(ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
+            if (!obj.ContainsKey(StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
             {
                 Tools.Display.Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
                 return;
             }
-            await RunMethod(obj[ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
+            await RunMethod(obj[StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
         }
 
         private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>?> args) => await inst.Run(args);
-
-        private static string ToUpperOnlyFirstLetter(string value)
-        {
-            char[] chars = value.ToLower().ToCharArray();
-            chars[0] = char.ToUpper(chars[0]);
-            return string.Join("", chars);
-        }
     }
 }
