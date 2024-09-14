@@ -9,7 +9,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         internal List<string> GetArgs() => Args;
 
-        public async Task Run(Dictionary<string, List<string>?> args)
+        public async Task Run(Dictionary<string, List<string>> args)
         {
             Console.WriteLine(Programs.GetWelcomeMessage());
             if (args.ContainsKey("updatecheck"))

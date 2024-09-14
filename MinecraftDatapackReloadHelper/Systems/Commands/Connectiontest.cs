@@ -5,6 +5,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Connectiontest : IToolCommand
     {
-        public async Task Run(Dictionary<string, List<string>?> args) => await ConnectionTest.ConnectingTesterAsync();
+        public async Task Run(Dictionary<string, List<string>> args) => await ConnectionTest.ConnectingTesterAsync();
     }
 }

@@ -5,24 +5,26 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Upload : IToolCommand
     {
-        private readonly List<string> Args = ["custompath", "additional", "nonclean", "notopen"];
-
-        internal List<string> GetArgs() => Args;
-
         private static readonly DirectoryInfo? copy = Directory.GetParent(Settings.Client_Copy);
+
+        private enum Args
+        {
+            Additional,
+            Custompath,
+            Nonclean,
+            Notopen,
+        };
 
 #pragma warning disable CS8602 // null 参照の可能性があるものの逆参照です。
         private string source = copy.FullName;
 #pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
 
-        public async Task Run(Dictionary<string, List<string>?> args)
+        public async Task Run(Dictionary<string, List<string>> args)
         {
             string additional = string.Empty;
-            if (args.ContainsKey("additional"))
-            {
-                Console.WriteLine("Please enter the additional archive file name.");
-                additional = Console.ReadLine() ?? string.Empty;
-            }
+            if (args.ContainsKey(Args.Additional.ToString()))
+                additional = args[Args.Additional.ToString()][0];
+
             if (args.ContainsKey("custompath"))
             {
                 while (true)

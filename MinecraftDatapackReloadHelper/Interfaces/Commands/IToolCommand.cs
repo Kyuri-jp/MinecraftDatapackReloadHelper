@@ -2,6 +2,6 @@
 {
     internal interface IToolCommand
     {
-        internal Task Run(Dictionary<string, List<string>?> args);
+        internal Task Run(Dictionary<string, List<string>> args);
     }
 }

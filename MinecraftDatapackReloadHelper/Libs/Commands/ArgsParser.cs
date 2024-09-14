@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Command
 {
     internal class ArgsParser
     {
-        internal static Dictionary<string, List<string>?> Parse(string str, string argsPause = "--", char valueMark = '=', char valueBegin = '[', char valueClose = ']')
+        internal static Dictionary<string, List<string>> Parse(string str, string argsPause = "--", char valueMark = '=', char valueBegin = '[', char valueClose = ']')
         {
             ArgumentNullException.ThrowIfNull(str);
 
@@ -12,7 +12,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Command
             str = str.Trim();
             str = str.Replace(" ", "");
 
-            Dictionary<string, List<string>?> result = [];
+            Dictionary<string, List<string>> result = [];
 
             while (true)
             {
@@ -31,7 +31,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Command
                 }
                 else
                 {
-                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg), null);
+                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg), []);
                 }
                 if (!str.Contains(argsPause))
                     break;
@@ -42,18 +42,18 @@ namespace MinecraftDatapackReloadHelper.Libs.Command
             return result;
         }
 
-        private static void ShowAnalyzeData(Dictionary<string, List<string>?> data)
+        private static void ShowAnalyzeData(Dictionary<string, List<string>> data)
         {
             try
             {
-                foreach (KeyValuePair<string, List<string>?> item in data)
+                foreach (KeyValuePair<string, List<string>> item in data)
 #pragma warning disable CS8604 // Null 参照引数の可能性があります。
                     Console.WriteLine($"{item.Key} / {string.Join("_", item.Value.ToList())}");
 #pragma warning restore CS8604 // Null 参照引数の可能性があります。
             }
             catch (ArgumentNullException)
             {
-                foreach (KeyValuePair<string, List<string>?> item in data)
+                foreach (KeyValuePair<string, List<string>> item in data)
                     Console.WriteLine($"{item.Key}");
             }
         }

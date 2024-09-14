@@ -35,7 +35,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             return result;
         }
 
-        internal static async Task RunCommand(Dictionary<string, List<string>?> args)
+        internal static async Task RunCommand(Dictionary<string, List<string>> args)
         {
             Dictionary<string, IToolCommand> obj = [];
             foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
@@ -52,6 +52,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             await RunMethod(obj[StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
         }
 
-        private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>?> args) => await inst.Run(args);
+        private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>> args) => await inst.Run(args);
     }
 }

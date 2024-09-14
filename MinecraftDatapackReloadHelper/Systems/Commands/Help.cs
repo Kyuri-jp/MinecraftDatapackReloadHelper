@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Help : IToolCommand
     {
-        public Task Run(Dictionary<string, List<string>?> args)
+        public Task Run(Dictionary<string, List<string>> args)
         {
             Console.WriteLine("コマンドや引数は大文字小文字の区別はありません\n" +
                         "また、引数は -- で区切ります\n" +
