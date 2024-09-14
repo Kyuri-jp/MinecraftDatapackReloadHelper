@@ -36,7 +36,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
 
         internal static async Task RunCommand(Dictionary<string, List<string>?> args)
         {
-            Dictionary<string, dynamic> obj = [];
+            Dictionary<string, IToolCommand> obj = [];
             foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
                 foreach (var item in key)
                     obj.Add(ToUpperOnlyFirstLetter(item.Key), item.Value);
