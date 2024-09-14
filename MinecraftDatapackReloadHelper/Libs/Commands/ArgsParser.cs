@@ -9,7 +9,6 @@
             //adv trim
             str = str.Trim();
             str = str.Replace(" ", "");
-            str = str.ToLower();
 
             Dictionary<string, List<string>?> result = [];
 
@@ -26,17 +25,18 @@
                 {
                     if (!targetedArg.Contains(valueBegin) || !(targetedArg.Contains(valueClose)))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
-                    result.Add(targetedArg[0..targetedArg.IndexOf(valueMark)], [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
+                    result.Add(targetedArg[0..targetedArg.IndexOf(valueMark)].ToLower(), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
                 else
                 {
-                    result.Add(targetedArg, null);
+                    result.Add(targetedArg.ToLower(), null);
                 }
                 if (!str.Contains(argsPause))
                     break;
 
                 str = str.Remove(0, str.IndexOf(argsPause) + argsPause.Length);
             }
+
             return result;
         }
 
