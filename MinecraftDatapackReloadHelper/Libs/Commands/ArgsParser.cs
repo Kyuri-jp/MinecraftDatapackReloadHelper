@@ -45,7 +45,9 @@
             try
             {
                 foreach (KeyValuePair<string, List<string>?> item in data)
+#pragma warning disable CS8604 // Null 参照引数の可能性があります。
                     Console.WriteLine($"{item.Key} / {string.Join("_", item.Value.ToList())}");
+#pragma warning restore CS8604 // Null 参照引数の可能性があります。
             }
             catch (ArgumentNullException)
             {
