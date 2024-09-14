@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Systems.Commands;
+﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+using MinecraftDatapackReloadHelper.Systems.Commands;
 using System.ComponentModel.DataAnnotations;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
@@ -6,28 +7,28 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
     internal class CommandSelector
     {
         //commands
-        private static readonly Dictionary<Dictionary<string, object>, string> commandsData = new()
+        private static readonly Dictionary<Dictionary<string, IToolCommand>, string> commandsData = new()
         {
-            { new Dictionary<string,object>{{"AppSetting", new Appsetting() }},"Rconなどの設定を変更できます" },
-            { new Dictionary<string,object>{{"PathSetting",new Pathsetting() }}, "データパックや出力のパスを変更できます" },
-            { new Dictionary<string,object>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
-            { new Dictionary<string,object>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
-            { new Dictionary<string,object>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
-            { new Dictionary<string,object>{{"ShowSetting",new Showsetting() }}, "現在の設定を表示します" },
-            { new Dictionary<string,object>{{"Upload",new Upload() }}, "ワールドをZip形式で書き出します" },
-            { new Dictionary<string,object>{{"Help",new Help() }}, "ヘルプを表示します" },
-            { new Dictionary<string,object>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
-            { new Dictionary<string,object>{{"Exit",new Exit() }}, "ツールを終了します" }
+            { new Dictionary<string,IToolCommand>{{"AppSetting", new Appsetting() }},"Rconなどの設定を変更できます" },
+            { new Dictionary<string,IToolCommand>{{"PathSetting",new Pathsetting() }}, "データパックや出力のパスを変更できます" },
+            { new Dictionary<string,IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
+            { new Dictionary<string,IToolCommand>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
+            { new Dictionary<string,IToolCommand>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
+            { new Dictionary<string,IToolCommand>{{"ShowSetting",new Showsetting() }}, "現在の設定を表示します" },
+            { new Dictionary<string,IToolCommand>{{"Upload",new Upload() }}, "ワールドをZip形式で書き出します" },
+            { new Dictionary<string,IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
+            { new Dictionary<string,IToolCommand>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
+            { new Dictionary<string,IToolCommand>{{"Exit",new Exit() }}, "ツールを終了します" }
         };
 
         internal static SortedDictionary<string, string> GetCommandHelp()
         {
             SortedDictionary<string, string> result = [];
-            foreach (KeyValuePair<Dictionary<string, object>, string> keyValuePair in commandsData)
+            foreach (KeyValuePair<Dictionary<string, IToolCommand>, string> keyValuePair in commandsData)
             {
                 string help = keyValuePair.Value.ToString();
-                Dictionary<string, object> data = keyValuePair.Key;
-                foreach (KeyValuePair<string, object> keyValuePair1 in data)
+                Dictionary<string, IToolCommand> data = keyValuePair.Key;
+                foreach (KeyValuePair<string, IToolCommand> keyValuePair1 in data)
                     result.Add(keyValuePair1.Key, help);
             }
             return result;
@@ -38,7 +39,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             string main = ToUpperOnlyFirstLetter(args[0]);
 
             Dictionary<string, dynamic> obj = [];
-            foreach (Dictionary<string, dynamic> key in commandsData.Keys)
+            foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
                 foreach (var item in key)
                     obj.Add(ToUpperOnlyFirstLetter(item.Key), item.Value);
 
@@ -49,16 +50,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 Tools.Display.Message.Error($"{args[0]} is an invalid command.");
                 return;
             }
-
-            if (args.Contains(string.Join("_", obj[main].GetArgs())))
-                await RunMethod(obj[main], args);
-            else
-                await RunMethod(obj[main]);
+            await RunMethod(obj[main], args);
         }
 
-        private static async Task RunMethod(dynamic inst, List<string> args) => await inst.Run(args);
-
-        private static async Task RunMethod(dynamic inst) => await inst.Run();
+        private static async Task RunMethod(IToolCommand inst, List<string> args) => await inst.Run(args);
 
         private static string ToUpperOnlyFirstLetter(string value)
         {
