@@ -5,7 +5,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Pathsetting : IToolCommand
     {
-        public Task Run(List<string> args)
+        public Task Run(Dictionary<string, List<string>?> args)
         {
             PathSetting.ChangePathSetting();
             return Task.CompletedTask;

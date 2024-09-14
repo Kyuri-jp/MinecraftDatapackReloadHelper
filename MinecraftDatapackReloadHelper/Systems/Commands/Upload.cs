@@ -15,15 +15,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         private string source = copy.FullName;
 #pragma warning restore CS8602 // null 参照の可能性があるものの逆参照です。
 
-        public async Task Run(List<string> args)
+        public async Task Run(Dictionary<string, List<string>?> args)
         {
             string additional = string.Empty;
-            if (args.Contains("additional"))
+            if (args.ContainsKey("additional"))
             {
                 Console.WriteLine("Please enter the additional archive file name.");
                 additional = Console.ReadLine() ?? string.Empty;
             }
-            if (args.Contains("custompath"))
+            if (args.ContainsKey("custompath"))
             {
                 while (true)
                 {
@@ -49,7 +49,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     break;
                 }
             }
-            await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.Contains("nonclean"), !args.Contains("notopen"), additional);
+            await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.ContainsKey("nonclean"), !args.ContainsKey("notopen"), additional);
         }
     }
 }
