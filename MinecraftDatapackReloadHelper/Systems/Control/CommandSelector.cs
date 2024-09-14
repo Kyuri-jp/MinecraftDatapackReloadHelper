@@ -33,30 +33,28 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             return result;
         }
 
-        internal static async Task RunCommand(List<string> args)
+        internal static async Task RunCommand(Dictionary<string, List<string>?> args)
         {
-            string main = ToUpperOnlyFirstLetter(args[0]);
-
             Dictionary<string, dynamic> obj = [];
             foreach (Dictionary<string, dynamic> key in commandsData.Keys)
                 foreach (var item in key)
                     obj.Add(ToUpperOnlyFirstLetter(item.Key), item.Value);
 
-            ArgumentException.ThrowIfNullOrEmpty(main);
+            ArgumentException.ThrowIfNullOrEmpty(args.ElementAt(0).Key);
 
-            if (!obj.ContainsKey(ToUpperOnlyFirstLetter(args[0])))
+            if (!obj.ContainsKey(ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
             {
-                Tools.Display.Message.Error($"{args[0]} is an invalid command.");
+                Tools.Display.Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
                 return;
             }
 
-            if (args.Contains(string.Join("_", obj[main].GetArgs())))
-                await RunMethod(obj[main], args);
+            if (args.Keys.Contains(string.Join("_", obj[args.ElementAt(0).Key].GetArgs())))
+                await RunMethod(obj[args.ElementAt(0).Key], args);
             else
-                await RunMethod(obj[main]);
+                await RunMethod(obj[args.ElementAt(0).Key]);
         }
 
-        private static async Task RunMethod(dynamic inst, List<string> args) => await inst.Run(args);
+        private static async Task RunMethod(dynamic inst, Dictionary<string, List<string>?> args) => await inst.Run(args);
 
         private static async Task RunMethod(dynamic inst) => await inst.Run();
 

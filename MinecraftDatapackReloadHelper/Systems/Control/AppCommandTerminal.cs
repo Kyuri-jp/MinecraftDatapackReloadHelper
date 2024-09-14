@@ -19,7 +19,16 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                     command = Console.ReadLine();
                 }
 
-                await CommandSelector.RunCommand(ArgsParser.Parse(command));
+                try
+                {
+                    await CommandSelector.RunCommand(ArgsParser.Parse(command));
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.ToString());
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
         }
     }
