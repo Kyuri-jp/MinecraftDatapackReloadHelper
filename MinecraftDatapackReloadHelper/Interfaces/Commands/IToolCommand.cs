@@ -2,6 +2,6 @@
 {
     internal interface IToolCommand
     {
-        protected Task Run();
+        internal Task Run(List<string> args);
     }
 }
