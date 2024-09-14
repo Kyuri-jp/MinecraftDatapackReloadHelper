@@ -18,26 +18,40 @@
                 if (str.Length <= 0)
                     break;
 
-                if (!str.Contains(argsPause))
+                string targetedArg = str;
+                if (str.Contains(argsPause))
+                    targetedArg = str[0..str.IndexOf(argsPause)];
+
+                if (targetedArg.Contains(valueMark))
                 {
-                    result.Add(str, null);
-                    return result;
-                }
-                ;
-                if (str[0..(str.IndexOf(argsPause))].Contains(valueMark))
-                {
-                    if (!str[0..(str.IndexOf(argsPause))].Contains(valueBegin) || !str[0..(str.IndexOf(argsPause))].Contains(valueClose))
+                    if (!targetedArg.Contains(valueBegin) || !(targetedArg.Contains(valueClose)))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
+                    result.Add(targetedArg[0..targetedArg.IndexOf(valueMark)], [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
+                else
+                {
+                    result.Add(targetedArg, null);
+                }
+                if (!str.Contains(argsPause))
+                    break;
+
                 str = str.Remove(0, str.IndexOf(argsPause) + argsPause.Length);
             }
             return result;
         }
 
-        private static void ShowAnalyzeData(List<string> data)
+        private static void ShowAnalyzeData(Dictionary<string, List<string>?> data)
         {
-            foreach (var item in data)
-                Console.WriteLine(item);
+            try
+            {
+                foreach (KeyValuePair<string, List<string>?> item in data)
+                    Console.WriteLine($"{item.Key} / {string.Join("_", item.Value.ToList())}");
+            }
+            catch (ArgumentNullException)
+            {
+                foreach (KeyValuePair<string, List<string>?> item in data)
+                    Console.WriteLine($"{item.Key}");
+            }
         }
     }
 }
