@@ -25,31 +25,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             if (args.ContainsKey(Args.Additional.ToString()))
                 additional = args[Args.Additional.ToString()][0];
 
-            if (args.ContainsKey("custompath"))
+            if (args.ContainsKey(Args.Custompath.ToString()))
             {
-                while (true)
-                {
-                    Console.WriteLine("Please enter world folder path.");
-                    source = Console.ReadLine() ?? string.Empty;
-                    if (source == string.Empty)
-                    {
-                        Tools.Display.Message.Error("Please enter anything.");
-                        continue;
-                    }
-
-                    if (!Directory.Exists(source))
-                    {
-                        Tools.Display.Message.Error($"{source} is not found.");
-                        continue;
-                    }
-
-                    if (!Directory.Exists(Path.Combine(source, "level.dat")))
-                    {
-                        Tools.Display.Message.Error($"{source} is not found level.dat.\nMaybe, this directory is not world folder.");
-                        continue;
-                    }
-                    break;
-                }
+                source = args[Args.Custompath.ToString()][0];
+                if (!Directory.Exists(source))
+                    throw new DirectoryNotFoundException(source);
+                if (!Directory.Exists(Path.Combine(source, "level.dat")))
+                    throw new FileNotFoundException(Path.Combine(source, "level.dat"));
             }
             await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.ContainsKey("nonclean"), !args.ContainsKey("notopen"), additional);
         }

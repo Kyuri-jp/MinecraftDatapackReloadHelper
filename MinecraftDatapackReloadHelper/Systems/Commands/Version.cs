@@ -5,14 +5,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Version : IToolCommand
     {
-        private readonly List<string> Args = ["updatecheck"];
-
-        internal List<string> GetArgs() => Args;
+        private enum Args
+        {
+            Updatecheck
+        }
 
         public async Task Run(Dictionary<string, List<string>> args)
         {
             Console.WriteLine(Programs.GetWelcomeMessage());
-            if (args.ContainsKey("updatecheck"))
+            if (args.ContainsKey(Args.Updatecheck.ToString()))
                 await UpdateCheck.UpdateCheckerAsync();
         }
     }
