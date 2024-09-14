@@ -48,7 +48,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 Tools.Display.Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
                 return;
             }
-            await RunMethod(obj[args.ElementAt(0).Key], args);
+            await RunMethod(obj[ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
         }
 
         private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>?> args) => await inst.Run(args);
