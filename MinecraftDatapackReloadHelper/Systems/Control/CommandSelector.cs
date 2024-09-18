@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Systems.Commands;
 using System.ComponentModel.DataAnnotations;
+using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -34,32 +35,23 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             return result;
         }
 
-        internal static async Task RunCommand(List<string> args)
+        internal static async Task RunCommand(Dictionary<string, List<string>> args)
         {
-            string main = ToUpperOnlyFirstLetter(args[0]);
-
-            Dictionary<string, dynamic> obj = [];
+            Dictionary<string, IToolCommand> obj = [];
             foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
                 foreach (var item in key)
-                    obj.Add(ToUpperOnlyFirstLetter(item.Key), item.Value);
+                    obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
 
-            ArgumentException.ThrowIfNullOrEmpty(main);
+            ArgumentException.ThrowIfNullOrEmpty(args.ElementAt(0).Key);
 
-            if (!obj.ContainsKey(ToUpperOnlyFirstLetter(args[0])))
+            if (!obj.ContainsKey(StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
             {
-                Tools.Display.Message.Error($"{args[0]} is an invalid command.");
+                Tools.Display.Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
                 return;
             }
-            await RunMethod(obj[main], args);
+            await RunMethod(obj[StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
         }
 
-        private static async Task RunMethod(IToolCommand inst, List<string> args) => await inst.Run(args);
-
-        private static string ToUpperOnlyFirstLetter(string value)
-        {
-            char[] chars = value.ToLower().ToCharArray();
-            chars[0] = char.ToUpper(chars[0]);
-            return string.Join("", chars);
-        }
+        private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>> args) => await inst.Run(args);
     }
 }

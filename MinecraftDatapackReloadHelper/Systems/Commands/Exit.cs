@@ -6,7 +6,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
     {
         internal static List<string> GetArgs() => [null];
 
-        public Task Run(List<string> args)
+        public Task Run(Dictionary<string, List<string>> args)
         {
             Environment.Exit(0);
             return Task.CompletedTask;

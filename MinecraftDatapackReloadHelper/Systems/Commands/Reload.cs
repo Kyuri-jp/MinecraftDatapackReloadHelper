@@ -5,6 +5,11 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Reload : IToolCommand
     {
-        public async Task Run(List<string> args) => await AdvReloader.ReloadAsync(Settings.Client_Source, Settings.Client_Copy, args.Contains("copyonly"));
+        private enum Args
+        {
+            Copyonly
+        }
+
+        public async Task Run(Dictionary<string, List<string>> args) => await AdvReloader.ReloadAsync(Settings.Client_Source, Settings.Client_Copy, args.ContainsKey(Args.Copyonly.ToString()));
     }
 }

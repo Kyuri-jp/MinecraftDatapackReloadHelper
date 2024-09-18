@@ -5,9 +5,14 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Appsetting : IToolCommand
     {
-        public async Task Run(List<string> args)
+        private enum Args
         {
-            if (args.Contains("auto"))
+            Auto
+        }
+
+        public async Task Run(Dictionary<string, List<string>> args)
+        {
+            if (args.ContainsKey(Args.Auto.ToString()))
                 await ApplicationSetting.AutoChangeRconSettingAsync();
             else
                 await ApplicationSetting.ChangeRconSettingAsync();

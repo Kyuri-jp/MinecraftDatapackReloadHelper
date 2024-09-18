@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Showsetting : IToolCommand
     {
-        public Task Run(List<string> args)
+        public Task Run(Dictionary<string, List<string>> args)
         {
             Console.WriteLine($"Ip: {Settings.Rcon_IP}\n" +
                         $"Port : {Settings.Rcon_Port}\n" +
