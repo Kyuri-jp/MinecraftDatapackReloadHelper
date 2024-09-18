@@ -33,7 +33,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (!Directory.Exists(Path.Combine(source, "level.dat")))
                     throw new FileNotFoundException(Path.Combine(source, "level.dat"));
             }
-            await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.ContainsKey("nonclean"), !args.ContainsKey("notopen"), additional);
+            await WorldUpload.Upload(source, Settings.Client_UploadOutput, !args.ContainsKey(Args.Nonclean.ToString()), !args.ContainsKey(Args.Notopen.ToString()), additional);
         }
     }
 }
