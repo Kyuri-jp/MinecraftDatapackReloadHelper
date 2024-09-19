@@ -10,14 +10,11 @@ namespace MinecraftDatapackReloadHelper.Tools
             // ex
             bool exceptioned = false;
 
-            //inst
-            var connection = RconConnector.GetRconInst();
-
             //test
             try
             {
                 if (!copyOnly)
-                    await connection.SendCommandAsync("say Copying Files...");
+                    await RconInterfaces.SendCommandAsync("say Copying Files...");
             }
             catch (Exception ex)
             {
@@ -37,7 +34,7 @@ namespace MinecraftDatapackReloadHelper.Tools
 
                 //reload
                 if (!copyOnly)
-                    Console.WriteLine(await connection.SendCommandAsync("reload"));
+                    Console.WriteLine(await RconInterfaces.SendCommandAsync("reload"));
             }
         }
     }
