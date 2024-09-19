@@ -6,10 +6,9 @@ namespace MinecraftDatapackReloadHelper.Tools
     {
         internal static async Task ConnectingTesterAsync()
         {
-            var connection = RconConnector.GetRconInst();
             try
             {
-                Console.WriteLine(await connection.SendCommandAsync("say [MDRH] Rcon was connected"));
+                Console.WriteLine(await RconInterfaces.SendCommandAsync("say [MDRH] Rcon was connected"));
             }
             catch (Exception ex)
             {

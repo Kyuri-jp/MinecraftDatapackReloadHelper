@@ -6,8 +6,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
     {
         internal static async Task RunAsync()
         {
-            var connection = RconConnector.GetRconInst();
-
             ConsoleColor consoleColor = Console.BackgroundColor;
 
             Console.BackgroundColor = ConsoleColor.DarkGray;
@@ -35,7 +33,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
 
                 try
                 {
-                    Console.WriteLine(await connection.SendCommandAsync(command));
+                    Console.WriteLine(await RconInterfaces.SendCommandAsync(command));
                 }
                 catch (Exception ex)
                 {

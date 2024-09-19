@@ -7,7 +7,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Rcon
     {
         internal static RCON GetRconInst()
         {
-            var connection = new RCON(IPAddress.Parse(GetValues()[0]), ushort.Parse(GetValues()[1]), GetValues()[2]);
+            RCON connection = new(IPAddress.Parse(GetValues()[0]), ushort.Parse(GetValues()[1]), GetValues()[2]);
             try
             {
                 connection.ConnectAsync();
@@ -17,7 +17,6 @@ namespace MinecraftDatapackReloadHelper.Libs.Rcon
                 Tools.Display.Message.Error(ex.Message);
                 Tools.Display.Message.Error(ex.StackTrace);
             }
-
             return connection;
         }
 
