@@ -2,6 +2,7 @@
 using MinecraftDatapackReloadHelper.Systems.Commands;
 using System.ComponentModel.DataAnnotations;
 using MinecraftDatapackReloadHelper.Tools;
+using System.Collections;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -35,12 +36,18 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             return result;
         }
 
-        internal static async Task RunCommand(Dictionary<string, List<string>> args)
+        internal static Dictionary<string, IToolCommand> GetCommandInst()
         {
             Dictionary<string, IToolCommand> obj = [];
             foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
                 foreach (var item in key)
                     obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
+            return obj;
+        }
+
+        internal static async Task RunCommand(Dictionary<string, List<string>> args)
+        {
+            Dictionary<string, IToolCommand> obj = GetCommandInst();
 
             ArgumentException.ThrowIfNullOrEmpty(args.ElementAt(0).Key);
 
