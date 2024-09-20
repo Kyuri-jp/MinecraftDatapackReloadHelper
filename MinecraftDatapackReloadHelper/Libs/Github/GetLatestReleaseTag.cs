@@ -32,8 +32,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Github
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine("Message :{0} ", e.Message);
+                System.Console.WriteLine("\nException Caught!");
+                System.Console.WriteLine("Message :{0} ", e.Message);
                 return null;
             }
         }
