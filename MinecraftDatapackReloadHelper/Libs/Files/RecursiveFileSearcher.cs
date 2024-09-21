@@ -8,6 +8,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Files
 
         internal static string RecursiveGetDirectoryPath(string begin, string markerFile) => (string)Search(begin, markerFile)[1];
 
+        internal static string RecursiveGetFilePath(string begin, string markerFile) => (string)Search(begin, markerFile)[2];
+
         private static List<object> Search(string begin, string marker)
         {
             ArgumentException.ThrowIfNullOrEmpty(begin);
@@ -17,7 +19,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Files
 
             foreach (FileInfo file in directoryInfo.GetFiles())
                 if (File.Exists(Path.Combine(begin, regex.Match(file.Name).Value)))
-                    return [true, begin];
+                    return [true, begin, regex.Match(file.Name).Value];
 
             string root = directoryInfo.Root.FullName;
 
@@ -27,7 +29,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Files
 
             if (root == begin)
             {
-                return [false, begin];
+                return [false, begin, marker];
             }
 
             return Search(begin, marker);
