@@ -9,5 +9,7 @@
         internal static string[] GetFiles(string begin, string regex) => Directory.GetFiles(begin, regex, SearchOption.AllDirectories);
 
         internal static string[] GetDirectories(string begin, string regex) => Directory.GetDirectories(begin, regex, SearchOption.AllDirectories);
+
+        private static string[] GetFilesWithExtensions(string path, params string[] extensions) => Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Where(c => extensions.Any(extension => c.EndsWith(extension))).ToArray();
     }
 }
