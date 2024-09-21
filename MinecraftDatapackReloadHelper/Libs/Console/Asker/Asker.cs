@@ -38,11 +38,20 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                         continue;
                     }
                 }
+                catch (FileNotFoundException)
+                {
+                    System.Console.WriteLine("The directory is not found.");
+                    continue;
+                }
                 catch (DirectoryNotFoundException)
                 {
                     System.Console.WriteLine("The directory is not found.");
                     continue;
                 }
+                /*catch (IOException)
+                {
+                    return read ?? string.Empty;
+                }*/
             }
         }
     }
