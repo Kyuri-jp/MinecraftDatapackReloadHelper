@@ -1,4 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Libs.Files
+﻿using System.Text.RegularExpressions;
+
+namespace MinecraftDatapackReloadHelper.Libs.Files
 {
     internal class RecursiveFileSearcher
     {
@@ -10,13 +12,12 @@
         {
             ArgumentException.ThrowIfNullOrEmpty(begin);
             ArgumentException.ThrowIfNullOrEmpty(marker);
-
-            if (File.Exists(Path.Combine(begin, marker)))
-            {
-                return [true, begin];
-            }
-
             DirectoryInfo directoryInfo = new(begin);
+            Regex regex = new(marker);
+
+            foreach (FileInfo file in directoryInfo.GetFiles())
+                if (File.Exists(Path.Combine(begin, regex.Match(file.Name).Value)))
+                    return [true, begin];
 
             string root = directoryInfo.Root.FullName;
 
