@@ -5,7 +5,7 @@ using MinecraftDatapackReloadHelper.Tools;
 using System.Net;
 using System.Net.Sockets;
 
-namespace MinecraftDatapackReloadHelper.Systems.Control.Setting
+namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
 {
     internal class ApplicationSetting
     {
