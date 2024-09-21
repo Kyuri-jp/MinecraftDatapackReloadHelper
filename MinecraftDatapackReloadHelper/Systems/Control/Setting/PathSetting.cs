@@ -57,13 +57,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Control.Setting
                     continue;
                 }
 
-                if (!RecursiveSearcher.FileExists(copy, "level.dat"))
+                if (!RecursiveSearch.FileExists(copy, "level.dat"))
                 {
                     Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
-                if (!RecursiveSearcher.FileExists(copy, "server.properties"))
+                if (!RecursiveSearch.FileExists(copy, "server.properties"))
                 {
                     Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                     copy = string.Empty;
