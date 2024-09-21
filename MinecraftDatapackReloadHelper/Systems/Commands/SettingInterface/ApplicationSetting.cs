@@ -26,12 +26,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                     while (true)
                     {
                         string copy = Asker.PathAsk("Please enter copy path.", true);
-                        if (!RecursiveFileSearcher.RecursiveFileExists(copy, "level.dat"))
+                        if (!RecursiveSearch.FileExists(copy, "level.dat"))
                         {
                             Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
                             continue;
                         }
-                        if (!RecursiveFileSearcher.RecursiveFileExists(copy, "server.properties"))
+                        if (!RecursiveSearch.FileExists(copy, "server.properties"))
                         {
                             Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                             continue;
