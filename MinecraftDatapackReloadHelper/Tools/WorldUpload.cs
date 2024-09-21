@@ -14,14 +14,14 @@ namespace MinecraftDatapackReloadHelper.Tools
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
-            worldFolder = RecursiveSearcher.GetDirectories(worldFolder, "level.dat")[0];
+            worldFolder = RecursiveSearch.GetDirectories(worldFolder, "level.dat")[0];
             string nameWorldFolder = worldFolder;
 
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
 
-            if (RecursiveSearcher.FileExists(worldFolder, "server.properties"))
-                nameWorldFolder = RecursiveSearcher.GetDirectories(worldFolder, "server.properties")[0];
+            if (RecursiveSearch.FileExists(worldFolder, "server.properties"))
+                nameWorldFolder = RecursiveSearch.GetDirectories(worldFolder, "server.properties")[0];
 
             DirectoryInfo nameWorldFolderInfo = new(nameWorldFolder);
             string worldFolderName = nameWorldFolderInfo.Name;

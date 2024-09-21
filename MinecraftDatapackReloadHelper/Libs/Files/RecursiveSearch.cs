@@ -1,6 +1,6 @@
 ﻿namespace MinecraftDatapackReloadHelper.Libs.Files
 {
-    internal class RecursiveSearcher
+    internal class RecursiveSearch
     {
         internal static bool FileExists(string begin, string regex) => GetFiles(begin, regex).Length > 0;
 
