@@ -62,8 +62,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
             else
             {
-                DirectoryInfo copy = Directory.GetParent(Settings.Client_Copy)!;
-                string source = copy.FullName;
+                string source = Directory.GetParent(Settings.Client_Copy)!.FullName;
 
                 string additional = string.Empty;
                 if (args.ContainsKey(Args.Additional.ToString()))
