@@ -35,7 +35,7 @@
                     Tools.Display.Message.Error(ex.Message);
                     Tools.Display.Message.Error(ex.StackTrace);
                 }
-                Console.WriteLine($"Copyed {targetFilePath}");
+                System.Console.WriteLine($"Copyed {targetFilePath}");
             }
 
             // If recursive and copying subdirectories, recursively call this method

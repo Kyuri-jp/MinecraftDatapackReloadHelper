@@ -14,19 +14,17 @@ namespace MinecraftDatapackReloadHelper.Tools
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
-            worldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "level.dat");
+            worldFolder = Path.GetDirectoryName(RecursiveSearch.GetFiles(worldFolder, "level.dat")[0])!;
             string nameWorldFolder = worldFolder;
 
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
+            if (RecursiveSearch.FileExists(worldFolder, "server.properties"))
+                nameWorldFolder = Path.GetDirectoryName(RecursiveSearch.GetFiles(worldFolder, "server.properties")[0])!;
 
-            if (RecursiveFileSearcher.RecursiveFileExists(worldFolder, "server.properties"))
-                nameWorldFolder = RecursiveFileSearcher.RecursiveGetDirectoryPath(worldFolder, "server.properties");
+            DirectoryInfo worldFolderName = new(nameWorldFolder);
 
-            DirectoryInfo nameWorldFolderInfo = new(nameWorldFolder);
-            string worldFolderName = nameWorldFolderInfo.Name;
-
-            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName);
+            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName.Name);
 
             try
             {
@@ -73,9 +71,7 @@ namespace MinecraftDatapackReloadHelper.Tools
                     Display.Message.Error(ex.StackTrace);
                 }
             }
-#pragma warning disable CS8604 // Null 参照引数の可能性があります。
-            output = Path.Combine(output, worldFolderName) + $"{additional}";
-#pragma warning restore CS8604 // Null 参照引数の可能性があります。
+            output = Path.Combine(output!, worldFolderName.Name) + $"{additional}";
 
             if (File.Exists(output + ".zip"))
             {
