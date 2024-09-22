@@ -4,6 +4,7 @@ using MinecraftDatapackReloadHelper.Libs.Files.Directories;
 using MinecraftDatapackReloadHelper.Tools.Display;
 using MinecraftDatapackReloadHelper.Tools;
 using System.IO.Compression;
+using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -22,7 +23,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます","--additional=[<string>]"] },
             {Args.Custompath.ToString(),["対象となるフォルダを変更します","--custompath=[<severdirectory>]"] },
-            {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", "--extractdatapack (--additional=[<string>]) (--custompath=[<directory>])"] },
+            {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", "--extractdatapack (--additional=[<string>]) (--custompath=[<directory>]) (--notopen)"] },
             {Args.Nonclean.ToString(),["advancementフォルダなどの削除を無効化します","--nonclean"] },
             {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
         };
@@ -60,6 +61,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
                     ZipFile.CreateFromDirectory(item, output + ".zip");
                 }
+                Console.WriteLine("Done!");
+                if (!args.ContainsKey(Args.Notopen.ToString()))
+                    Process.Start("explorer.exe", Settings.Client_UploadOutput);
             }
             else
             {
