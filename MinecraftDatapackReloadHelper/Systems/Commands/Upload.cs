@@ -44,7 +44,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
                 Console.WriteLine("Done!");
                 if (!args.ContainsKey(Args.Notopen.ToString()))
-                    Process.Start("explorer.exe", Settings.Client_UploadOutput);
+                    Process.Start("explorer.exe", Settings.Client_ExtractOutput);
             }
             else
             {
@@ -67,11 +67,11 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (File.Exists(Path.Combine(Directory.GetParent(folderPath)!.FullName, "server.properties")))
                     folderPath = Directory.GetParent(folderPath)!.FullName;
 
-                Extract.WorldFolder(source, Settings.Client_UploadOutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
+                Extract.WorldFolder(source, Settings.Client_ExtractOutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
             }
             Console.WriteLine("Done!");
             if (!args.ContainsKey(Args.Notopen.ToString()))
-                Process.Start("explorer.exe", Settings.Client_UploadOutput);
+                Process.Start("explorer.exe", Settings.Client_ExtractOutput);
 
             return Task.CompletedTask;
         }
