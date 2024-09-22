@@ -1,7 +1,9 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
+﻿using MinecraftDatapackReloadHelper.Libs.Files;
+using MinecraftDatapackReloadHelper.Libs.Files.Directories;
+using MinecraftDatapackReloadHelper.Tools.Display;
 using System.IO.Compression;
 
-namespace MinecraftDatapackReloadHelper.Tools.Minecraft
+namespace MinecraftDatapackReloadHelper.Libs.Minecraft
 {
     internal class Extract
     {
@@ -22,8 +24,8 @@ namespace MinecraftDatapackReloadHelper.Tools.Minecraft
             }
             catch (UnauthorizedAccessException ex)
             {
-                Display.Message.Error(ex.Message);
-                Display.Message.Error(ex.StackTrace);
+                Message.Error(ex.Message);
+                Message.Error(ex.StackTrace);
             }
 
             DirectoryCopy.Copy(worldFolder, tempFolder, true);
@@ -32,33 +34,33 @@ namespace MinecraftDatapackReloadHelper.Tools.Minecraft
             {
                 try
                 {
-                    File.Delete(Path.Combine(tempFolder, "level.dat_old"));
-                    File.Delete(Path.Combine(tempFolder, "session.lock"));
-                    File.Delete(Path.Combine(tempFolder, "spsSettings.json"));
-                    Directory.Delete(Path.Combine(tempFolder, "advancements"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "data"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "DIM1"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "DIM-1"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "playerdata"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "poi"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "scripts"), true);
-                    Directory.Delete(Path.Combine(tempFolder, "stats"), true);
-                }
-                catch (FileNotFoundException)
-                {
-                    //Pass
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    //Pass
+                    TryDelete.File(Path.Combine(tempFolder, "level.dat_old"));
+                    TryDelete.File(Path.Combine(tempFolder, "session.lock"));
+                    TryDelete.File(Path.Combine(tempFolder, "spsSettings.json"));
+                    TryDelete.Directory(Path.Combine(tempFolder, "advancements"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "data"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "DIM1"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "DIM-1"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "playerdata"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "poi"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "scripts"), true);
+                    TryDelete.Directory(Path.Combine(tempFolder, "stats"), true);
                 }
                 catch (Exception ex)
                 {
-                    Display.Message.Error(ex.Message);
-                    Display.Message.Error(ex.StackTrace);
+                    Message.Error(ex.Message);
+                    Message.Error(ex.StackTrace);
                 }
             }
-            ZipFile.CreateFromDirectory(tempFolder, Path.Combine(output, fileName, ".zip"));
+            if (File.Exists(Path.Combine(output, fileName + ".zip")))
+            {
+                int i = 1;
+                while (File.Exists(Path.Combine(output, fileName + $"({i}).zip")))
+                    i++;
+
+                fileName += $"({i})";
+            }
+            ZipFile.CreateFromDirectory(tempFolder, Path.Combine(output, fileName + ".zip"));
             Directory.Delete(tempFolder, true);
         }
 
