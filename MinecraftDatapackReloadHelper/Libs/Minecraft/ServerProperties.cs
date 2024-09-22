@@ -20,7 +20,7 @@
         {
             foreach (KeyValuePair<string, string> keyValuePair in data)
             {
-                Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
+                System.Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
             }
         }
     }

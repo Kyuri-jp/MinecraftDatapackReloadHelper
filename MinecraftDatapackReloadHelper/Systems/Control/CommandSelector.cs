@@ -1,8 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Systems.Commands;
-using System.ComponentModel.DataAnnotations;
 using MinecraftDatapackReloadHelper.Tools;
-using System.Collections;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -11,6 +9,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         //commands
         private static readonly Dictionary<Dictionary<string, IToolCommand>, string> commandsData = new()
         {
+<<<<<<< HEAD
             { new Dictionary<string,IToolCommand>{{"AppSetting", new Appsetting() }},"Rconなどの設定を変更できます" },
             { new Dictionary<string,IToolCommand>{{"PathSetting",new Pathsetting() }}, "データパックや出力のパスを変更できます" },
             { new Dictionary<string,IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
@@ -22,6 +21,17 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             { new Dictionary<string,IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
             { new Dictionary<string,IToolCommand>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
             { new Dictionary<string,IToolCommand>{{"Exit",new Exit() }}, "ツールを終了します" }
+=======
+            { new Dictionary<string, IToolCommand>{{"Setting", new Setting() }},"Rconなどの設定を変更できます" },
+            { new Dictionary<string, IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
+            { new Dictionary<string, IToolCommand>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
+            { new Dictionary<string, IToolCommand>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
+            { new Dictionary<string, IToolCommand>{{"ShowSetting",new Showsetting() }}, "現在の設定を表示します" },
+            { new Dictionary<string, IToolCommand>{{"Upload",new Upload() }}, "ワールドをZip形式で書き出します" },
+            { new Dictionary<string, IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
+            { new Dictionary<string, IToolCommand>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
+            { new Dictionary<string, IToolCommand>{{"Exit",new Exit() }}, "ツールを終了します" }
+>>>>>>> Develop
         };
 
         internal static SortedDictionary<string, string> GetCommandHelp()
