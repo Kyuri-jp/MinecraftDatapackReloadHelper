@@ -19,14 +19,12 @@ namespace MinecraftDatapackReloadHelper.Tools
 
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
-
             if (RecursiveSearch.FileExists(worldFolder, "server.properties"))
                 nameWorldFolder = Path.GetDirectoryName(RecursiveSearch.GetFiles(worldFolder, "server.properties")[0])!;
 
-            DirectoryInfo nameWorldFolderInfo = new(nameWorldFolder);
-            string worldFolderName = nameWorldFolderInfo.Name;
+            DirectoryInfo worldFolderName = new(nameWorldFolder);
 
-            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName);
+            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName.Name);
 
             try
             {
@@ -73,7 +71,7 @@ namespace MinecraftDatapackReloadHelper.Tools
                     Display.Message.Error(ex.StackTrace);
                 }
             }
-            output = Path.Combine(output!, worldFolderName) + $"{additional}";
+            output = Path.Combine(output!, worldFolderName.Name) + $"{additional}";
 
             if (File.Exists(output + ".zip"))
             {
