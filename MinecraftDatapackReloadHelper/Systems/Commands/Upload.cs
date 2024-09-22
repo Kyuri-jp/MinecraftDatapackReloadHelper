@@ -31,35 +31,34 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
-                string source = Path.GetDirectoryName(RecursiveSearch.GetFiles(Settings.Client_Copy, "pack.mcmeta")[0])!;
                 string additional = string.Empty;
+                string datapackPath = Settings.Client_Copy;
                 if (args.ContainsKey(Args.Additional.ToString()))
                     additional = args[Args.Additional.ToString()][0];
                 if (args.ContainsKey(Args.Custompath.ToString()))
                 {
-                    source = args[Args.Custompath.ToString()][0];
-                    if (!Directory.Exists(source))
-                        throw new DirectoryNotFoundException(source);
-                    if (!Directory.Exists(Path.Combine(Path.GetDirectoryName(RecursiveSearch.GetFiles(source, "pack.mcmeta")[0])!, "level.dat")))
-                        throw new FileNotFoundException(Path.Combine(source, "pack.mcmeta"));
+                    datapackPath = args[Args.Custompath.ToString()][0];
+                    if (!Directory.Exists(datapackPath))
+                        throw new DirectoryNotFoundException(datapackPath);
+                    if (!(Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories).Length > 0))
+                        throw new DirectoryNotFoundException("datapacks");
+                    datapackPath = Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories)[0];
                 }
-                string fileName = source;
-                if (RecursiveSearch.FileExists(source, "server.properties"))
-                    fileName = Path.GetDirectoryName(RecursiveSearch.GetFiles(source, "server.properties")[0])!;
-
-                string output = Path.Combine(Settings.Client_UploadOutput, Path.GetDirectoryName(fileName)!) + $"{additional}";
-
-                if (File.Exists(output + ".zip"))
+                foreach (var item in Directory.GetDirectories(datapackPath))
                 {
-                    Console.WriteLine("Set Index");
-                    int i = 1;
-                    while (File.Exists(output + $"({i}).zip"))
-                        i++;
+                    string output = Path.Combine(Settings.Client_UploadOutput, new DirectoryInfo(item).Name!) + $"{additional}";
 
-                    output += $"({i})";
+                    if (File.Exists(output + ".zip"))
+                    {
+                        int i = 1;
+                        while (File.Exists(output + $"({i}).zip"))
+                            i++;
+
+                        output += $"({i})";
+                    }
+
+                    ZipFile.CreateFromDirectory(item, output + ".zip");
                 }
-
-                ZipFile.CreateFromDirectory(source, output + ".zip");
             }
             else
             {
