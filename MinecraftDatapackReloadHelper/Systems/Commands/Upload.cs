@@ -40,8 +40,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     datapackPath = args[Args.Custompath.ToString()][0];
                     if (!Directory.Exists(datapackPath))
                         throw new DirectoryNotFoundException(datapackPath);
-                    if (!(Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories).Length > 0))
-                        throw new DirectoryNotFoundException("datapacks");
+                    if (!Directory.Exists(Path.Combine(Directory.GetParent(datapackPath)!.FullName, "datapacks")))
+                        if (!(Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories).Length > 0))
+                            throw new DirectoryNotFoundException("datapacks");
                     datapackPath = Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories)[0];
                 }
                 foreach (var item in Directory.GetDirectories(datapackPath))
