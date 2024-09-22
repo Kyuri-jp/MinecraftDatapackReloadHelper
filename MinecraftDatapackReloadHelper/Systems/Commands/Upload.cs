@@ -31,7 +31,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
-                string source = RecursiveFileSearcher.RecursiveGetDirectoryPath(Settings.Client_Copy, "pack.mcmeta");
+                string source = Path.GetDirectoryName(RecursiveSearch.GetFiles(Settings.Client_Copy, "pack.mcmeta")[0])!;
                 string additional = string.Empty;
                 if (args.ContainsKey(Args.Additional.ToString()))
                     additional = args[Args.Additional.ToString()][0];
@@ -40,12 +40,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     source = args[Args.Custompath.ToString()][0];
                     if (!Directory.Exists(source))
                         throw new DirectoryNotFoundException(source);
-                    if (!Directory.Exists(Path.Combine(RecursiveFileSearcher.RecursiveGetDirectoryPath(source, "pack.mcmeta"), "level.dat")))
+                    if (!Directory.Exists(Path.Combine(Path.GetDirectoryName(RecursiveSearch.GetFiles(source, "pack.mcmeta")[0])!, "level.dat")))
                         throw new FileNotFoundException(Path.Combine(source, "pack.mcmeta"));
                 }
                 string fileName = source;
-                if (RecursiveFileSearcher.RecursiveFileExists(source, "server.properties"))
-                    fileName = RecursiveFileSearcher.RecursiveGetDirectoryPath(source, "server.properties");
+                if (RecursiveSearch.FileExists(source, "server.properties"))
+                    fileName = Path.GetDirectoryName(RecursiveSearch.GetFiles(source, "server.properties")[0])!;
 
                 string output = Path.Combine(Settings.Client_UploadOutput, Path.GetDirectoryName(fileName)!) + $"{additional}";
 
