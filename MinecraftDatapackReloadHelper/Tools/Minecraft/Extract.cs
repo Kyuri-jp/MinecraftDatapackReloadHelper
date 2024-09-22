@@ -1,30 +1,19 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Files;
-using MinecraftDatapackReloadHelper.Libs.Files.Directories;
-using System.Diagnostics;
+﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
 using System.IO.Compression;
 
-namespace MinecraftDatapackReloadHelper.Tools
+namespace MinecraftDatapackReloadHelper.Tools.Minecraft
 {
-    internal class WorldUpload
+    internal class Extract
     {
-        internal static Task Upload(string worldFolder, string output, bool clean = true, bool openFolder = true, string? additional = null)
+        internal static void WorldFolder(string worldFolder, string output, string fileName, bool clean = true)
         {
-            string outputFolder = output ?? string.Empty;
-
             if (!Directory.Exists(worldFolder))
                 throw new DirectoryNotFoundException(worldFolder);
 
-            worldFolder = Path.GetDirectoryName(RecursiveSearch.GetFiles(worldFolder, "level.dat")[0])!;
-            string nameWorldFolder = worldFolder;
-
             if (!File.Exists(Path.Combine(worldFolder, "level.dat")))
                 throw new FileNotFoundException(Path.Combine(worldFolder, "level.dat"));
-            if (RecursiveSearch.FileExists(worldFolder, "server.properties"))
-                nameWorldFolder = Path.GetDirectoryName(RecursiveSearch.GetFiles(worldFolder, "server.properties")[0])!;
 
-            DirectoryInfo worldFolderName = new(nameWorldFolder);
-
-            string tempFolder = Path.Combine(Path.GetTempPath(), worldFolderName.Name);
+            string tempFolder = Path.Combine(Path.GetTempPath(), fileName);
 
             try
             {
@@ -37,9 +26,7 @@ namespace MinecraftDatapackReloadHelper.Tools
                 Display.Message.Error(ex.StackTrace);
             }
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
             DirectoryCopy.Copy(worldFolder, tempFolder, true);
-            Console.ForegroundColor = ConsoleColor.White;
 
             if (clean)
             {
@@ -71,29 +58,27 @@ namespace MinecraftDatapackReloadHelper.Tools
                     Display.Message.Error(ex.StackTrace);
                 }
             }
-            output = Path.Combine(output!, worldFolderName.Name) + $"{additional}";
-
-            if (File.Exists(output + ".zip"))
-            {
-                Console.WriteLine("Set Index");
-                int i = 1;
-                while (File.Exists(output + $"({i}).zip"))
-                    i++;
-
-                output += $"({i})";
-            }
-
-            ZipFile.CreateFromDirectory(tempFolder, output + ".zip");
+            ZipFile.CreateFromDirectory(tempFolder, Path.Combine(output, fileName, ".zip"));
             Directory.Delete(tempFolder, true);
+        }
 
-            if (openFolder)
+        internal static void Datapacks(string datapackFolder)
+        {
+            foreach (var item in Directory.GetDirectories(datapackFolder))
             {
-                string appPath = Directory.GetCurrentDirectory();
-                Directory.SetCurrentDirectory(outputFolder);
-                Process.Start("explorer.exe", outputFolder);
-                Directory.SetCurrentDirectory(appPath);
+                string output = Path.Combine(Settings.Client_UploadOutput, new DirectoryInfo(item).Name!);
+
+                if (File.Exists(output + ".zip"))
+                {
+                    int i = 1;
+                    while (File.Exists(output + $"({i}).zip"))
+                        i++;
+
+                    output += $"({i})";
+                }
+
+                ZipFile.CreateFromDirectory(item, output + ".zip");
             }
-            return Task.CompletedTask;
         }
     }
 }
