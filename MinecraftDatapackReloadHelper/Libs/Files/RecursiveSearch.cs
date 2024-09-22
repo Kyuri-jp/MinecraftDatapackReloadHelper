@@ -8,32 +8,39 @@
 
         internal static string[] GetFiles(string begin, string regex = "*")
         {
-            List<string> files = [];
-            FileSeatch(begin, regex, files);
-            return [.. files];
+            Recursive recursive = new();
+            return recursive.FileSeatch(begin, regex);
         }
 
         internal static string[] GetDirectories(string begin, string regex = "*")
         {
-            List<string> files = [];
-            DirectorySeatch(begin, regex, files);
-            return [.. files];
+            Recursive recursive = new();
+            return recursive.DirectorySeatch(begin, regex);
         }
 
-        private static void FileSeatch(string begin, string regex, List<string> list)
+        private class Recursive
         {
-            if (Directory.GetDirectoryRoot(begin) == begin)
-                return;
-            Directory.GetFiles(begin, regex, SearchOption.AllDirectories).ToList().ForEach(item => list.Add(item));
-            GetFiles(Directory.GetParent(begin)!.FullName, regex);
-        }
+            private readonly List<string> list = [];
 
-        private static void DirectorySeatch(string begin, string regex, List<string> list)
-        {
-            if (Directory.GetDirectoryRoot(begin) == begin)
-                return;
-            Directory.GetDirectories(begin, regex, SearchOption.AllDirectories).ToList().ForEach(item => list.Add(item));
-            GetFiles(Directory.GetParent(begin)!.FullName, regex);
+            internal Recursive() => list.Clear();
+
+            internal string[] FileSeatch(string begin, string regex)
+            {
+                if (Directory.GetDirectoryRoot(begin) == begin)
+                    return [.. list];
+                Directory.GetFiles(begin, regex).ToList().ForEach(list.Add);
+                FileSeatch(Directory.GetParent(begin)!.FullName, regex);
+                return [.. list];
+            }
+
+            internal string[] DirectorySeatch(string begin, string regex)
+            {
+                if (Directory.GetDirectoryRoot(begin) == begin)
+                    return [.. list];
+                Directory.GetDirectories(begin, regex).ToList().ForEach(list.Add);
+                DirectorySeatch(Directory.GetParent(begin)!.FullName, regex);
+                return [.. list];
+            }
         }
 
         internal static string[] GetFilesWithExtensions(string path, params string[] extensions) => GetFiles(path, "*.*").Where(c => extensions.Any(extension => c.EndsWith(extension))).ToArray();
