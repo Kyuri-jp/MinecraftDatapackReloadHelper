@@ -1,6 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Tools;
 
-namespace MinecraftDatapackReloadHelper.Libs.Command
+namespace MinecraftDatapackReloadHelper.Libs.Commands
 {
     internal class ArgsParser
     {
@@ -25,7 +25,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Command
 
                 if (targetedArg.Contains(valueMark))
                 {
-                    if (!targetedArg.Contains(valueBegin) || !(targetedArg.Contains(valueClose)))
+                    if (!targetedArg.Contains(valueBegin) || !targetedArg.Contains(valueClose))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
                     result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg[0..targetedArg.IndexOf(valueMark)]), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
