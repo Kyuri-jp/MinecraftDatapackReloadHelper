@@ -77,15 +77,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
 
         private static string Getv4Adress()
         {
-            string? v4 = null;
-            foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
-            {
-                if (ip.AddressFamily.Equals(AddressFamily.InterNetwork))
-                {
-                    v4 = ip.ToString();
-                    break;
-                }
-            }
+            string? v4 = (from ip in Dns.GetHostAddresses(Dns.GetHostName()) where ip.AddressFamily.Equals(AddressFamily.InterNetwork) select ip.ToString()).FirstOrDefault();
             ArgumentException.ThrowIfNullOrEmpty(v4);
             return v4;
         }

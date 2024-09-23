@@ -35,9 +35,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static Dictionary<string, IToolCommand> GetCommandInst()
         {
             Dictionary<string, IToolCommand> obj = [];
-            foreach (Dictionary<string, IToolCommand> key in CommandsData.Keys)
-                foreach (var item in key)
-                    obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
+            foreach (var item in CommandsData.Keys.SelectMany(key => key))
+                obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
             return obj;
         }
 
