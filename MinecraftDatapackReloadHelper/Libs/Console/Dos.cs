@@ -11,7 +11,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Console
             {
                 FileName = "cmd", // 実行するファイル
                 Arguments = "/c " + command,//引数
-                CreateNoWindow = true, // コンソール・ウィンドウを開かない
+                //CreateNoWindow = true, // コンソール・ウィンドウを開かない
                 UseShellExecute = false, // シェル機能を使用しない
                 RedirectStandardOutput = true // 標準出力をリダイレクト
             };
@@ -20,7 +20,6 @@ namespace MinecraftDatapackReloadHelper.Libs.Console
 
             while (p.StandardOutput.ReadLine() is { } line)
             {
-                System.Console.WriteLine(line);
                 yield return line;
             }
         }

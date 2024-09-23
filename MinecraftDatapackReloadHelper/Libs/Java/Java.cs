@@ -11,7 +11,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
 
         internal void RunJarFile(string file, string arg = "")
         {
-            GetJarMajorVersion(file);
+            System.Console.WriteLine(GetJarMajorVersion(file));
             Process process = Process.Start(Path.Combine(_bin, "javaw.exe"), $"-jar {file} {arg}");
             process.WaitForExitAsync();
         }
@@ -26,12 +26,9 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
             Directory.SetCurrentDirectory(tempFolder);
             Process.Start(Path.Combine(_bin, "jar.exe"), $"xf {file}").WaitForExit();
             Directory.SetCurrentDirectory(currentDir);
-            string[] classFiles = Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories).Where(c => ".class".Any(c.EndsWith)).ToArray();
+            string[] classFiles = Directory.GetFiles(tempFolder, "*.class", SearchOption.AllDirectories);
             List<int> foundClassVersions = [];
-            foundClassVersions.AddRange(from classFile in classFiles
-                                        from result in Dos.RunCommand($"{Path.Combine(_bin, "javap.exe")} -v {classFile}")
-                                        where result.Contains("major version", StringComparison.OrdinalIgnoreCase)
-                                        select int.Parse(result.Substring(result.IndexOf(':') + 1, result.Length)));
+            foundClassVersions.AddRange(from classFile in classFiles from result in Dos.RunCommand($"\"{Path.Combine(_bin, "javap.exe")}\" -v {classFile}") where result.Contains("major version", StringComparison.OrdinalIgnoreCase) select int.Parse(result.Split(':')[1]));
             return foundClassVersions.Max();
         }
     }
