@@ -21,7 +21,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
 
                 string targetedArg = str;
                 if (str.Contains(argsPause))
-                    targetedArg = str[0..str.IndexOf(argsPause)];
+                    targetedArg = str[0..str.IndexOf(argsPause, StringComparison.Ordinal)];
 
                 if (targetedArg.Contains(valueMark))
                 {
@@ -36,7 +36,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
                 if (!str.Contains(argsPause))
                     break;
 
-                str = str.Remove(0, str.IndexOf(argsPause) + argsPause.Length);
+                str = str.Remove(0, str.IndexOf(argsPause, StringComparison.Ordinal) + argsPause.Length);
             }
 
             return result;
