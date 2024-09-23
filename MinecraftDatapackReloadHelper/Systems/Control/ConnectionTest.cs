@@ -1,6 +1,7 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Network.Rcon;
 
-namespace MinecraftDatapackReloadHelper.Tools
+namespace MinecraftDatapackReloadHelper.Systems.Control
 {
     internal class ConnectionTest
     {
@@ -12,8 +13,8 @@ namespace MinecraftDatapackReloadHelper.Tools
             }
             catch (Exception ex)
             {
-                Display.Message.Error(ex.Message);
-                Display.Message.Error(ex.StackTrace);
+                Message.Error(ex.Message);
+                Message.Error(ex.StackTrace);
             }
         }
     }

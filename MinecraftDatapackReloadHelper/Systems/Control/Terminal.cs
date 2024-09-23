@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Network.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -21,7 +22,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 {
                     command = Console.ReadLine();
                     if (command != null) continue;
-                    Tools.Display.Message.Warning("Please enter any command.\n");
+                    Message.Warning("Please enter any command.\n");
                     command = string.Empty;
                 }
 
@@ -34,8 +35,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 }
                 catch (Exception ex)
                 {
-                    Tools.Display.Message.Error(ex.Message);
-                    Tools.Display.Message.Error(ex.StackTrace);
+                    Message.Error(ex.Message);
+                    Message.Error(ex.StackTrace);
                 }
             }
             Console.ForegroundColor = ConsoleColor.White;

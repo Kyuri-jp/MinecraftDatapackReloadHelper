@@ -1,6 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools
+﻿namespace MinecraftDatapackReloadHelper.Libs.Files.Directories
 {
-    internal class DirectoryUtil
+    internal class DirectoryType
     {
         internal static bool IsFile(string path) => !File.GetAttributes(path).HasFlag(FileAttributes.Directory);
 

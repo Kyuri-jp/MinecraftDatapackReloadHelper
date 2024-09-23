@@ -1,9 +1,10 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
-using MinecraftDatapackReloadHelper.Libs.Rcon;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Files.Directories;
+using MinecraftDatapackReloadHelper.Libs.Network.Rcon;
 
-namespace MinecraftDatapackReloadHelper.Tools
+namespace MinecraftDatapackReloadHelper.Systems.Control
 {
-    internal class AdvReloader
+    internal class Reloader
     {
         internal static async Task ReloadAsync(string source, string copy, bool copyOnly = false)
         {
@@ -18,15 +19,15 @@ namespace MinecraftDatapackReloadHelper.Tools
             }
             catch (Exception ex)
             {
-                Display.Message.Error(ex.Message);
-                Display.Message.Error(ex.StackTrace);
+                Message.Error(ex.Message);
+                Message.Error(ex.StackTrace);
                 exceptioned = true;
             }
 
             if (!exceptioned)
             {
                 //copy
-                Display.Message.Warning("Copying datapack folder...");
+                Message.Warning("Copying datapack folder...");
                 var dir = new DirectoryInfo(source);
                 Console.ForegroundColor = ConsoleColor.Green;
                 DirectoryCopy.Copy(source, Path.Combine(copy, dir.Name), true);
