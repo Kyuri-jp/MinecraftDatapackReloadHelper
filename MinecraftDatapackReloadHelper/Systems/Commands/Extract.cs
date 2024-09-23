@@ -1,11 +1,10 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
-using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Upload : IToolCommand, IHasArgsCommand
+    internal class Extract : IToolCommand, IHasArgsCommand
     {
         private enum Args
         {
@@ -40,7 +39,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                             throw new DirectoryNotFoundException("datapacks");
                     datapackPath = Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories)[0];
                 }
-                Extract.Datapacks(datapackPath);
+                Libs.Minecraft.Extract.Datapacks(datapackPath);
 
                 Console.WriteLine("Done!");
                 if (!args.ContainsKey(Args.Notopen.ToString()))
@@ -67,7 +66,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (File.Exists(Path.Combine(Directory.GetParent(folderPath)!.FullName, "server.properties")))
                     folderPath = Directory.GetParent(folderPath)!.FullName;
 
-                Extract.WorldFolder(source, Settings.Extractoutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
+                Libs.Minecraft.Extract.WorldFolder(source, Settings.Extractoutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
             }
             Console.WriteLine("Done!");
             if (!args.ContainsKey(Args.Notopen.ToString()))

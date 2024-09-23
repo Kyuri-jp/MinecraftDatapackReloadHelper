@@ -18,7 +18,7 @@
 |Help|コマンドの説明を表示します|
 |Reload|データパックをコピーした後、データパックを再読み込みします|
 |Terminal|コマンドを実行できるターミナルを起動します|
-|Upload|ワールドフォルダをZip形式で書き出します|
+|Extract|ワールドフォルダをZip形式で書き出します|
 |Version|現在のバージョンを表示します|
 |Exit|アプリを終了します|
 
@@ -48,7 +48,7 @@
 |----|----|----|
 |UpdateCheck|最新のリリースのタグを確認します|--updatecheck|
 
-### Upload
+### Extract
 |Args|Discription|Syntax|
 |----|----|----|
 |Additional|フォルダ名に追加で文字列を追加します|--additional=[\<string>]|
