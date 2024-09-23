@@ -1,7 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
-using MinecraftDatapackReloadHelper.Tools;
+using MinecraftDatapackReloadHelper.Systems.Control;
 using System.Net;
 using System.Net.Sockets;
 
