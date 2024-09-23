@@ -26,19 +26,19 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     return Task.CompletedTask;
                 }
 
-                if (!CommandSelector.GetCommandInst().ContainsKey(Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])))
+                if (!CommandSelector.GetCommandInst().ContainsKey(args[Args.More.ToString()][0].ToUpperFirst()))
                 {
                     Console.WriteLine($"{args[Args.More.ToString()][0]} was not found.");
                     return Task.CompletedTask;
                 }
 
-                if (!CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])].GetType().GetInterfaces().Contains(typeof(IHasArgsCommand)))
+                if (!CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()].GetType().GetInterfaces().Contains(typeof(IHasArgsCommand)))
                 {
                     Console.WriteLine($"Args of {args.ElementAt(0).Key} was not found.");
                     return Task.CompletedTask;
                 }
-                IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])];
-                Console.WriteLine($"[{Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
+                IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()];
+                Console.WriteLine($"[{args[Args.More.ToString()][0].ToUpperFirst()}]-> {CommandSelector.GetCommandHelp()[args[Args.More.ToString()][0].ToUpperFirst()]}");
                 foreach (KeyValuePair<string, string[]> keyValuePair in command.GetArgs())
                     Console.WriteLine($"{keyValuePair.Key} : {string.Join(" / ", keyValuePair.Value)}");
             }
