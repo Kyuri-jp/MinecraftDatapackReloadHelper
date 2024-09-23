@@ -11,12 +11,9 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
             {
                 System.Console.WriteLine(message);
                 string? read = System.Console.ReadLine();
-                if (!allowNull && string.IsNullOrEmpty(read))
-                {
-                    System.Console.WriteLine("Plase enter any value.");
-                    continue;
-                }
-                return read ?? string.Empty;
+                if (allowNull || !string.IsNullOrEmpty(read)) return read ?? string.Empty;
+                System.Console.WriteLine("Plase enter any value.");
+                continue;
             }
         }
 
@@ -32,21 +29,15 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                 {
                     if (DirectoryUtil.GetFileType(read) == attributes)
                         return read;
-                    else
-                    {
-                        System.Console.WriteLine("The path is invalid.");
-                        continue;
-                    }
+                    System.Console.WriteLine("The path is invalid.");
                 }
                 catch (FileNotFoundException)
                 {
                     System.Console.WriteLine("The directory is not found.");
-                    continue;
                 }
                 catch (DirectoryNotFoundException)
                 {
                     System.Console.WriteLine("The directory is not found.");
-                    continue;
                 }
                 /*catch (IOException)
                 {
