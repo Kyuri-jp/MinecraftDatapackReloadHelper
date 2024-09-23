@@ -28,7 +28,7 @@
             {
                 if (Directory.GetDirectoryRoot(begin) == begin)
                     return [.. _list];
-                Directory.GetFiles(begin, regex).ToList().ForEach(_list.Add);
+                Directory.GetFiles(begin, regex, searchOption).ToList().ForEach(_list.Add);
                 FileSeatch(Directory.GetParent(begin)!.FullName, regex, searchOption);
                 return [.. _list];
             }
@@ -37,7 +37,7 @@
             {
                 if (Directory.GetDirectoryRoot(begin) == begin)
                     return [.. _list];
-                Directory.GetDirectories(begin, regex).ToList().ForEach(_list.Add);
+                Directory.GetDirectories(begin, regex, searchOption).ToList().ForEach(_list.Add);
                 DirectorySeatch(Directory.GetParent(begin)!.FullName, regex, searchOption);
                 return [.. _list];
             }
