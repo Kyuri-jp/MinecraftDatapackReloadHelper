@@ -27,6 +27,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            // ReSharper disable once FunctionNeverReturns
         }
     }
 }

@@ -22,12 +22,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static SortedDictionary<string, string> GetCommandHelp()
         {
             SortedDictionary<string, string> result = [];
-            foreach (KeyValuePair<Dictionary<string, IToolCommand>, string> keyValuePair in CommandsData)
+            foreach (var (data, value) in CommandsData)
             {
-                string help = keyValuePair.Value.ToString();
-                Dictionary<string, IToolCommand> data = keyValuePair.Key;
                 foreach (KeyValuePair<string, IToolCommand> keyValuePair1 in data)
-                    result.Add(keyValuePair1.Key, help);
+                    result.Add(keyValuePair1.Key, value);
             }
             return result;
         }
