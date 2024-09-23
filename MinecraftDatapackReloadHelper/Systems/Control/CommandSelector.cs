@@ -15,7 +15,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             { new Dictionary<string, IToolCommand>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
             { new Dictionary<string, IToolCommand>{{"Server",new Server() }}, "サーバーを操作します" },
             { new Dictionary<string, IToolCommand>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
-            { new Dictionary<string, IToolCommand>{{"Upload",new Upload() }}, "ワールドをZip形式で書き出します" },
+            { new Dictionary<string, IToolCommand>{{"Extract",new Extract() }}, "ワールドをZip形式で書き出します" },
             { new Dictionary<string, IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
             { new Dictionary<string, IToolCommand>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
             { new Dictionary<string, IToolCommand>{{"Exit",new Exit() }}, "ツールを終了します" }

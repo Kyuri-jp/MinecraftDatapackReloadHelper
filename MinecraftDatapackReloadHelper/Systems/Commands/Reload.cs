@@ -15,8 +15,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Copyonly.ToString(),["Rconによるreloadコマンドの送信を行わず,コピーのみを行います","--copyonly"] }
         };
 
-        public async Task Run(Dictionary<string, List<string>> args) => await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
+        async Task IToolCommand.Run(Dictionary<string, List<string>> args) => await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }

@@ -1,17 +1,18 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
-using MinecraftDatapackReloadHelper.Libs.Minecraft;
+using MinecraftDatapackReloadHelper.Systems.Control;
 using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Upload : IToolCommand, IHasArgsCommand
+    internal class Extract : IToolCommand, IHasArgsCommand
     {
         private enum Args
         {
             Additional,
             Custompath,
             Extractdatapack,
+            Reload,
             Nonclean,
             Notopen,
         };
@@ -21,12 +22,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます","--additional=[<string>]"] },
             {Args.Custompath.ToString(),["対象となるフォルダを変更します","--custompath=[<severdirectory>]"] },
             {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", "--extractdatapack (--custompath=[<directory>]) (--notopen)"] },
+            {Args.Reload.ToString(),["データパックを再読み込みした後コマンドを実行します", "--reload"] },
             {Args.Nonclean.ToString(),["advancementフォルダなどの削除を無効化します","--nonclean"] },
             {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
         };
 
-        public Task Run(Dictionary<string, List<string>> args)
+        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
+            if (args.ContainsKey(Args.Reload.ToString()))
+                await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, true);
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
                 string datapackPath = Settings.Copypath;
@@ -40,11 +44,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                             throw new DirectoryNotFoundException("datapacks");
                     datapackPath = Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories)[0];
                 }
-                Extract.Datapacks(datapackPath);
-
-                Console.WriteLine("Done!");
-                if (!args.ContainsKey(Args.Notopen.ToString()))
-                    Process.Start("explorer.exe", Settings.Extractoutput);
+                Libs.Minecraft.Extract.Datapacks(datapackPath);
             }
             else
             {
@@ -67,15 +67,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (File.Exists(Path.Combine(Directory.GetParent(folderPath)!.FullName, "server.properties")))
                     folderPath = Directory.GetParent(folderPath)!.FullName;
 
-                Extract.WorldFolder(source, Settings.Extractoutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
+                Libs.Minecraft.Extract.WorldFolder(source, Settings.Extractoutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
             }
             Console.WriteLine("Done!");
             if (!args.ContainsKey(Args.Notopen.ToString()))
                 Process.Start("explorer.exe", Settings.Extractoutput);
-
-            return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }

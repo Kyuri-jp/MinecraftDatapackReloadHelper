@@ -16,10 +16,16 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.More.ToString(),["指定したコマンドの詳細を表示します",$"--{Args.More}=[<Command>]"]}
         };
 
-        public Task Run(Dictionary<string, List<string>> args)
+        Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.More.ToString()))
             {
+                if (args[Args.More.ToString()].Count <= 0 || string.IsNullOrEmpty(args[Args.More.ToString()][0]))
+                {
+                    Console.WriteLine("Please set any command.");
+                    return Task.CompletedTask;
+                }
+
                 if (!CommandSelector.GetCommandInst().ContainsKey(Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])))
                 {
                     Console.WriteLine($"{args[Args.More.ToString()][0]} was not found.");
@@ -32,7 +38,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     return Task.CompletedTask;
                 }
                 IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])];
-                Console.WriteLine($"[{args.ElementAt(0).Key}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
+                Console.WriteLine($"[{Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
                 foreach (KeyValuePair<string, string[]> keyValuePair in command.GetArgs())
                     Console.WriteLine($"{keyValuePair.Key} : {string.Join(" / ", keyValuePair.Value)}");
             }
@@ -50,6 +56,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }
