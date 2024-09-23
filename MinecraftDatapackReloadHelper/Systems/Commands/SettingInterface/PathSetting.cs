@@ -65,7 +65,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 Settings.Client_Copy = copy;
 
             if (upload != ":skip")
-                Settings.Client_UploadOutput = upload;
+                Settings.Client_ExtractOutput = upload;
 
             Settings.Default.Save();
         }

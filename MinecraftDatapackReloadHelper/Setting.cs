@@ -32,10 +32,10 @@
             get { return Default.CopyPath.ToString(); }
         }
 
-        public static string Client_UploadOutput
+        public static string Client_ExtractOutput
         {
-            set { Default.UploadOutput = value; }
-            get { return Default.UploadOutput.ToString(); }
+            set { Default.ExtractOutput = value; }
+            get { return Default.ExtractOutput.ToString(); }
         }
     }
 }

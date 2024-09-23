@@ -17,7 +17,7 @@
     <Setting Name="CopyPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UploadOutput" Type="System.String" Scope="User">
+    <Setting Name="ExtractOutput" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
