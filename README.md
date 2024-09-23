@@ -26,31 +26,36 @@
 引数は`command --args=[<value>]`という形で使用します。
 
 #### Setting
-|Args|Discription|
-|----|----|
-|Auto|IPアドレスやポートを自動で設定します|
-|Rcon|Rconの設定を変更します|
-|Path|パスの設定を変更します|
-|Show|設定を表示します|
+|Args|Discription|Syntax|
+|----|----|----|
+|Auto|IPアドレスやポートを自動で設定します|--rcon --auto|
+|Rcon|Rconの設定を変更します|--rcon|
+|Path|パスの設定を変更します|--path|
+|Show|設定を表示します|--show=[\<category>]|
 
-#### reload
-|Args|Discription|
-|----|----|
-|Copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|
+#### Help
+|Args|Discription|Syntax|
+|----|----|----|
+|More|コマンドの詳細を表示します|--more=[\<command>]|
 
-### version
-|Args|Discription|
-|----|----|
-|UpdateCheck|最新のリリースのタグを確認します|
+#### Reload
+|Args|Discription|Syntax|
+|----|----|----|
+|Copyonly|RconによるReloadコマンドの送信を行わず、データパックのコピーのみを行います|--copyonly|
 
-### upload
-|Args|Discription|
-|----|----|
-|Additional|フォルダ名に追加で文字列を追加します|
-|Extractdatapack|フォルダ内のデータパックを全て圧縮して出力します|
-|CustomPath|書き出す対象のフォルダを指定します|
-|NonClean|dataやstatsの削除を無効化します|
-|NotOpen|書き出し後のフォルダ表示を無効化します|
+### Version
+|Args|Discription|Syntax|
+|----|----|----|
+|UpdateCheck|最新のリリースのタグを確認します|--updatecheck|
+
+### Upload
+|Args|Discription|Syntax|
+|----|----|----|
+|Additional|フォルダ名に追加で文字列を追加します|--additional=[\<string>]|
+|Extractdatapack|フォルダ内のデータパックを全て圧縮して出力します|--extractdatapack|
+|CustomPath|書き出す対象のフォルダを指定します|--custompath=[\<path>]|
+|NonClean|dataやstatsの削除を無効化します|--nonclean|
+|NotOpen|書き出し後のフォルダ表示を無効化します|--notopen|
 
 ## .NET
 このツールは.NET8を使用しています。
