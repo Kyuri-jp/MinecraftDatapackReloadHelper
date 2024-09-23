@@ -43,6 +43,6 @@
             }
         }
 
-        internal static string[] GetFilesWithExtensions(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly, params string[] extensions) => GetFiles(path, "*.*", searchOption).Where(c => extensions.Any(extension => c.EndsWith(extension))).ToArray();
+        internal static string[] GetFilesWithExtensions(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly, params string[] extensions) => GetFiles(path, "*.*", searchOption).Where(c => extensions.Any(c.EndsWith)).ToArray();
     }
 }
