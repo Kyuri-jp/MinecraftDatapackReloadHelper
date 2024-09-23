@@ -7,7 +7,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
     internal class CommandSelector
     {
         //commands
-        private static readonly Dictionary<Dictionary<string, IToolCommand>, string> commandsData = new()
+        private static readonly Dictionary<Dictionary<string, IToolCommand>, string> CommandsData = new()
         {
             { new Dictionary<string, IToolCommand>{{"Setting", new Setting() }},"Rconなどの設定を変更できます" },
             { new Dictionary<string, IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
@@ -22,7 +22,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static SortedDictionary<string, string> GetCommandHelp()
         {
             SortedDictionary<string, string> result = [];
-            foreach (KeyValuePair<Dictionary<string, IToolCommand>, string> keyValuePair in commandsData)
+            foreach (KeyValuePair<Dictionary<string, IToolCommand>, string> keyValuePair in CommandsData)
             {
                 string help = keyValuePair.Value.ToString();
                 Dictionary<string, IToolCommand> data = keyValuePair.Key;
@@ -35,7 +35,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static Dictionary<string, IToolCommand> GetCommandInst()
         {
             Dictionary<string, IToolCommand> obj = [];
-            foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
+            foreach (Dictionary<string, IToolCommand> key in CommandsData.Keys)
                 foreach (var item in key)
                     obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
             return obj;

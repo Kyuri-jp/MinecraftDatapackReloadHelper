@@ -2,40 +2,40 @@
 {
     internal partial class Settings
     {
-        public static string Rcon_IP
+        public static string Rconip
         {
-            set { Default.RconIp = value; }
-            get { return Default.RconIp.ToString(); }
+            set => Default.RconIp = value;
+            get => Default.RconIp;
         }
 
-        public static ushort Rcon_Port
+        public static ushort Rconport
         {
-            set { Default.RconPort = value; }
-            get { return Default.RconPort; }
+            set => Default.RconPort = value;
+            get => Default.RconPort;
         }
 
-        public static string Rcon_Password
+        public static string Rconpassword
         {
-            set { Default.RconPassword = value; }
-            get { return Default.RconPassword.ToString(); }
+            set => Default.RconPassword = value;
+            get => Default.RconPassword;
         }
 
-        public static string Client_Source
+        public static string Sourcepath
         {
-            set { Default.SourcePath = value; }
-            get { return Default.SourcePath.ToString(); }
+            set => Default.SourcePath = value;
+            get => Default.SourcePath;
         }
 
-        public static string Client_Copy
+        public static string Copypath
         {
-            set { Default.CopyPath = value; }
-            get { return Default.CopyPath.ToString(); }
+            set => Default.CopyPath = value;
+            get => Default.CopyPath;
         }
 
-        public static string Client_ExtractOutput
+        public static string Extractoutput
         {
-            set { Default.ExtractOutput = value; }
-            get { return Default.ExtractOutput.ToString(); }
+            set => Default.ExtractOutput = value;
+            get => Default.ExtractOutput;
         }
     }
 }

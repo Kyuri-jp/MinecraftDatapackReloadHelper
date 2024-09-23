@@ -13,27 +13,27 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Show
         }
 
-        private readonly Dictionary<string, string[]> argsData = new()
+        private readonly Dictionary<string, string[]> _argsData = new()
         {
             { Args.Auto.ToString(),["選択したサーバー設定を参照し,Rconの設定を自動で行います","--rcon --auto"]},
             { Args.Rcon.ToString(),["Rconの設定を変更します","--rcon"]},
             { Args.Path.ToString(),["パスの変更を行います","--path"]}
         };
 
-        private readonly Dictionary<string, Dictionary<string, string>> settingsData = new()
+        private readonly Dictionary<string, Dictionary<string, string>> _settingsData = new()
         {
             { "Rcon",new Dictionary<string, string>
                 {
-                    {"Ip Address", Settings.Rcon_IP } ,
-                    {"Port", Settings.Rcon_Port.ToString() } ,
-                    {"Password", Settings.Rcon_Password } ,
+                    {"Ip Address", Settings.Rconip } ,
+                    {"Port", Settings.Rconport.ToString() } ,
+                    {"Password", Settings.Rconpassword } ,
                 }
             },
             { "DirectoryPath",new Dictionary<string, string>
                 {
-                    {"Server Side Datapack Path", Settings.Client_Copy},
-                    {"Sourced Datapack Path", Settings.Client_Source},
-                    {"To Extract Folder", Settings.Client_ExtractOutput },
+                    {"Server Side Datapack Path", Settings.Copypath},
+                    {"Sourced Datapack Path", Settings.Copypath},
+                    {"To Extract Folder", Settings.Extractoutput },
                 }
             }
         };
@@ -44,7 +44,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {
                 if (args[Args.Show.ToString()].Count <= 0)
                 {
-                    foreach (var category in settingsData)
+                    foreach (var category in _settingsData)
                     {
                         Console.WriteLine($"\n<{category.Key}>");
                         foreach (var setting in category.Value)
@@ -53,7 +53,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 }
                 else
                 {
-                    foreach (var item in settingsData.Where(x => args[Args.Show.ToString()].Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value).Values)
+                    foreach (var item in _settingsData.Where(x => args[Args.Show.ToString()].Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value).Values)
                         foreach (var key in item.Keys)
                             Console.WriteLine($"{key} : {item[key]}");
                 }
@@ -69,6 +69,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
         }
 
-        public Dictionary<string, string[]> GetArgs() => argsData;
+        public Dictionary<string, string[]> GetArgs() => _argsData;
     }
 }

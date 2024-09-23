@@ -59,13 +59,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 }
             }
             if (source != ":skip")
-                Settings.Client_Source = source;
+                Settings.Sourcepath = source;
 
             if (copy != ":skip")
-                Settings.Client_Copy = copy;
+                Settings.Copypath = copy;
 
             if (upload != ":skip")
-                Settings.Client_ExtractOutput = upload;
+                Settings.Extractoutput = upload;
 
             Settings.Default.Save();
         }

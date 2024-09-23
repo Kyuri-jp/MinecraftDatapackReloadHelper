@@ -68,7 +68,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Minecraft
         {
             foreach (var item in Directory.GetDirectories(datapackFolder))
             {
-                string output = Path.Combine(Settings.Client_ExtractOutput, new DirectoryInfo(item).Name!);
+                string output = Path.Combine(Settings.Extractoutput, new DirectoryInfo(item).Name!);
 
                 if (File.Exists(output + ".zip"))
                 {

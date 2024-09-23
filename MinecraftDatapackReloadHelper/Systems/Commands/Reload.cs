@@ -10,13 +10,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Copyonly
         }
 
-        private readonly Dictionary<string, string[]> argsData = new()
+        private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Copyonly.ToString(),["Rconによるreloadコマンドの送信を行わず,コピーのみを行います","--copyonly"] }
         };
 
-        public async Task Run(Dictionary<string, List<string>> args) => await AdvReloader.ReloadAsync(Settings.Client_Source, Settings.Client_Copy, args.ContainsKey(Args.Copyonly.ToString()));
+        public async Task Run(Dictionary<string, List<string>> args) => await AdvReloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
 
-        public Dictionary<string, string[]> GetArgs() => argsData;
+        public Dictionary<string, string[]> GetArgs() => _argsData;
     }
 }
