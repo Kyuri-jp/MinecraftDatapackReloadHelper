@@ -23,7 +23,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                 FileAttributes attributes = FileAttributes.Normal;
                 if (directory)
                     attributes = FileAttributes.Directory;
-                string? read = Ask(message, allowNull);
+                string read = Ask(message, allowNull);
                 try
                 {
                     if (DirectoryUtil.GetFileType(read) == attributes)
