@@ -17,12 +17,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 source = Asker.PathAsk("Please enter source directory path.", true);
                 if (source == ":skip")
                     break;
-                if (!File.Exists(Path.Combine(source, "pack.mcmeta")))
-                {
-                    Tools.Display.Message.Warning($"{source} is not contain pack.mcmeta.");
-                    source = string.Empty;
+                if (File.Exists(Path.Combine(source, "pack.mcmeta")))
                     continue;
-                }
+                Tools.Display.Message.Warning($"{source} is not contain pack.mcmeta.");
+                source = string.Empty;
             }
 
             while (copy == string.Empty)
@@ -37,12 +35,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                     copy = string.Empty;
                     continue;
                 }
-                if (!RecursiveSearch.FileExists(copy, "server.properties"))
-                {
-                    Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
-                    copy = string.Empty;
-                    continue;
-                }
+
+                if (RecursiveSearch.FileExists(copy, "server.properties")) continue;
+                Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                copy = string.Empty;
             }
 
             while (upload == string.Empty)
@@ -51,21 +47,18 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 upload = Asker.PathAsk("Please enter world upload directory path.", true);
                 if (upload == ":skip")
                     break;
-                if (!Directory.Exists(upload))
-                {
-                    Tools.Display.Message.Warning($"{upload} is not exists.");
-                    upload = string.Empty;
-                    continue;
-                }
+                if (Directory.Exists(upload)) continue;
+                Tools.Display.Message.Warning($"{upload} is not exists.");
+                upload = string.Empty;
             }
             if (source != ":skip")
-                Settings.Client_Source = source;
+                Settings.Sourcepath = source;
 
             if (copy != ":skip")
-                Settings.Client_Copy = copy;
+                Settings.Copypath = copy;
 
             if (upload != ":skip")
-                Settings.Client_ExtractOutput = upload;
+                Settings.Extractoutput = upload;
 
             Settings.Default.Save();
         }

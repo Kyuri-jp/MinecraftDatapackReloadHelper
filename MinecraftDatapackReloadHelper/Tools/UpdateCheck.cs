@@ -6,8 +6,8 @@ namespace MinecraftDatapackReloadHelper.Tools
     {
         internal static async Task UpdateCheckerAsync()
         {
-            string owner = "Kyuri-jp";
-            string repo = "MinecraftDatapackReloadHelper";
+            const string owner = "Kyuri-jp";
+            const string repo = "MinecraftDatapackReloadHelper";
             string? latest = await GetLatestReleasetag.GetLatestReleaseTagAsync(owner, repo);
             Console.WriteLine($"Client : {Programs.GetAppVersion()}\n" +
                 $"Latest : {latest}");

@@ -20,12 +20,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 while (command == string.Empty)
                 {
                     command = Console.ReadLine();
-                    if (command == null)
-                    {
-                        Tools.Display.Message.Warning("Please enter any command.\n");
-                        command = string.Empty;
-                        continue;
-                    }
+                    if (command != null) continue;
+                    Tools.Display.Message.Warning("Please enter any command.\n");
+                    command = string.Empty;
                 }
 
                 if (command == "exit")
@@ -39,7 +36,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                 {
                     Tools.Display.Message.Error(ex.Message);
                     Tools.Display.Message.Error(ex.StackTrace);
-                    continue;
                 }
             }
             Console.ForegroundColor = ConsoleColor.White;

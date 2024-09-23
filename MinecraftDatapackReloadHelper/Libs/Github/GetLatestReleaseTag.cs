@@ -6,20 +6,19 @@ namespace MinecraftDatapackReloadHelper.Libs.Github
 {
     internal class GetLatestReleasetag
     {
-        private static readonly HttpClient client = new();
-
         public static async Task<string?> GetLatestReleaseTagAsync(string owner, string repo)
         {
+            using HttpClient cient = new();
             try
             {
                 // GitHub Libsのエンドポイント
                 string url = $"https://api.github.com/repos/{owner}/{repo}/releases/latest";
 
                 // GitHub LibsはUser-Agentを要求するので設定
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("Minecraft-Datapack-Reload-Helper");
+                cient.DefaultRequestHeaders.UserAgent.ParseAdd("Minecraft-Datapack-Reload-Helper");
 
                 // GETリクエストの送信
-                HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response = await cient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
 

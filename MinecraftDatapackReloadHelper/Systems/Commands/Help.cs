@@ -11,7 +11,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             More
         }
 
-        private readonly Dictionary<string, string[]> argsData = new()
+        private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.More.ToString(),["指定したコマンドの詳細を表示します",$"--{Args.More}=[<Command>]"]}
         };
@@ -50,6 +50,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => argsData;
+        public Dictionary<string, string[]> GetArgs() => _argsData;
     }
 }
