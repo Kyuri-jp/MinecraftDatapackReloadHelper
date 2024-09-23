@@ -38,7 +38,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     return Task.CompletedTask;
                 }
                 IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])];
-                Console.WriteLine($"[{args.ElementAt(0).Key}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
+                Console.WriteLine($"[{Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
                 foreach (KeyValuePair<string, string[]> keyValuePair in command.GetArgs())
                     Console.WriteLine($"{keyValuePair.Key} : {string.Join(" / ", keyValuePair.Value)}");
             }
