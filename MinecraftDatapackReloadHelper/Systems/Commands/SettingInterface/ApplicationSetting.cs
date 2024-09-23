@@ -1,7 +1,8 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Console.Asker;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
-using MinecraftDatapackReloadHelper.Tools;
+using MinecraftDatapackReloadHelper.Systems.Control;
 using System.Net;
 using System.Net.Sockets;
 
@@ -21,19 +22,19 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
 
                 if (!File.Exists(filePath))
                 {
-                    Tools.Display.Message.Warning("Copy path is null or empty.");
+                    Message.Warning("Copy path is null or empty.");
 
                     while (true)
                     {
                         string copy = Asker.PathAsk("Please enter copy path.", true);
                         if (!RecursiveSearch.FileExists(copy, "level.dat"))
                         {
-                            Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
+                            Message.Warning($"Not found level file in {copy}'s parents");
                             continue;
                         }
                         if (!RecursiveSearch.FileExists(copy, "server.properties"))
                         {
-                            Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                            Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                             continue;
                         }
 
@@ -52,7 +53,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 rconIp = Asker.Ask("Please enter rcon ipadress.");
                 if (rconIp == "localhost")
                 {
-                    Tools.Display.Message.Warning("Inputed localhost.\nset this computer's private ip adress.");
+                    Message.Warning("Inputed localhost.\nset this computer's private ip adress.");
 
                     rconIp = Getv4Adress();
                 }

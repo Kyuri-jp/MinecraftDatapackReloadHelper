@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.Tools;
+﻿using MinecraftDatapackReloadHelper.Libs.Files.Directories;
 
 namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
 {
@@ -26,7 +26,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                 string read = Ask(message, allowNull);
                 try
                 {
-                    if (DirectoryUtil.GetFileType(read) == attributes)
+                    if (DirectoryType.GetFileType(read) == attributes)
                         return read;
                     System.Console.WriteLine("The path is invalid.");
                 }

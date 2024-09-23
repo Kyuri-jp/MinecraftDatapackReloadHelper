@@ -1,5 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
-using MinecraftDatapackReloadHelper.Tools;
+using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -15,7 +15,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Copyonly.ToString(),["Rconによるreloadコマンドの送信を行わず,コピーのみを行います","--copyonly"] }
         };
 
-        public async Task Run(Dictionary<string, List<string>> args) => await AdvReloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
+        public async Task Run(Dictionary<string, List<string>> args) => await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
 
         public Dictionary<string, string[]> GetArgs() => _argsData;
     }

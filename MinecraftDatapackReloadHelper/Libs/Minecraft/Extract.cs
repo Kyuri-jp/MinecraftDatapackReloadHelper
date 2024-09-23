@@ -1,6 +1,6 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Files;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Files.Directories;
-using MinecraftDatapackReloadHelper.Tools.Display;
 using System.IO.Compression;
 
 namespace MinecraftDatapackReloadHelper.Libs.Minecraft

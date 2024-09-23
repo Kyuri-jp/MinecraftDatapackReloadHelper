@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.String;
 using MinecraftDatapackReloadHelper.Systems.Commands;
-using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -34,7 +35,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         {
             Dictionary<string, IToolCommand> obj = [];
             foreach (var item in CommandsData.Keys.SelectMany(key => key))
-                obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
+                obj.Add(Utils.ToUpperOnlyFirstLetter(item.Key), item.Value);
             return obj;
         }
 
@@ -44,12 +45,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
 
             ArgumentException.ThrowIfNullOrEmpty(args.ElementAt(0).Key);
 
-            if (!obj.ContainsKey(StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
+            if (!obj.ContainsKey(Utils.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)))
             {
-                Tools.Display.Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
+                Message.Error($"{args.ElementAt(0).Key} is an invalid command.");
                 return;
             }
-            await RunMethod(obj[StringUtl.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
+            await RunMethod(obj[Utils.ToUpperOnlyFirstLetter(args.ElementAt(0).Key)], args);
         }
 
         private static async Task RunMethod(IToolCommand inst, Dictionary<string, List<string>> args) => await inst.Run(args);

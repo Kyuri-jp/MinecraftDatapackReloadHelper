@@ -1,5 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
-using MinecraftDatapackReloadHelper.Tools;
+using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {

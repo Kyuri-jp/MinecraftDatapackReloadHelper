@@ -1,7 +1,8 @@
 ﻿using CoreRCON;
+using MinecraftDatapackReloadHelper.Libs.Console;
 using System.Net;
 
-namespace MinecraftDatapackReloadHelper.Libs.Rcon
+namespace MinecraftDatapackReloadHelper.Libs.Network.Rcon
 {
     internal class RconConnector
     {
@@ -14,8 +15,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Rcon
             }
             catch (Exception ex)
             {
-                Tools.Display.Message.Error(ex.Message);
-                Tools.Display.Message.Error(ex.StackTrace);
+                Message.Error(ex.Message);
+                Message.Error(ex.StackTrace);
             }
             return connection;
         }

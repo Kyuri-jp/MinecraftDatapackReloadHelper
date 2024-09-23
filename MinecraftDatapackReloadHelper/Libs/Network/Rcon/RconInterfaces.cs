@@ -1,6 +1,6 @@
 ﻿using CoreRCON;
 
-namespace MinecraftDatapackReloadHelper.Libs.Rcon
+namespace MinecraftDatapackReloadHelper.Libs.Network.Rcon
 {
     internal class RconInterfaces
     {

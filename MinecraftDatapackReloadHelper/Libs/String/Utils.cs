@@ -1,6 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools
+﻿namespace MinecraftDatapackReloadHelper.Libs.String
 {
-    internal class StringUtl
+    internal class Utils
     {
         internal static string ToUpperOnlyFirstLetter(string value)
         {

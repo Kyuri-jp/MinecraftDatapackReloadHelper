@@ -1,4 +1,6 @@
-﻿namespace MinecraftDatapackReloadHelper.Libs.Files.Directories
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+
+namespace MinecraftDatapackReloadHelper.Libs.Files.Directories
 {
     internal class DirectoryCopy
     {
@@ -32,8 +34,8 @@
                 }
                 catch (IOException ex)
                 {
-                    Tools.Display.Message.Error(ex.Message);
-                    Tools.Display.Message.Error(ex.StackTrace);
+                    Message.Error(ex.Message);
+                    Message.Error(ex.StackTrace);
                 }
             }
 

@@ -1,4 +1,4 @@
-﻿namespace MinecraftDatapackReloadHelper.Tools.Display;
+﻿namespace MinecraftDatapackReloadHelper.Libs.Console;
 
 internal class Message
 {
@@ -8,9 +8,9 @@ internal class Message
 
     private static void Write(string? message, ConsoleColor color)
     {
-        ConsoleColor consoleColor = Console.ForegroundColor;
-        Console.ForegroundColor = color;
-        Console.WriteLine(message);
-        Console.ForegroundColor = consoleColor;
+        ConsoleColor consoleColor = System.Console.ForegroundColor;
+        System.Console.ForegroundColor = color;
+        System.Console.WriteLine(message);
+        System.Console.ForegroundColor = consoleColor;
     }
 }

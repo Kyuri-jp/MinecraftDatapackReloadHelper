@@ -1,4 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+using MinecraftDatapackReloadHelper.Libs.Console;
 using MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
@@ -65,7 +66,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (args.ContainsKey(Args.Rcon.ToString()))
                     await ApplicationSetting.ChangeRconSettingAsync(args.ContainsKey(Args.Auto.ToString()));
                 if (!args.ContainsKey(Args.Rcon.ToString()) && !args.ContainsKey(Args.Path.ToString()))
-                    Tools.Display.Message.Warning("Please set any args (--rcon,--path)");
+                    Message.Warning("Please set any args (--rcon,--path)");
             }
         }
 
