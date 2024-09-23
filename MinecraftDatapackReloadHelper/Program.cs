@@ -4,9 +4,9 @@ namespace MinecraftDatapackReloadHelper
 {
     internal class Programs
     {
-        private static readonly string Version = "v1.3.0-Beta";
+        private const string Version = "v1.5.1-Beta";
 
-        private static readonly string Welcome =
+        private const string Welcome =
                     "====================\n" +
                     "Hello!\n" +
                     "This is Minecraft Datapack Reload Helper.\n" +
