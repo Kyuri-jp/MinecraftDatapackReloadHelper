@@ -41,21 +41,5 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
 
             return result;
         }
-
-        private static void ShowAnalyzeData(Dictionary<string, List<string>> data)
-        {
-            try
-            {
-                foreach (KeyValuePair<string, List<string>> item in data)
-#pragma warning disable CS8604 // Null 参照引数の可能性があります。
-                    System.Console.WriteLine($"{item.Key} / {string.Join("_", item.Value.ToList())}");
-#pragma warning restore CS8604 // Null 参照引数の可能性があります。
-            }
-            catch (ArgumentNullException)
-            {
-                foreach (KeyValuePair<string, List<string>> item in data)
-                    System.Console.WriteLine($"{item.Key}");
-            }
-        }
     }
 }
