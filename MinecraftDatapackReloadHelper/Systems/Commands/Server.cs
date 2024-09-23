@@ -18,21 +18,19 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Launch
         }
 
-        private readonly Dictionary<string, string[]> argsData = new()
+        private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] }
         };
 
         public Task Run(Dictionary<string, List<string>> args)
         {
-            string JAVA_HOME = Environment.GetEnvironmentVariable("JAVA_HOME")!;
-            Java java = new(Path.Combine(JAVA_HOME, "bin"));
-            DirectoryInfo directoryInfo = new(Settings.Client_Copy);
-            java.RunJarFile(Directory.GetFiles(directoryInfo.Parent.Parent.FullName, "*.*").Where(c => ".jar".Any(extension => c.EndsWith(extension)))
-            .ToArray()[0], "nogui");
+            string javaHome = Environment.GetEnvironmentVariable("JAVA_HOME")!;
+            Java java = new(Path.Combine(javaHome, "bin"));
+            java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0], "nogui");
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => argsData;
+        public Dictionary<string, string[]> GetArgs() => _argsData;
     }
 }
