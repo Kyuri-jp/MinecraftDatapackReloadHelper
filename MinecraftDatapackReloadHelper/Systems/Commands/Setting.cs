@@ -40,7 +40,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
         };
 
-        public async Task Run(Dictionary<string, List<string>> args)
+        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Show.ToString()))
             {
@@ -71,6 +71,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
         }
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }

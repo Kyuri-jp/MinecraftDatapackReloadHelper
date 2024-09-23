@@ -16,7 +16,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.More.ToString(),["指定したコマンドの詳細を表示します",$"--{Args.More}=[<Command>]"]}
         };
 
-        public Task Run(Dictionary<string, List<string>> args)
+        Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.More.ToString()))
             {
@@ -56,6 +56,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }

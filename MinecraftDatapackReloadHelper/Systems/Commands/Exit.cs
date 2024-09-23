@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
     internal class Exit : IToolCommand
     {
-        public Task Run(Dictionary<string, List<string>> args)
+        Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             Environment.Exit(0);
             return Task.CompletedTask;

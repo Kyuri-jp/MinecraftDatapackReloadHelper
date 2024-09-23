@@ -25,7 +25,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
         };
 
-        public Task Run(Dictionary<string, List<string>> args)
+        Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
@@ -76,6 +76,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }
