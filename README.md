@@ -9,26 +9,29 @@
 
 データパックの再読み込みをちょっと楽にします
 ## Commands
-コマンド、因数の大文字小文字は区別されません。
+コマンド、引数の大文字小文字は区別されません。
 
 |Command|Discription|
 |-----|----|
-|AppSetting|Rconなどの設定を変更できます|
+|Setting|Rconなどの設定を変更できます|
 |ConnectionTest|Rconの接続をテストします|
 |Help|コマンドの説明を表示します|
-|PathSetting|データパックのパスを変更できます|
 |Reload|データパックをコピーした後、データパックを再読み込みします|
-|ShowSetting|設定を表示します|
 |Terminal|コマンドを実行できるターミナルを起動します|
 |Upload|ワールドフォルダをZip形式で書き出します|
+|Version|現在のバージョンを表示します|
+|Exit|アプリを終了します|
 
 ### CommandArgs
-引数は`コマンド --なんとか`という形で使用します。
+引数は`command --args=[<value>]`という形で使用します。
 
-#### appsetting
+#### Setting
 |Args|Discription|
 |----|----|
 |Auto|IPアドレスやポートを自動で設定します|
+|Rcon|Rconの設定を変更します|
+|Path|パスの設定を変更します|
+|Show|設定を表示します|
 
 #### reload
 |Args|Discription|
@@ -44,6 +47,7 @@
 |Args|Discription|
 |----|----|
 |Additional|フォルダ名に追加で文字列を追加します|
+|Extractdatapack|フォルダ内のデータパックを全て圧縮して出力します|
 |CustomPath|書き出す対象のフォルダを指定します|
 |NonClean|dataやstatsの削除を無効化します|
 |NotOpen|書き出し後のフォルダ表示を無効化します|
