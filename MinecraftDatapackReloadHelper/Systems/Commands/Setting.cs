@@ -44,10 +44,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {
                 if (args[Args.Show.ToString()].Count <= 0)
                 {
-                    foreach (KeyValuePair<string, Dictionary<string, string>> category in settingsData)
+                    foreach (var category in settingsData)
                     {
                         Console.WriteLine($"\n<{category.Key}>");
-                        foreach (KeyValuePair<string, string> setting in category.Value)
+                        foreach (var setting in category.Value)
                             Console.WriteLine($"{setting.Key} : {setting.Value}");
                     }
                 }
