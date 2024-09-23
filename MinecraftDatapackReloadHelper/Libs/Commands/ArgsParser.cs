@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.Tools;
+﻿using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Libs.Commands
 {
@@ -27,11 +27,11 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
                 {
                     if (!targetedArg.Contains(valueBegin) || !targetedArg.Contains(valueClose))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
-                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg[..targetedArg.IndexOf(valueMark)]), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
+                    result.Add(Utils.ToUpperOnlyFirstLetter(targetedArg[..targetedArg.IndexOf(valueMark)]), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
                 else
                 {
-                    result.Add(StringUtl.ToUpperOnlyFirstLetter(targetedArg), []);
+                    result.Add(Utils.ToUpperOnlyFirstLetter(targetedArg), []);
                 }
                 if (!str.Contains(argsPause))
                     break;

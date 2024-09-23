@@ -1,5 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Rcon;
-using MinecraftDatapackReloadHelper.Tools.Display;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Rcon;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {

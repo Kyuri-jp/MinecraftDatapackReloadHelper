@@ -1,6 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+using MinecraftDatapackReloadHelper.Libs.String;
 using MinecraftDatapackReloadHelper.Systems.Control;
-using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -20,19 +20,19 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.More.ToString()))
             {
-                if (!CommandSelector.GetCommandInst().ContainsKey(StringUtl.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])))
+                if (!CommandSelector.GetCommandInst().ContainsKey(Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])))
                 {
                     Console.WriteLine($"{args[Args.More.ToString()][0]} was not found.");
                     return Task.CompletedTask;
                 }
 
-                if (!CommandSelector.GetCommandInst()[StringUtl.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])].GetType().GetInterfaces().Contains(typeof(IHasArgsCommand)))
+                if (!CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])].GetType().GetInterfaces().Contains(typeof(IHasArgsCommand)))
                 {
                     Console.WriteLine($"Args of {args.ElementAt(0).Key} was not found.");
                     return Task.CompletedTask;
                 }
-                IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[StringUtl.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])];
-                Console.WriteLine($"[{args.ElementAt(0).Key}]-> {CommandSelector.GetCommandHelp()[StringUtl.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
+                IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])];
+                Console.WriteLine($"[{args.ElementAt(0).Key}]-> {CommandSelector.GetCommandHelp()[Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])]}");
                 foreach (KeyValuePair<string, string[]> keyValuePair in command.GetArgs())
                     Console.WriteLine($"{keyValuePair.Key} : {string.Join(" / ", keyValuePair.Value)}");
             }

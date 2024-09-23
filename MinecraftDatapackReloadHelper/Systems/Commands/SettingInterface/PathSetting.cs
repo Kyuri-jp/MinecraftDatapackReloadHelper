@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Console.Asker;
+﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 using MinecraftDatapackReloadHelper.Libs.Files;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
@@ -19,7 +20,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                     break;
                 if (File.Exists(Path.Combine(source, "pack.mcmeta")))
                     continue;
-                Tools.Display.Message.Warning($"{source} is not contain pack.mcmeta.");
+                Message.Warning($"{source} is not contain pack.mcmeta.");
                 source = string.Empty;
             }
 
@@ -31,13 +32,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                     break;
                 if (!RecursiveSearch.FileExists(copy, "level.dat"))
                 {
-                    Tools.Display.Message.Warning($"Not found level file in {copy}'s parents");
+                    Message.Warning($"Not found level file in {copy}'s parents");
                     copy = string.Empty;
                     continue;
                 }
 
                 if (RecursiveSearch.FileExists(copy, "server.properties")) continue;
-                Tools.Display.Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
+                Message.Warning($"Not found server.properties in {copy}'s parents.\nMaybe this directory is not server.");
                 copy = string.Empty;
             }
 
@@ -48,7 +49,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                 if (upload == ":skip")
                     break;
                 if (Directory.Exists(upload)) continue;
-                Tools.Display.Message.Warning($"{upload} is not exists.");
+                Message.Warning($"{upload} is not exists.");
                 upload = string.Empty;
             }
             if (source != ":skip")
