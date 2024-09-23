@@ -10,7 +10,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
 
         internal void RunJarFile(string file, string arg = "")
         {
-            Process process = Process.Start(Path.Combine(_bin, "java.exe"), $"-jar {file} {arg}");
+            Process process = Process.Start(Path.Combine(_bin, "javaw.exe"), $"-jar {file} {arg}");
             process.WaitForExitAsync();
         }
     }
