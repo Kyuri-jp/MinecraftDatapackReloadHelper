@@ -17,7 +17,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
             if (auto)
             {
                 DirectoryInfo copyDirectoryInfo = new(Settings.Copypath);
-                string filePath = Path.Combine(copyDirectoryInfo!.Parent!.Parent!.FullName, "server.properties");
+                string filePath = Path.Combine(copyDirectoryInfo.Parent!.Parent!.FullName, "server.properties");
 
                 if (!File.Exists(filePath))
                 {
