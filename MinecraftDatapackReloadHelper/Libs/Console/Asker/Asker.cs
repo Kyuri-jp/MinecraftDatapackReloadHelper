@@ -13,7 +13,6 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                 string? read = System.Console.ReadLine();
                 if (allowNull || !string.IsNullOrEmpty(read)) return read ?? string.Empty;
                 System.Console.WriteLine("Plase enter any value.");
-                continue;
             }
         }
 
