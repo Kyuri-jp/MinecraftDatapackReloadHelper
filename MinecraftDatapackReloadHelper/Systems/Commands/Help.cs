@@ -20,6 +20,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.More.ToString()))
             {
+                if (args[Args.More.ToString()].Count <= 0 || string.IsNullOrEmpty(args[Args.More.ToString()][0]))
+                {
+                    Console.WriteLine("Please set any command.");
+                    return Task.CompletedTask;
+                }
+
                 if (!CommandSelector.GetCommandInst().ContainsKey(Utils.ToUpperOnlyFirstLetter(args[Args.More.ToString()][0])))
                 {
                     Console.WriteLine($"{args[Args.More.ToString()][0]} was not found.");
