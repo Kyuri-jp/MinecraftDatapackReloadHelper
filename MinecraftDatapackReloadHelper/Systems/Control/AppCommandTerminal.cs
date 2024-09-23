@@ -1,4 +1,4 @@
-﻿using MinecraftDatapackReloadHelper.Libs.Command;
+﻿using MinecraftDatapackReloadHelper.Libs.Commands;
 
 namespace MinecraftDatapackReloadHelper.Systems.Control
 {
@@ -27,6 +27,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            // ReSharper disable once FunctionNeverReturns
         }
     }
 }

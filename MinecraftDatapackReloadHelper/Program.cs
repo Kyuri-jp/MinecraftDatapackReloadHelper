@@ -4,13 +4,13 @@ namespace MinecraftDatapackReloadHelper
 {
     internal class Programs
     {
-        private static readonly string version = "v1.3.0-Beta";
+        private static readonly string Version = "v1.3.0-Beta";
 
-        private static readonly string welcome =
+        private static readonly string Welcome =
                     "====================\n" +
                     "Hello!\n" +
                     "This is Minecraft Datapack Reload Helper.\n" +
-                    $"Version {version}\n" +
+                    $"Version {Version}\n" +
                     "This app is released by MIT License.\n" +
                     "Copyright (c) 2024 Kyuri\n" +
                     "\nUsed Libraries:\n" +
@@ -21,7 +21,7 @@ namespace MinecraftDatapackReloadHelper
         private static async Task Main()
         {
             //message
-            Console.WriteLine(welcome);
+            Console.WriteLine(Welcome);
 
             Settings.Default.Save();
 
@@ -29,8 +29,8 @@ namespace MinecraftDatapackReloadHelper
             await AppCommandTerminal.Run();
         }
 
-        internal static string GetAppVersion() => version;
+        internal static string GetAppVersion() => Version;
 
-        internal static string GetWelcomeMessage() => welcome;
+        internal static string GetWelcomeMessage() => Welcome;
     }
 }

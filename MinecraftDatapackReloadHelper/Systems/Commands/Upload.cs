@@ -16,7 +16,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Notopen,
         };
 
-        private readonly Dictionary<string, string[]> argsData = new()
+        private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます","--additional=[<string>]"] },
             {Args.Custompath.ToString(),["対象となるフォルダを変更します","--custompath=[<severdirectory>]"] },
@@ -29,7 +29,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
-                string datapackPath = Settings.Client_Copy;
+                string datapackPath = Settings.Copypath;
                 if (args.ContainsKey(Args.Custompath.ToString()))
                 {
                     datapackPath = args[Args.Custompath.ToString()][0];
@@ -44,14 +44,14 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
                 Console.WriteLine("Done!");
                 if (!args.ContainsKey(Args.Notopen.ToString()))
-                    Process.Start("explorer.exe", Settings.Client_UploadOutput);
+                    Process.Start("explorer.exe", Settings.Extractoutput);
             }
             else
             {
-                string source = Directory.GetParent(Settings.Client_Copy)!.FullName;
+                string source = Directory.GetParent(Settings.Copypath)!.FullName;
 
                 string additional = string.Empty;
-                string folderPath = Directory.GetParent(Settings.Client_Copy)!.FullName;
+                string folderPath = Directory.GetParent(Settings.Copypath)!.FullName;
                 if (args.ContainsKey(Args.Additional.ToString()))
                     additional = args[Args.Additional.ToString()][0];
 
@@ -67,15 +67,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (File.Exists(Path.Combine(Directory.GetParent(folderPath)!.FullName, "server.properties")))
                     folderPath = Directory.GetParent(folderPath)!.FullName;
 
-                Extract.WorldFolder(source, Settings.Client_UploadOutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
+                Extract.WorldFolder(source, Settings.Extractoutput, new DirectoryInfo(folderPath).Name + additional, !args.ContainsKey(Args.Nonclean.ToString()));
             }
             Console.WriteLine("Done!");
             if (!args.ContainsKey(Args.Notopen.ToString()))
-                Process.Start("explorer.exe", Settings.Client_UploadOutput);
+                Process.Start("explorer.exe", Settings.Extractoutput);
 
             return Task.CompletedTask;
         }
 
-        public Dictionary<string, string[]> GetArgs() => argsData;
+        public Dictionary<string, string[]> GetArgs() => _argsData;
     }
 }

@@ -7,13 +7,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
     internal class CommandSelector
     {
         //commands
-        private static readonly Dictionary<Dictionary<string, IToolCommand>, string> commandsData = new()
+        private static readonly Dictionary<Dictionary<string, IToolCommand>, string> CommandsData = new()
         {
             { new Dictionary<string, IToolCommand>{{"Setting", new Setting() }},"Rconなどの設定を変更できます" },
             { new Dictionary<string, IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
             { new Dictionary<string, IToolCommand>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
             { new Dictionary<string, IToolCommand>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
-            { new Dictionary<string, IToolCommand>{{"ShowSetting",new Showsetting() }}, "現在の設定を表示します" },
             { new Dictionary<string, IToolCommand>{{"Upload",new Upload() }}, "ワールドをZip形式で書き出します" },
             { new Dictionary<string, IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
             { new Dictionary<string, IToolCommand>{{"Version",new Commands.Version() }}, "ツールのバージョンを表示します" },
@@ -23,12 +22,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static SortedDictionary<string, string> GetCommandHelp()
         {
             SortedDictionary<string, string> result = [];
-            foreach (KeyValuePair<Dictionary<string, IToolCommand>, string> keyValuePair in commandsData)
+            foreach (var (data, value) in CommandsData)
             {
-                string help = keyValuePair.Value.ToString();
-                Dictionary<string, IToolCommand> data = keyValuePair.Key;
                 foreach (KeyValuePair<string, IToolCommand> keyValuePair1 in data)
-                    result.Add(keyValuePair1.Key, help);
+                    result.Add(keyValuePair1.Key, value);
             }
             return result;
         }
@@ -36,9 +33,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         internal static Dictionary<string, IToolCommand> GetCommandInst()
         {
             Dictionary<string, IToolCommand> obj = [];
-            foreach (Dictionary<string, IToolCommand> key in commandsData.Keys)
-                foreach (var item in key)
-                    obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
+            foreach (var item in CommandsData.Keys.SelectMany(key => key))
+                obj.Add(StringUtl.ToUpperOnlyFirstLetter(item.Key), item.Value);
             return obj;
         }
 

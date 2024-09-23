@@ -20,29 +20,29 @@
 
         private class Recursive
         {
-            private readonly List<string> list = [];
+            private readonly List<string> _list = [];
 
-            internal Recursive() => list.Clear();
+            internal Recursive() => _list.Clear();
 
             internal string[] FileSeatch(string begin, string regex, SearchOption searchOption)
             {
                 if (Directory.GetDirectoryRoot(begin) == begin)
-                    return [.. list];
-                Directory.GetFiles(begin, regex).ToList().ForEach(list.Add);
+                    return [.. _list];
+                Directory.GetFiles(begin, regex, searchOption).ToList().ForEach(_list.Add);
                 FileSeatch(Directory.GetParent(begin)!.FullName, regex, searchOption);
-                return [.. list];
+                return [.. _list];
             }
 
             internal string[] DirectorySeatch(string begin, string regex, SearchOption searchOption)
             {
                 if (Directory.GetDirectoryRoot(begin) == begin)
-                    return [.. list];
-                Directory.GetDirectories(begin, regex).ToList().ForEach(list.Add);
+                    return [.. _list];
+                Directory.GetDirectories(begin, regex, searchOption).ToList().ForEach(_list.Add);
                 DirectorySeatch(Directory.GetParent(begin)!.FullName, regex, searchOption);
-                return [.. list];
+                return [.. _list];
             }
         }
 
-        internal static string[] GetFilesWithExtensions(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly, params string[] extensions) => GetFiles(path, "*.*", searchOption).Where(c => extensions.Any(extension => c.EndsWith(extension))).ToArray();
+        internal static string[] GetFilesWithExtensions(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly, params string[] extensions) => GetFiles(path, "*.*", searchOption).Where(c => extensions.Any(c.EndsWith)).ToArray();
     }
 }

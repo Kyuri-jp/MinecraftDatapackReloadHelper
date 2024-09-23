@@ -20,6 +20,6 @@ namespace MinecraftDatapackReloadHelper.Libs.Rcon
             return connection;
         }
 
-        private static List<string> GetValues() => [Settings.Rcon_IP, Settings.Rcon_Port.ToString(), Settings.Rcon_Password];
+        private static List<string> GetValues() => [Settings.Rconip, Settings.Rconport.ToString(), Settings.Rconpassword];
     }
 }

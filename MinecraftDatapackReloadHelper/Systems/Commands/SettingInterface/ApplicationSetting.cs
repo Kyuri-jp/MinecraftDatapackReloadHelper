@@ -11,13 +11,13 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
     {
         internal static async Task ChangeRconSettingAsync(bool auto = false)
         {
-            string rconIP;
+            string rconIp;
             string rconPort;
             string rconPass;
             if (auto)
             {
-                DirectoryInfo copyDirectoryInfo = new(Settings.Client_Copy);
-                string filePath = Path.Combine(copyDirectoryInfo!.Parent!.Parent!.FullName, "server.properties");
+                DirectoryInfo copyDirectoryInfo = new(Settings.Copypath);
+                string filePath = Path.Combine(copyDirectoryInfo.Parent!.Parent!.FullName, "server.properties");
 
                 if (!File.Exists(filePath))
                 {
@@ -41,34 +41,34 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
                     }
                 }
 
-                Dictionary<string, string> PropertyData = ServerProperties.Parse(filePath);
+                Dictionary<string, string> propertyData = ServerProperties.Parse(filePath);
 
-                rconIP = Getv4Adress();
-                rconPort = PropertyData["rcon.port"];
-                rconPass = PropertyData["rcon.password"];
+                rconIp = Getv4Adress();
+                rconPort = propertyData["rcon.port"];
+                rconPass = propertyData["rcon.password"];
             }
             else
             {
-                rconIP = Asker.Ask("Please enter rcon ipadress.");
-                if (rconIP == "localhost")
+                rconIp = Asker.Ask("Please enter rcon ipadress.");
+                if (rconIp == "localhost")
                 {
                     Tools.Display.Message.Warning("Inputed localhost.\nset this computer's private ip adress.");
 
-                    rconIP = Getv4Adress();
+                    rconIp = Getv4Adress();
                 }
 
                 rconPort = Asker.Ask("Please enter rcon port.");
                 rconPass = Asker.Ask("Please enter rcon password");
             }
 
-            if (rconIP != ":skip")
-                Settings.Rcon_IP = rconIP;
+            if (rconIp != ":skip")
+                Settings.Rconip = rconIp;
 
             if (rconPort != ":skip")
-                Settings.Rcon_Port = ushort.Parse(rconPort);
+                Settings.Rconport = ushort.Parse(rconPort);
 
             if (rconPass != ":skip")
-                Settings.Rcon_Password = rconPass;
+                Settings.Rconpassword = rconPass;
 
             Settings.Default.Save();
 
@@ -77,15 +77,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface
 
         private static string Getv4Adress()
         {
-            string? v4 = null;
-            foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName()))
-            {
-                if (ip.AddressFamily.Equals(AddressFamily.InterNetwork))
-                {
-                    v4 = ip.ToString();
-                    break;
-                }
-            }
+            string? v4 = (from ip in Dns.GetHostAddresses(Dns.GetHostName()) where ip.AddressFamily.Equals(AddressFamily.InterNetwork) select ip.ToString()).FirstOrDefault();
             ArgumentException.ThrowIfNullOrEmpty(v4);
             return v4;
         }
