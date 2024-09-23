@@ -1,6 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface;
-using System.Globalization;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
