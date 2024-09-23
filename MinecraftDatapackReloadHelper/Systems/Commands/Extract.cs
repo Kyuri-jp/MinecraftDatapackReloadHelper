@@ -40,10 +40,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     datapackPath = Directory.GetDirectories(datapackPath, "datapacks", SearchOption.AllDirectories)[0];
                 }
                 Libs.Minecraft.Extract.Datapacks(datapackPath);
-
-                Console.WriteLine("Done!");
-                if (!args.ContainsKey(Args.Notopen.ToString()))
-                    Process.Start("explorer.exe", Settings.Extractoutput);
             }
             else
             {
