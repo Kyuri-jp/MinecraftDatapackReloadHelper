@@ -16,7 +16,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
             }
         }
 
-        internal static string PathAsk(string message, bool directory = false, bool allowNull = false)
+        internal static string PathAsk(string message, bool directory = false, bool allowNull = false, string skipper = ":skip")
         {
             while (true)
             {
@@ -24,6 +24,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                 if (directory)
                     attributes = FileAttributes.Directory;
                 string read = Ask(message, allowNull);
+                if (read == skipper)
+                    return skipper;
                 try
                 {
                     if (DirectoryType.GetFileType(read) == attributes)
