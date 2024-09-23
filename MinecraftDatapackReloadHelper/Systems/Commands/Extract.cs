@@ -1,5 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
+using MinecraftDatapackReloadHelper.Systems.Control;
 using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
@@ -11,6 +12,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Additional,
             Custompath,
             Extractdatapack,
+            Reload,
             Nonclean,
             Notopen,
         };
@@ -20,12 +22,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます","--additional=[<string>]"] },
             {Args.Custompath.ToString(),["対象となるフォルダを変更します","--custompath=[<severdirectory>]"] },
             {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", "--extractdatapack (--custompath=[<directory>]) (--notopen)"] },
+            {Args.Reload.ToString(),["データパックを再読み込みした後コマンドを実行します", "--reload"] },
             {Args.Nonclean.ToString(),["advancementフォルダなどの削除を無効化します","--nonclean"] },
             {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
         };
 
-        Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
+            if (args.ContainsKey(Args.Reload.ToString()))
+                await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, true);
             if (args.ContainsKey(Args.Extractdatapack.ToString()))
             {
                 string datapackPath = Settings.Copypath;
@@ -67,8 +72,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Console.WriteLine("Done!");
             if (!args.ContainsKey(Args.Notopen.ToString()))
                 Process.Start("explorer.exe", Settings.Extractoutput);
-
-            return Task.CompletedTask;
         }
 
         Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
