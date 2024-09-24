@@ -1,5 +1,4 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Console;
-using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Libs.Java
 {
@@ -14,11 +13,10 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
             foreach (KeyValuePair<string, string> keyValuePair in GetJavas())
                 System.Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
             System.Console.WriteLine(GetJarMajorVersion(file));
-            Process process = Process.Start(Path.Combine(_bin, "javaw.exe"), $"-jar {file} {arg}");
-            process.WaitForExitAsync();
+            Dos.RunCommand($"\"{Path.Combine(_bin, "javaw.exe")}\" -jar {file} {arg}").ShowResult();
         }
 
-        internal int GetJarMajorVersion(string file)
+        internal static int GetJarMajorVersion(string file)
         {
             string currentDir = Directory.GetCurrentDirectory();
             string tempFolder = Path.Combine(Path.GetTempPath(), new DirectoryInfo(file).Name);
@@ -26,12 +24,12 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
                 Directory.Delete(tempFolder, true);
             Directory.CreateDirectory(tempFolder);
             Directory.SetCurrentDirectory(tempFolder);
-            Process.Start(Path.Combine(_bin, "jar.exe"), $"xf {file}").WaitForExit();
+            Dos.RunCommand($"jar xf {file}").ShowResult();
             Directory.SetCurrentDirectory(currentDir);
             string[] classFiles = Directory.GetFiles(tempFolder, "*.class", SearchOption.AllDirectories);
             List<int> foundClassVersions = [];
             foundClassVersions.AddRange(from classFile in classFiles
-                                        from result in Dos.RunCommand($"\"{Path.Combine(_bin, "javap.exe")}\" -v {classFile}")
+                                        from result in Dos.RunCommand($"javap -v {classFile}")
                                         where result.Contains("major version", StringComparison.OrdinalIgnoreCase)
                                         select int.Parse(result.Split(':')[1]));
             return foundClassVersions.Max();
