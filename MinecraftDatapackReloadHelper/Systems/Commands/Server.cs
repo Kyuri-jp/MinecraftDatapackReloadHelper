@@ -16,7 +16,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] }
         };
 
-        public Task Run(Dictionary<string, List<string>> args)
+        Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             int serverJavaVersion = Java.GetJarMajorVersion(Directory.GetFiles(
                 Path.Combine(
@@ -32,6 +32,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private static int ParseJavaVersion(string java) => java.StartsWith("1.") ? int.Parse([java[2]]) : int.Parse(java[..java.IndexOf('.')]);
 
-        public Dictionary<string, string[]> GetArgs() => _argsData;
+        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
     }
 }
