@@ -25,7 +25,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44;
             Dictionary<int, string> clientJavas = Java.GetJavas().ToDictionary(x => ParseJavaVersion(x.Key), x => x.Value);
 
-            Java java = new(Path.Combine(clientJavas[serverJavaVersion], "bin"));
+            Java java = new(clientJavas[serverJavaVersion]);
             java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0], "nogui");
             return Task.CompletedTask;
         }

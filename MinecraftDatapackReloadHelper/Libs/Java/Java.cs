@@ -4,8 +4,13 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
 {
     internal class Java(string bin)
     {
-        internal void RunJarFile(string file, string arg = "") =>
+        internal void RunJarFile(string file, string arg = "")
+        {
+            string appDir = Directory.GetCurrentDirectory();
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(file)!);
             Dos.RunCommand($"\"{Path.Combine(bin, "java.exe")}\" -jar {file} {arg}").ShowResult();
+            Directory.SetCurrentDirectory(appDir);
+        }
 
         internal static int GetJarMajorVersion(string file, bool searchAllClass = false)
         {
