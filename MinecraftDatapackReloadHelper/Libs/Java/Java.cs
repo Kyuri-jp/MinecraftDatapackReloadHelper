@@ -2,14 +2,10 @@
 
 namespace MinecraftDatapackReloadHelper.Libs.Java
 {
-    internal class Java
+    internal class Java(string bin)
     {
-        private readonly string _bin;
-
-        internal Java(string bin) => _bin = bin;
-
         internal void RunJarFile(string file, string arg = "") =>
-            Dos.RunCommand($"\"{Path.Combine(_bin, "java.exe")}\" -jar {file} {arg}").ShowResult();
+            Dos.RunCommand($"\"{Path.Combine(bin, "java.exe")}\" -jar {file} {arg}").ShowResult();
 
         internal static int GetJarMajorVersion(string file, bool searchAllClass = false)
         {
