@@ -1,13 +1,6 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Java;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -25,11 +18,19 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         public Task Run(Dictionary<string, List<string>> args)
         {
-            string javaHome = Environment.GetEnvironmentVariable("JAVA_HOME")!;
-            Java java = new(Path.Combine(javaHome, "bin"));
+            int serverJavaVersion = Java.GetJarMajorVersion(Directory.GetFiles(
+                Path.Combine(
+                    Path.GetDirectoryName(
+                        RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
+                    "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44;
+            Dictionary<int, string> clientJavas = Java.GetJavas().ToDictionary(x => ParseJavaVersion(x.Key), x => x.Value);
+
+            Java java = new(Path.Combine(clientJavas[serverJavaVersion], "bin"));
             java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0], "nogui");
             return Task.CompletedTask;
         }
+
+        private static int ParseJavaVersion(string java) => java.StartsWith("1.") ? int.Parse([java[2]]) : int.Parse(java[..java.IndexOf('.')]);
 
         public Dictionary<string, string[]> GetArgs() => _argsData;
     }

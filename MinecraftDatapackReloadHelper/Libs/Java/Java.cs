@@ -8,15 +8,10 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
 
         internal Java(string bin) => _bin = bin;
 
-        internal void RunJarFile(string file, string arg = "")
-        {
-            foreach (KeyValuePair<string, string> keyValuePair in GetJavas())
-                System.Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
-            System.Console.WriteLine(GetJarMajorVersion(file));
-            Dos.RunCommand($"\"{Path.Combine(_bin, "javaw.exe")}\" -jar {file} {arg}").ShowResult();
-        }
+        internal void RunJarFile(string file, string arg = "") =>
+            Dos.RunCommand($"\"{Path.Combine(_bin, "java.exe")}\" -jar {file} {arg}").ShowResult();
 
-        internal static int GetJarMajorVersion(string file)
+        internal static int GetJarMajorVersion(string file, bool searchAllClass = false)
         {
             string currentDir = Directory.GetCurrentDirectory();
             string tempFolder = Path.Combine(Path.GetTempPath(), new DirectoryInfo(file).Name);
@@ -28,10 +23,20 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
             Directory.SetCurrentDirectory(currentDir);
             string[] classFiles = Directory.GetFiles(tempFolder, "*.class", SearchOption.AllDirectories);
             List<int> foundClassVersions = [];
-            foundClassVersions.AddRange(from classFile in classFiles
-                                        from result in Dos.RunCommand($"javap -v {classFile}")
-                                        where result.Contains("major version", StringComparison.OrdinalIgnoreCase)
-                                        select int.Parse(result.Split(':')[1]));
+            if (searchAllClass)
+            {
+                foundClassVersions.AddRange(from classFile in classFiles
+                                            from result in Dos.RunCommand($"javap -v {classFile}")
+                                            where result.Contains("major version", StringComparison.OrdinalIgnoreCase)
+                                            select int.Parse(result.Split(':')[1]));
+            }
+            else
+            {
+                foundClassVersions.AddRange(from result in Dos.RunCommand($"javap -v {classFiles[0]}")
+                                            where result.Contains("major version", StringComparison.OrdinalIgnoreCase)
+                                            select int.Parse(result.Split(':')[1]));
+            }
+
             return foundClassVersions.Max();
         }
 
