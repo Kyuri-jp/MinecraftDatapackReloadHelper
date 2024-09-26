@@ -1,6 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
-using MinecraftDatapackReloadHelper.Libs.Java;
 using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
@@ -10,30 +9,28 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         private enum Args
         {
             Launch,
-            GetServerJava,
-            GetInstalledJava
+            GetServerJava
         }
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] },
-            {Args.GetServerJava.ToString(),["サーバーのclassバージョンを取得します","--getserverjava"] },
-            {Args.GetInstalledJava.ToString(),["インストールされているJavaを表示します","--getinstalledjava"] }
+            {Args.GetServerJava.ToString(),["サーバーのclassバージョンを取得します","--getserverjava"] }
         };
 
         Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Launch.ToString()))
             {
-                int serverJavaVersion = Java.GetJarMajorVersion(Directory.GetFiles(
+                int serverJavaVersion = Libs.Java.Java.GetJarMajorVersion(Directory.GetFiles(
                     Path.Combine(
                         Path.GetDirectoryName(
                             RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
                         "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44;
                 Dictionary<int, string> clientJavas =
-                    Java.GetJavas().ToDictionary(x => ParseJavaVersion(x.Key), x => x.Value);
+                    Libs.Java.Java.GetJavas().ToDictionary(x => ParseJavaVersion(x.Key), x => x.Value);
 
-                Java java = new(clientJavas[serverJavaVersion]);
+                Libs.Java.Java java = new(clientJavas[serverJavaVersion]);
                 Task.Run(() =>
                     java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0],
                         "nogui"));
@@ -42,18 +39,11 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
             if (args.ContainsKey(Args.GetServerJava.ToString().ToUpperFirst()))
             {
-                Console.WriteLine($"Class Version : {Java.GetJarMajorVersion(Directory.GetFiles(
+                Console.WriteLine($"Class Version : {Libs.Java.Java.GetJarMajorVersion(Directory.GetFiles(
                     Path.Combine(
                         Path.GetDirectoryName(
                             RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
                         "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44}");
-                return Task.CompletedTask;
-            }
-
-            if (args.ContainsKey(Args.GetInstalledJava.ToString().ToUpperFirst()))
-            {
-                foreach (KeyValuePair<string, string> keyValuePair in Java.GetJavas())
-                    Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
                 return Task.CompletedTask;
             }
 
