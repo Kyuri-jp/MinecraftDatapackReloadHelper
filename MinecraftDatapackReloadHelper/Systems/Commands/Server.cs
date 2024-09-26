@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Java;
+using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -39,7 +40,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 return Task.CompletedTask;
             }
 
-            if (args.ContainsKey(Args.GetServerJava.ToString()))
+            if (args.ContainsKey(Args.GetServerJava.ToString().ToUpperFirst()))
             {
                 Console.WriteLine($"Class Version : {Java.GetJarMajorVersion(Directory.GetFiles(
                     Path.Combine(
@@ -49,7 +50,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 return Task.CompletedTask;
             }
 
-            if (args.ContainsKey(Args.GetInstalledJava.ToString()))
+            if (args.ContainsKey(Args.GetInstalledJava.ToString().ToUpperFirst()))
             {
                 foreach (KeyValuePair<string, string> keyValuePair in Java.GetJavas())
                     Console.WriteLine($"{keyValuePair.Key} : {keyValuePair.Value}");
