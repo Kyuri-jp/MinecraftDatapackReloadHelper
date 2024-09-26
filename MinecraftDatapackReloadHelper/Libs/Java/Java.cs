@@ -7,7 +7,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
     {
         internal void RunJarFile(string file, string arg = "")
         {
-            ProcessStartInfo psInfo = new ProcessStartInfo
+            ProcessStartInfo psInfo = new()
             {
                 FileName = Path.Combine(bin, "java.exe"),
                 Arguments = $"-jar {file} {arg}",
