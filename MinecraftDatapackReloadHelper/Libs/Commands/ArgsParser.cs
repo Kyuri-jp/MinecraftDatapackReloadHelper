@@ -27,11 +27,11 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
                 {
                     if (!targetedArg.Contains(valueBegin) || !targetedArg.Contains(valueClose))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
-                    result.Add(Utils.ToUpperOnlyFirstLetter(targetedArg[..targetedArg.IndexOf(valueMark)]), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
+                    result.Add(targetedArg[..targetedArg.IndexOf(valueMark)].ToUpperFirst(), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
                 else
                 {
-                    result.Add(Utils.ToUpperOnlyFirstLetter(targetedArg), []);
+                    result.Add(targetedArg.ToUpperFirst(), []);
                 }
                 if (!str.Contains(argsPause))
                     break;

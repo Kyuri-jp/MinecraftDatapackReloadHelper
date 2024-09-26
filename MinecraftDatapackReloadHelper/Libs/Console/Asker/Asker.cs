@@ -28,7 +28,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Console.Asker
                     return skipper;
                 try
                 {
-                    if (DirectoryType.GetFileType(read) == attributes)
+                    if (read.GetFileType() == attributes)
                         return read;
                     System.Console.WriteLine("The path is invalid.");
                 }
