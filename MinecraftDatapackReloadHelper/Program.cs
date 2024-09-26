@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Systems.Control;
+﻿using System.Diagnostics;
+using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper
 {

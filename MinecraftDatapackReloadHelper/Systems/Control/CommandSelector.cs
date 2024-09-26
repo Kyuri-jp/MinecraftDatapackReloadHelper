@@ -13,6 +13,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
             { new Dictionary<string, IToolCommand>{{"Setting", new Setting() }},"Rconなどの設定を変更できます" },
             { new Dictionary<string, IToolCommand>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
             { new Dictionary<string, IToolCommand>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
+            { new Dictionary<string, IToolCommand>{{"Server",new Server() }}, "サーバーを操作します" },
+            { new Dictionary<string, IToolCommand>{{"Java",new Java() }}, "Javaに関する操作を行います" },
             { new Dictionary<string, IToolCommand>{{"Terminal",new Commands.Terminal() }}, "Rconを通じてコマンドを実行できるターミナルを起動します" },
             { new Dictionary<string, IToolCommand>{{"Extract",new Extract() }}, "ワールドをZip形式で書き出します" },
             { new Dictionary<string, IToolCommand>{{"Help",new Help() }}, "ヘルプを表示します" },
