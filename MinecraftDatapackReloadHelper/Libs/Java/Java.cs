@@ -1,4 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Libs.Console;
+using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Libs.Java
 {
@@ -6,11 +7,15 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
     {
         internal void RunJarFile(string file, string arg = "")
         {
-            string appDir = Directory.GetCurrentDirectory();
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(file)!);
-            // ReSharper disable once IteratorMethodResultIsIgnored
-            Dos.RunCommand($"\"{Path.Combine(bin, "javaw.exe")}\" -jar {file} {arg}");
-            Directory.SetCurrentDirectory(appDir);
+            ProcessStartInfo psInfo = new ProcessStartInfo
+            {
+                FileName = Path.Combine(bin, "java.exe"),
+                Arguments = $"-jar {file} {arg}",
+                UseShellExecute = true,
+                WorkingDirectory = Path.GetDirectoryName(file)!
+            };
+
+            Process.Start(psInfo);
         }
 
         internal static int GetJarMajorVersion(string file, bool searchAllClass = false)
