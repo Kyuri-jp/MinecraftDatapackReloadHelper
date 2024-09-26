@@ -35,7 +35,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 Java java = new(clientJavas[serverJavaVersion]);
                 Task.Run(() =>
                     java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0],
-                        "nogui")).Start();
+                        "nogui"));
                 return Task.CompletedTask;
             }
 

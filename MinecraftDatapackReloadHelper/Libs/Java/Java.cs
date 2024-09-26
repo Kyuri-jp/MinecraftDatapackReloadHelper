@@ -8,7 +8,8 @@ namespace MinecraftDatapackReloadHelper.Libs.Java
         {
             string appDir = Directory.GetCurrentDirectory();
             Directory.SetCurrentDirectory(Path.GetDirectoryName(file)!);
-            Dos.RunCommand($"\"{Path.Combine(bin, "java.exe")}\" -jar {file} {arg}").ShowResult();
+            // ReSharper disable once IteratorMethodResultIsIgnored
+            Dos.RunCommand($"\"{Path.Combine(bin, "javaw.exe")}\" -jar {file} {arg}");
             Directory.SetCurrentDirectory(appDir);
         }
 
