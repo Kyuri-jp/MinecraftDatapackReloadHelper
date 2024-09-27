@@ -11,22 +11,23 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             Launch,
             GetServerJava,
-            Stop
+            Stop,
+            RemoveConfig
         }
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] },
             {Args.GetServerJava.ToString(),["サーバーのclassバージョンを取得します","--getserverjava"] },
-            {Args.Stop.ToString(),["サーバーをRcon経由で停止します","--stop"] }
+            {Args.Stop.ToString(),["サーバーをRcon経由で停止します","--stop"] },
+            {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します","--removeconfig"] }
         };
 
         async Task IToolCommand.Run(Dictionary<string, List<string>> args)
         {
+            string jar = RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0];
             if (args.ContainsKey(Args.Launch.ToString()))
             {
-                Console.WriteLine("Searching Server Jar...");
-                string jar = RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0];
                 Console.WriteLine("Getting java version of server...");
                 int serverJavaVersion;
                 if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
@@ -68,6 +69,15 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             if (args.ContainsKey(Args.Stop.ToString()))
             {
                 await Libs.Network.Rcon.RconInterfaces.SendCommandAsync("stop");
+                return;
+            }
+
+            if (args.ContainsKey(Args.RemoveConfig.ToString()))
+            {
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
+                    File.Delete(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
+                else
+                    Console.WriteLine("Config file was not found.");
                 return;
             }
 
