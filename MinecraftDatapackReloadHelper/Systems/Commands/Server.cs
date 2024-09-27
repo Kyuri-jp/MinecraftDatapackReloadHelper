@@ -1,7 +1,7 @@
-﻿using CoreRCON;
-using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.String;
+using System.Text;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -25,20 +25,32 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         {
             if (args.ContainsKey(Args.Launch.ToString()))
             {
+                Console.WriteLine("Searching Server Jar...");
+                string jar = RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0];
                 Console.WriteLine("Getting java version of server...");
-                int serverJavaVersion = Libs.Java.Java.GetJarMajorVersion(Directory.GetFiles(
-                    Path.Combine(
-                        Path.GetDirectoryName(
+                int serverJavaVersion;
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
+                    serverJavaVersion = int.Parse((await File.ReadAllLinesAsync(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))[0].Split('=')[1]);
+                else
+                {
+                    Console.WriteLine("Config file was not found.");
+                    Console.WriteLine("Get java version from server file...");
+                    serverJavaVersion = Libs.Java.Java.GetJarMajorVersion(Directory.GetFiles(
+                        Path.Combine(Path.GetDirectoryName(
                             RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
                         "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44;
+                    await using var fileStream = File.Create(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
+                    byte[] info = new UTF8Encoding().GetBytes($"UsingJavaVersion = {serverJavaVersion}");
+                    fileStream.Write(info, 0, info.Length);
+                }
+
                 Console.WriteLine("Searching client java...");
                 Dictionary<int, string> clientJavas =
                     Libs.Java.Java.GetJavas().ToDictionary(x => ParseJavaVersion(x.Key), x => x.Value);
 
                 Libs.Java.Java java = new(clientJavas[serverJavaVersion]);
                 await Task.Run(() =>
-                    java.RunJarFile(RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0],
-                        "nogui"));
+                    java.RunJarFile(jar, "nogui"));
                 Console.WriteLine("Turned on server!");
                 return;
             }
