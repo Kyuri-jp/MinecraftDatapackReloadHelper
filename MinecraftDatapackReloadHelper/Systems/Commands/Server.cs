@@ -1,6 +1,7 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.String;
+using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using System.Text;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
@@ -12,7 +13,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             Launch,
             GetServerJava,
             Stop,
-            RemoveConfig
+            RemoveConfig,
+            Setting,
+            Show
         }
 
         private readonly Dictionary<string, string[]> _argsData = new()
@@ -20,7 +23,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] },
             {Args.GetServerJava.ToString(),["サーバーのclassバージョンを取得します","--getserverjava"] },
             {Args.Stop.ToString(),["サーバーをRcon経由で停止します","--stop"] },
-            {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します","--removeconfig"] }
+            {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します","--removeconfig"] },
+            {Args.Setting.ToString(),["server.propertiesを編集します","--setting"] },
+            {Args.Show.ToString(),["server.propertiesの内容を表示します","--setting --show=[<value>]"] }
         };
 
         async Task IToolCommand.Run(Dictionary<string, List<string>> args)
@@ -78,6 +83,33 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     File.Delete(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
                 else
                     Console.WriteLine("Config file was not found.");
+                return;
+            }
+
+            if (args.ContainsKey(Args.Setting.ToString()))
+            {
+                if (args.ContainsKey(Args.Show.ToString()))
+                {
+                    if (args[Args.Show.ToString()].Count <= 0)
+                    {
+                        foreach (KeyValuePair<string, string> item in ServerProperties.Parse(
+                                     Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
+                                         "server.properties")))
+                            Console.WriteLine($"{item.Key} : {item.Value}");
+                    }
+                    else
+                    {
+                        foreach (var item in ServerProperties.Parse(
+                                         Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
+                                             "server.properties"))
+                                     .Where(x => args[Args.Show.ToString()].Contains(x.Key))
+                                     .ToDictionary(x => x.Key, x => x.Value))
+                            Console.WriteLine($"{item.Key} : {item.Value}");
+                    }
+                }
+                else
+                {
+                }
                 return;
             }
 
