@@ -33,7 +33,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             },
             { "DirectoryPath",new Dictionary<string, string>
                 {
-                    {"Server Side Datapack Path", Settings.Copypath},
+                    {"Server Side Datapack Path", Settings.Sourcepath},
                     {"Sourced Datapack Path", Settings.Copypath},
                     {"To Extract Folder", Settings.Extractoutput },
                 }
