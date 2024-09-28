@@ -11,7 +11,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Minecraft
             foreach (var item in fileData)
             {
                 if (item[0] == '#') continue;
-                value.Add(item[..item.IndexOf('=')], item[(item.IndexOf('=') + 1)..]);
+                value.Add(item[..item.IndexOf('=')].Trim(), item[(item.IndexOf('=') + 1)..].Trim());
             }
             return value;
         }
@@ -19,10 +19,11 @@ namespace MinecraftDatapackReloadHelper.Libs.Minecraft
         internal static void Write(string file, Dictionary<string, string> value)
         {
             Dictionary<string, string> fileData = Parse(file);
-            foreach (var item in value)
+            foreach (var item in value.Where(item => fileData.ContainsKey(item.Key)))
                 fileData[item.Key] = item.Value;
+
             List<string> writeList = [];
-            writeList.AddRange(fileData.Select(item => $"{item.Key} = {item.Value}"));
+            writeList.AddRange(fileData.Select(item => $"{item.Key}={item.Value}"));
             File.WriteAllLines(file, writeList, Encode.GetEncoding(file));
         }
     }

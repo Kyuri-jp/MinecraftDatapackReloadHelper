@@ -3,6 +3,7 @@ using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.String;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using System.Text;
+using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -109,6 +110,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 }
                 else
                 {
+                    Dictionary<string, string> propertiesData = [];
+                    foreach (var item in args[Args.Setting.ToString()])
+                        propertiesData.Add(item, Asker.Ask($"Please enter {item} value."));
+
+                    ServerProperties.Write(Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
+                        "server.properties"), propertiesData);
                 }
                 return;
             }
