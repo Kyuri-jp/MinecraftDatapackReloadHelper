@@ -1,9 +1,9 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
-using MinecraftDatapackReloadHelper.Libs.String;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using System.Text;
 using MinecraftDatapackReloadHelper.Libs.Console.Asker;
+using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -12,8 +12,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         private enum Args
         {
             Launch,
-            GetServerJava,
-            Stop,
+            InvokeConfig,
             RemoveConfig,
             Setting,
             Show
@@ -22,8 +21,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
         private readonly Dictionary<string, string[]> _argsData = new()
         {
             {Args.Launch.ToString(),["サーバーを起動します","--launch"] },
-            {Args.GetServerJava.ToString(),["サーバーのclassバージョンを取得します","--getserverjava"] },
-            {Args.Stop.ToString(),["サーバーをRcon経由で停止します","--stop"] },
+            {Args.InvokeConfig.ToString(),["コンフィグファイルを無視してサーバーを起動します","--invokeconfig"] },
             {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します","--removeconfig"] },
             {Args.Setting.ToString(),["server.propertiesを編集します","--setting"] },
             {Args.Show.ToString(),["server.propertiesの内容を表示します","--setting --show=[<value>]"] }
@@ -36,7 +34,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {
                 Console.WriteLine("Getting java version of server...");
                 int serverJavaVersion;
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
+                if (args.ContainsKey(Args.InvokeConfig.ToString().ToUpperFirst()) && File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
                     serverJavaVersion = int.Parse((await File.ReadAllLinesAsync(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))[0].Split('=')[1]);
                 else
                 {
@@ -62,23 +60,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 return;
             }
 
-            if (args.ContainsKey(Args.GetServerJava.ToString().ToUpperFirst()))
-            {
-                Console.WriteLine($"Class Version : {Libs.Java.Java.GetJarMajorVersion(Directory.GetFiles(
-                    Path.Combine(
-                        Path.GetDirectoryName(
-                            RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
-                        "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44}");
-                return;
-            }
-
-            if (args.ContainsKey(Args.Stop.ToString()))
-            {
-                await Libs.Network.Rcon.RconInterfaces.SendCommandAsync("stop");
-                return;
-            }
-
-            if (args.ContainsKey(Args.RemoveConfig.ToString()))
+            if (args.ContainsKey(Args.RemoveConfig.ToString().ToUpperFirst()))
             {
                 if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
                     File.Delete(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
