@@ -72,7 +72,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
             Console.WriteLine("Getting java version of server...");
             int serverJavaVersion;
-            if (args.ContainsKey(!Args.InvokeConfig.ToString().ToUpperFirst()) && File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
+            if (!args.ContainsKey(Args.InvokeConfig.ToString().ToUpperFirst()) && File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
                 serverJavaVersion = int.Parse((await File.ReadAllLinesAsync(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))[0].Split('=')[1]);
             else
             {
