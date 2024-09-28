@@ -11,7 +11,7 @@ namespace MinecraftDatapackReloadHelper.Libs.Files
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static Encoding GetEncoding(string filename)
+        internal static Encoding GetEncoding(string filename)
         {
             // BOMを取得
             var bom = new byte[4];
