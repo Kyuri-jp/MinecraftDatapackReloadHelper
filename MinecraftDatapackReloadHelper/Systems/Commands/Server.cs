@@ -65,7 +65,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 }
                 else
                 {
-                    Console.WriteLine(args[Args.Setting.ToString()].Count);
                     if (!(args[Args.Setting.ToString()].Count > 0))
                     {
                         Message.Warning("Please set any keys of properties");
