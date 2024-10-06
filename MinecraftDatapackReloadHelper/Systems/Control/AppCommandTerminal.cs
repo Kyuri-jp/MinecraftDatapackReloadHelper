@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
 {
     internal class AppCommandTerminal
     {
-        internal static async Task Run()
+        internal static async void Run()
         {
             while (true)
             {
