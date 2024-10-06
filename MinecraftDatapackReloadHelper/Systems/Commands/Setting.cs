@@ -1,10 +1,11 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Console;
 using MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Setting : IToolCommand, IHasArgsCommand
+    internal class Setting : Command, IArgsable
     {
         private enum Args
         {
@@ -33,14 +34,14 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             },
             { "DirectoryPath",new Dictionary<string, string>
                 {
-                    {"Server Side Datapack Path", Settings.Sourcepath},
-                    {"Sourced Datapack Path", Settings.Copypath},
+                    {"Server Side Datapack Folder Path", Settings.Copypath},
+                    {"Sourced Datapack Path", Settings.Sourcepath},
                     {"To Extract Folder", Settings.Extractoutput },
                 }
             }
         };
 
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Show.ToString()))
             {
@@ -67,10 +68,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (args.ContainsKey(Args.Rcon.ToString()))
                     await ApplicationSetting.ChangeRconSettingAsync(args.ContainsKey(Args.Auto.ToString()));
                 if (!args.ContainsKey(Args.Rcon.ToString()) && !args.ContainsKey(Args.Path.ToString()))
-                    Message.Warning("Please set any args (--rcon,--path)");
+                    Message.Warning($"Please set any args (--{Args.Rcon.ToString()},--{Args.Path.ToString()})");
             }
         }
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

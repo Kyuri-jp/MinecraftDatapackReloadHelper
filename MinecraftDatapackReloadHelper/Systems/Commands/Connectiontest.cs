@@ -1,10 +1,10 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
 using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Connectiontest : IToolCommand
+    internal class Connectiontest : Command
     {
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args) => await ConnectionTest.ConnectingTesterAsync();
+        internal override async Task Run(Dictionary<string, List<string>> args) => await ConnectionTest.ConnectingTesterAsync();
     }
 }
