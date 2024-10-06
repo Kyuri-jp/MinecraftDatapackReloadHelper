@@ -67,7 +67,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 if (args.ContainsKey(Args.Rcon.ToString()))
                     await ApplicationSetting.ChangeRconSettingAsync(args.ContainsKey(Args.Auto.ToString()));
                 if (!args.ContainsKey(Args.Rcon.ToString()) && !args.ContainsKey(Args.Path.ToString()))
-                    Message.Warning("Please set any args (--rcon,--path)");
+                    Message.Warning($"Please set any args (--{Args.Rcon.ToString()},--{Args.Path.ToString()})");
             }
         }
 

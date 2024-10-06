@@ -1,4 +1,5 @@
 ﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+using MinecraftDatapackReloadHelper.Libs.Console;
 using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands;
@@ -24,7 +25,8 @@ internal class Java : IToolCommand, IHasArgsCommand
             return Task.CompletedTask;
         }
 
-        Console.Write("Please enter any args.");
+        Message.Warning($"Please set any args (--{Args.GetInstalledJava.ToString()})");
+
         return Task.CompletedTask;
     }
 
