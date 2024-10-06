@@ -5,7 +5,7 @@ using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands;
 
-internal class Java : Command, IHasArgsCommand
+internal class Java : Command, IArgsable
 {
     private enum Args
     {
@@ -31,5 +31,5 @@ internal class Java : Command, IHasArgsCommand
         return Task.CompletedTask;
     }
 
-    Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+    Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
 }

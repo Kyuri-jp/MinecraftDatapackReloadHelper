@@ -4,7 +4,7 @@ using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Version : Command, IHasArgsCommand
+    internal class Version : Command, IArgsable
     {
         private enum Args
         {
@@ -23,6 +23,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 await UpdateCheck.UpdateCheckerAsync();
         }
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

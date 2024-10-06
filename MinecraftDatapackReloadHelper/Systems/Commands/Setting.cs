@@ -5,7 +5,7 @@ using MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Setting : Command, IHasArgsCommand
+    internal class Setting : Command, IArgsable
     {
         private enum Args
         {
@@ -72,6 +72,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
         }
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

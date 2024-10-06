@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Extract : Command, IHasArgsCommand
+    internal class Extract : Command, IArgsable
     {
         private enum Args
         {
@@ -75,6 +75,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 Process.Start("explorer.exe", Settings.Extractoutput);
         }
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

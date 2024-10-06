@@ -4,7 +4,7 @@ using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Reload : Command, IHasArgsCommand
+    internal class Reload : Command, IArgsable
     {
         private enum Args
         {
@@ -18,6 +18,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         internal override async Task Run(Dictionary<string, List<string>> args) => await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, args.ContainsKey(Args.Copyonly.ToString()));
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

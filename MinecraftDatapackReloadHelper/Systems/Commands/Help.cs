@@ -5,7 +5,7 @@ using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Help : Command, IHasArgsCommand
+    internal class Help : Command, IArgsable
     {
         private enum Args
         {
@@ -33,12 +33,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     return Task.CompletedTask;
                 }
 
-                if (!CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()].GetType().GetInterfaces().Contains(typeof(IHasArgsCommand)))
+                if (!CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()].GetType().GetInterfaces().Contains(typeof(IArgsable)))
                 {
                     Console.WriteLine($"Args of {args.ElementAt(0).Key} was not found.");
                     return Task.CompletedTask;
                 }
-                IHasArgsCommand command = (IHasArgsCommand)CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()];
+                IArgsable command = (IArgsable)CommandSelector.GetCommandInst()[args[Args.More.ToString()][0].ToUpperFirst()];
                 Console.WriteLine($"[{args[Args.More.ToString()][0].ToUpperFirst()}]-> {CommandSelector.GetCommandHelp()[args[Args.More.ToString()][0].ToUpperFirst()]}");
                 foreach (KeyValuePair<string, string[]> keyValuePair in command.GetArgs())
                     Console.WriteLine($"{keyValuePair.Key} : {string.Join(" / ", keyValuePair.Value)}");
@@ -57,6 +57,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             return Task.CompletedTask;
         }
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

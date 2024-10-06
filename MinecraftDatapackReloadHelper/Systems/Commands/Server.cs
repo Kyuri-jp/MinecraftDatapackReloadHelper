@@ -8,7 +8,7 @@ using MinecraftDatapackReloadHelper.Abstract.Commands;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Server : Command, IHasArgsCommand
+    internal class Server : Command, IArgsable
     {
         private enum Args
         {
@@ -100,6 +100,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private static int ParseJavaVersion(string java) => java.StartsWith("1.") ? int.Parse([java[2]]) : int.Parse(java[..java.IndexOf('.')]);
 
-        Dictionary<string, string[]> IHasArgsCommand.GetArgs() => _argsData;
+        Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
     }
 }

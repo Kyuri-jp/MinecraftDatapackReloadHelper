@@ -1,6 +1,6 @@
 ﻿namespace MinecraftDatapackReloadHelper.Interfaces.Commands
 {
-    internal interface IHasArgsCommand
+    internal interface IArgsable
     {
         internal Dictionary<string, string[]> GetArgs();
     }
