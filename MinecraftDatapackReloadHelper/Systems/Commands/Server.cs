@@ -31,8 +31,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             string jar = RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0];
             if (args.ContainsKey(Args.RemoveConfig.ToString().ToUpperFirst()))
             {
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
-                    File.Delete(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdrh.ujv")))
+                    File.Delete(Path.Combine(Path.GetDirectoryName(jar)!, "mdrh.ujv"));
                 else
                     Console.WriteLine("Config file was not found.");
                 return;
@@ -73,8 +73,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
             Console.WriteLine("Getting java version of server...");
             int serverJavaVersion;
-            if (!args.ContainsKey(Args.InvokeConfig.ToString().ToUpperFirst()) && File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))
-                serverJavaVersion = int.Parse((await File.ReadAllLinesAsync(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv")))[0].Split('=')[1]);
+            if (!args.ContainsKey(Args.InvokeConfig.ToString().ToUpperFirst()) && File.Exists(Path.Combine(Path.GetDirectoryName(jar)!, "mdrh.ujv")))
+                serverJavaVersion = int.Parse((await File.ReadAllLinesAsync(Path.Combine(Path.GetDirectoryName(jar)!, "mdrh.ujv")))[0].Split('=')[1]);
             else
             {
                 Console.WriteLine("Config file was not found.");
@@ -83,7 +83,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                     Path.Combine(Path.GetDirectoryName(
                         RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0])!,
                     "versions"), "*.jar", SearchOption.AllDirectories)[0]) - 44;
-                await using var fileStream = File.Create(Path.Combine(Path.GetDirectoryName(jar)!, "mdeh.ujv"));
+                await using var fileStream = File.Create(Path.Combine(Path.GetDirectoryName(jar)!, "mdrh.ujv"));
                 byte[] info = new UTF8Encoding().GetBytes($"UsingJavaVersion = {serverJavaVersion}");
                 fileStream.Write(info, 0, info.Length);
             }
