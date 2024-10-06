@@ -1,9 +1,9 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Terminal : IToolCommand
+    internal class Terminal : Command
     {
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args) => await Control.Terminal.RunAsync();
+        internal override async Task Run(Dictionary<string, List<string>> args) => await Control.Terminal.RunAsync();
     }
 }

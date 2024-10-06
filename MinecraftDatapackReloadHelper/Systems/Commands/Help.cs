@@ -1,10 +1,11 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.String;
 using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Help : IToolCommand, IHasArgsCommand
+    internal class Help : Command, IHasArgsCommand
     {
         private enum Args
         {
@@ -16,7 +17,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.More.ToString(),["指定したコマンドの詳細を表示します",$"--{Args.More}=[<Command>]"]}
         };
 
-        Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override Task Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.More.ToString()))
             {

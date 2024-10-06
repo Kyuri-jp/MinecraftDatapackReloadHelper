@@ -1,9 +1,10 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Tools;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Version : IToolCommand, IHasArgsCommand
+    internal class Version : Command, IHasArgsCommand
     {
         private enum Args
         {
@@ -15,7 +16,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Updatecheck.ToString(),["最新のリリースタグを確認します",$"--{Args.Updatecheck}"]}
         };
 
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             Console.WriteLine(Programs.GetWelcomeMessage());
             if (args.ContainsKey(Args.Updatecheck.ToString()))

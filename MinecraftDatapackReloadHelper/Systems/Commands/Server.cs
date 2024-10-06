@@ -4,10 +4,11 @@ using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using System.Text;
 using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 using MinecraftDatapackReloadHelper.Libs.String;
+using MinecraftDatapackReloadHelper.Abstract.Commands;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Server : IToolCommand, IHasArgsCommand
+    internal class Server : Command, IHasArgsCommand
     {
         private enum Args
         {
@@ -25,7 +26,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Show.ToString(),["server.propertiesの内容を表示します","--setting --show=[<value>]"] }
         };
 
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             string jar = RecursiveSearch.GetFilesWithExtensions(Settings.Copypath, extensions: ".jar")[0];
             if (args.ContainsKey(Args.RemoveConfig.ToString().ToUpperFirst()))

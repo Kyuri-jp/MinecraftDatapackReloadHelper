@@ -1,11 +1,12 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Systems.Control;
 using System.Diagnostics;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Extract : IToolCommand, IHasArgsCommand
+    internal class Extract : Command, IHasArgsCommand
     {
         private enum Args
         {
@@ -27,7 +28,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
         };
 
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Reload.ToString()))
                 await Reloader.ReloadAsync(Settings.Sourcepath, Settings.Copypath, true);

@@ -1,10 +1,11 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Console;
 using MinecraftDatapackReloadHelper.Systems.Commands.SettingInterface;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
-    internal class Setting : IToolCommand, IHasArgsCommand
+    internal class Setting : Command, IHasArgsCommand
     {
         private enum Args
         {
@@ -40,7 +41,7 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
             }
         };
 
-        async Task IToolCommand.Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Show.ToString()))
             {

@@ -1,10 +1,11 @@
-﻿using MinecraftDatapackReloadHelper.Interfaces.Commands;
+﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Console;
 using MinecraftDatapackReloadHelper.Libs.String;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands;
 
-internal class Java : IToolCommand, IHasArgsCommand
+internal class Java : Command, IHasArgsCommand
 {
     private enum Args
     {
@@ -16,7 +17,7 @@ internal class Java : IToolCommand, IHasArgsCommand
         { Args.GetInstalledJava.ToString(), ["インストールされているJavaを取得します", "--getinstalledjava"] }
     };
 
-    public Task Run(Dictionary<string, List<string>> args)
+    internal override Task Run(Dictionary<string, List<string>> args)
     {
         if (args.ContainsKey(Args.GetInstalledJava.ToString().ToUpperFirst()))
         {
