@@ -4,7 +4,7 @@ namespace MinecraftDatapackReloadHelper
 {
     internal class Programs
     {
-        private const string Version = "v1.5.2-Beta";
+        private const string Version = "v1.7.1-Beta";
 
         private const string Welcome =
                     "====================\n" +
