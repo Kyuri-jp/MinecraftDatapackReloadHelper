@@ -10,7 +10,6 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
 
             //adv trim
             str = str.Trim();
-            str = str.Replace(" ", "");
 
             Dictionary<string, List<string>> result = [];
 
@@ -27,11 +26,11 @@ namespace MinecraftDatapackReloadHelper.Libs.Commands
                 {
                     if (!targetedArg.Contains(valueBegin) || !targetedArg.Contains(valueClose))
                         throw new ArgumentException("Args didn't contain value beginer and closer ");
-                    result.Add(targetedArg[..targetedArg.IndexOf(valueMark)].ToUpperFirst(), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
+                    result.Add(targetedArg[..targetedArg.IndexOf(valueMark)].ToUpperFirst().Replace(" ", ""), [.. targetedArg[(targetedArg.IndexOf(valueBegin) + 1)..targetedArg.IndexOf(valueClose)].Split(',')]);
                 }
                 else
                 {
-                    result.Add(targetedArg.ToUpperFirst(), []);
+                    result.Add(targetedArg.ToUpperFirst().Replace(" ", ""), []);
                 }
                 if (!str.Contains(argsPause))
                     break;
