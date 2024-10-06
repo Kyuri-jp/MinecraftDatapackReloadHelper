@@ -5,6 +5,7 @@ using MinecraftDatapackReloadHelper.Libs.Files;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
 using MinecraftDatapackReloadHelper.Libs.String;
 using System.Text;
+using MinecraftDatapackReloadHelper.Libs.Console;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -40,6 +41,9 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
             if (args.ContainsKey(Args.Setting.ToString()))
             {
+                Dictionary<string, string> fileData = ServerProperties.Parse(
+                    Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
+                        "server.properties"));
                 if (args.ContainsKey(Args.Show.ToString()))
                 {
                     if (args[Args.Show.ToString()].Count <= 0)
@@ -61,9 +65,23 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 }
                 else
                 {
+                    Console.WriteLine(args[Args.Setting.ToString()].Count);
+                    if (!(args[Args.Setting.ToString()].Count > 0))
+                    {
+                        Message.Warning("Please set any keys of properties");
+                        return;
+                    }
+
                     Dictionary<string, string> propertiesData = [];
                     foreach (var item in args[Args.Setting.ToString()])
+                    {
+                        if (!fileData.ContainsKey(item))
+                        {
+                            Message.Warning($"key of {item} was not found. Skip the progress of to set ");
+                            continue;
+                        }
                         propertiesData.Add(item, Asker.Ask($"Please enter {item} value."));
+                    }
 
                     ServerProperties.Write(Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
                         "server.properties"), propertiesData);
