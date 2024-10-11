@@ -1,4 +1,5 @@
-﻿using MinecraftDatapackReloadHelper.Abstract.Commands;
+﻿using System.Security.Permissions;
+using MinecraftDatapackReloadHelper.Abstract.Commands;
 using MinecraftDatapackReloadHelper.Interfaces.Commands;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
@@ -12,12 +13,16 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            { Args.GeneratePassword.ToString(), ["パスワードをランダムに設定します+", "--generatepassword"] }
+            { Args.GeneratePassword.ToString(), ["パスワードをランダムに設定します", "--generatepassword"] }
         };
 
         internal override Task Run(Dictionary<string, List<string>> args)
         {
-            throw new NotImplementedException();
+            if (args.ContainsKey(Args.GeneratePassword.ToString()))
+            {
+                Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
+                    "server.properties");
+            }
         }
 
         Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
