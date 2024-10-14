@@ -16,8 +16,8 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            { Args.Generatepassword.ToString(), ["パスワードをランダムに設定します", "--generatepassword"] },
-            { Args.Connectiontest.ToString(), ["Rconの接続をテストします", "--connectiontest"] }
+            { Args.Generatepassword.ToString(), ["パスワードをランダムに設定します", $"--{Args.Generatepassword}"] },
+            { Args.Connectiontest.ToString(), ["Rconの接続をテストします", $"--{Args.Connectiontest}"] }
         };
 
         internal override async Task Run(Dictionary<string, List<string>> args)

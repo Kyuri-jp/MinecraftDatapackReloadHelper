@@ -21,10 +21,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            {Args.InvokeConfig.ToString(),["コンフィグファイルを無視してサーバーを起動します","--invokeconfig"] },
-            {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します","--removeconfig"] },
-            {Args.Setting.ToString(),["server.propertiesを編集します","--setting"] },
-            {Args.Show.ToString(),["server.propertiesの内容を表示します","--setting --show=[<value>]"] }
+            {Args.InvokeConfig.ToString(),["コンフィグファイルを無視してサーバーを起動します",$"--{Args.InvokeConfig}"] },
+            {Args.RemoveConfig.ToString(),["Javaのバージョンなどを記録したファイルを消去します",$"--{Args.RemoveConfig}"] },
+            {Args.Setting.ToString(),["server.propertiesを編集します",$"--{Args.Setting}"] },
+            {Args.Show.ToString(),["server.propertiesの内容を表示します",$"--{Args.Setting} --{Args.Show}=[<value>]"] }
         };
 
         internal override async Task Run(Dictionary<string, List<string>> args)
