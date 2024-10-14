@@ -11,7 +11,6 @@ namespace MinecraftDatapackReloadHelper.Systems.Control
         private static readonly Dictionary<Dictionary<string, Command>, string> CommandsData = new()
         {
             { new Dictionary<string, Command>{{"Setting", new Setting() }},"Rconなどの設定を変更できます" },
-            { new Dictionary<string, Command>{{"ConnectionTest",new Connectiontest() }}, "Rconの接続をテストします" },
             { new Dictionary<string, Command>{{"Rcon",new Rcon() }}, "Rconに関する操作を行います" },
             { new Dictionary<string, Command>{{"Reload",new Reload() }}, "データパックを再読み込みさせます" },
             { new Dictionary<string, Command>{{"Server",new Server() }}, "サーバーを起動します" },

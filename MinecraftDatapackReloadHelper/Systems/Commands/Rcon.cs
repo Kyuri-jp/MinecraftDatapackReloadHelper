@@ -2,6 +2,7 @@
 using MinecraftDatapackReloadHelper.Interfaces.Commands;
 using MinecraftDatapackReloadHelper.Libs.Console.Asker;
 using MinecraftDatapackReloadHelper.Libs.Minecraft;
+using MinecraftDatapackReloadHelper.Systems.Control;
 
 namespace MinecraftDatapackReloadHelper.Systems.Commands
 {
@@ -9,15 +10,17 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
     {
         private enum Args
         {
-            Generatepassword
+            Generatepassword,
+            Connectiontest
         }
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            { Args.Generatepassword.ToString(), ["パスワードをランダムに設定します", "--generatepassword"] }
+            { Args.Generatepassword.ToString(), ["パスワードをランダムに設定します", "--generatepassword"] },
+            { Args.Connectiontest.ToString(), ["Rconの接続をテストします", "--connectiontest"] }
         };
 
-        internal override Task Run(Dictionary<string, List<string>> args)
+        internal override async Task Run(Dictionary<string, List<string>> args)
         {
             if (args.ContainsKey(Args.Generatepassword.ToString()))
             {
@@ -42,8 +45,16 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
                 Console.WriteLine($"Generated Password -> {rconData["rcon.password"]}");
                 ServerProperties.Write(Path.Combine(Directory.GetParent(Settings.Copypath)!.Parent!.FullName,
                     "server.properties"), rconData);
+                return;
             }
-            return Task.CompletedTask;
+
+            if (args.ContainsKey(Args.Connectiontest.ToString()))
+            {
+                await ConnectionTest.ConnectingTesterAsync();
+                return;
+            }
+
+            Console.WriteLine($"Please set any args. (--{Args.Connectiontest.ToString()},--{Args.Generatepassword.ToString()})");
         }
 
         Dictionary<string, string[]> IArgsable.GetArgs() => _argsData;
