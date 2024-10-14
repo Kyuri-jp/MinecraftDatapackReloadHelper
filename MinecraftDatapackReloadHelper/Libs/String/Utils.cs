@@ -9,7 +9,7 @@
             return string.Join("", chars);
         }
 
-        internal static IEnumerable<string> GenerateRandomString(int range, bool includeSmallAlphabets = true,
+        internal static string GenerateRandomString(int range, bool includeSmallAlphabets = true,
             bool includeCapitalAlphabets = true, bool includeNumbers = true, bool includeSynbols = true)
         {
             if (!(includeSmallAlphabets && includeCapitalAlphabets && includeNumbers && includeSynbols))
@@ -31,12 +31,15 @@
             if (includeNumbers)
                 usingCharsList.Add(numbers);
             Random rnd = new();
+            List<string> resultList = [];
 
-            for (int i = 0; i >= range; i++)
+            for (int i = 0; i < range; i++)
             {
-                int usingIndex = rnd.Next(0, usingCharsList.Count - 1)
-                yield return usingCharsList[usingIndex][usingCharsList[usingIndex].Length].ToString();
+                int usingIndex = rnd.Next(0, usingCharsList.Count - 1);
+                resultList.Add(usingCharsList[usingIndex][rnd.Next(0, usingCharsList[usingIndex].Length - 1)].ToString());
             }
+
+            return string.Join("", resultList);
         }
     }
 }
