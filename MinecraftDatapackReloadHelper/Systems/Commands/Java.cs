@@ -14,7 +14,7 @@ internal class Java : Command, IArgsable
 
     private readonly Dictionary<string, string[]> _argsData = new()
     {
-        { Args.GetInstalledJava.ToString(), ["インストールされているJavaを取得します", "--getinstalledjava"] }
+        { Args.GetInstalledJava.ToString(), ["インストールされているJavaを取得します", $"--{Args.GetInstalledJava}"] }
     };
 
     internal override Task Run(Dictionary<string, List<string>> args)

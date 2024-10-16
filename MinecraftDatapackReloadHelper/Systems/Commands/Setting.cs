@@ -17,10 +17,10 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            { Args.Auto.ToString(),["選択したサーバー設定を参照し,Rconの設定を自動で行います","--rcon --auto"]},
-            { Args.Rcon.ToString(),["Rconの設定を変更します","--rcon"]},
-            { Args.Path.ToString(),["パスの変更を行います","--path"]},
-            { Args.Show.ToString(),["設定を表示します","--show=[<category]>"]}
+            { Args.Auto.ToString(),["選択したサーバー設定を参照し,Rconの設定を自動で行います",$"--{Args.Rcon} --{Args.Auto}"]},
+            { Args.Rcon.ToString(),["Rconの設定を変更します",$"--{Args.Rcon}"]},
+            { Args.Path.ToString(),["パスの変更を行います",$"--{Args.Path}"]},
+            { Args.Show.ToString(),["設定を表示します",$"--{Args.Show}=[<category]>"]}
         };
 
         private readonly Dictionary<string, Dictionary<string, string>> _settingsData = new()

@@ -20,12 +20,12 @@ namespace MinecraftDatapackReloadHelper.Systems.Commands
 
         private readonly Dictionary<string, string[]> _argsData = new()
         {
-            {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます","--additional=[<string>]"] },
-            {Args.Custompath.ToString(),["対象となるフォルダを変更します","--custompath=[<severdirectory>]"] },
-            {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", "--extractdatapack (--custompath=[<directory>]) (--notopen)"] },
-            {Args.Reload.ToString(),["データパックを再読み込みした後コマンドを実行します", "--reload"] },
-            {Args.Nonclean.ToString(),["advancementフォルダなどの削除を無効化します","--nonclean"] },
-            {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します","--notopen"] }
+            {Args.Additional.ToString(),["生成したZipファイルに継ぎ足しで文字を加えます",$"--{Args.Additional}=[<string>]"] },
+            {Args.Custompath.ToString(),["対象となるフォルダを変更します",$"--{Args.Custompath}=[<severdirectory>]"] },
+            {Args.Extractdatapack.ToString(),["データパックのみを圧縮します", $"--{Args.Extractdatapack} (--{Args.Custompath}=[<directory>]) (--{Args.Notopen}"] },
+            {Args.Reload.ToString(),["データパックを再読み込みした後コマンドを実行します", $"--{Args.Reload}"] },
+            {Args.Nonclean.ToString(),["advancementフォルダなどの削除を無効化します",$"--{Args.Nonclean}"] },
+            {Args.Notopen.ToString(),["圧縮し終えた後のフォルダ表示を無効化します",$"--{Args.Notopen}"] }
         };
 
         internal override async Task Run(Dictionary<string, List<string>> args)
